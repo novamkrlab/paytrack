@@ -1,0 +1,152 @@
+/**
+ * Veri Tipleri - Ödeme ve Gelir Takibi Uygulaması
+ */
+
+/**
+ * Ödeme Kategorileri
+ */
+export enum PaymentCategory {
+  CREDIT_CARD = "credit_card",
+  LOAN = "loan",
+  OTHER = "other",
+}
+
+/**
+ * Gelir Tipleri
+ */
+export enum IncomeType {
+  REGULAR = "regular", // Düzenli gelir (maaş, kira vb.)
+  IRREGULAR = "irregular", // Düzenli olmayan gelir (bonus, proje vb.)
+}
+
+/**
+ * Tekrarlama Sıklığı
+ */
+export enum RecurrenceFrequency {
+  NONE = "none",
+  WEEKLY = "weekly",
+  MONTHLY = "monthly",
+  YEARLY = "yearly",
+}
+
+/**
+ * Ödeme Durumu
+ */
+export enum PaymentStatus {
+  PENDING = "pending", // Bekliyor
+  PAID = "paid", // Ödendi
+  OVERDUE = "overdue", // Gecikti
+}
+
+/**
+ * Ödeme (Payment) Veri Yapısı
+ */
+export interface Payment {
+  id: string;
+  name: string;
+  amount: number;
+  category: PaymentCategory;
+  dueDate: string; // ISO 8601 format
+  status: PaymentStatus;
+  isPaid: boolean;
+  // Taksit bilgisi (opsiyonel)
+  installments?: {
+    total: number; // Toplam taksit sayısı
+    current: number; // Kaçıncı taksit
+  };
+  // Tekrarlama bilgisi (opsiyonel)
+  recurrence?: {
+    frequency: RecurrenceFrequency;
+    endDate?: string; // Tekrarlamanın biteceği tarih (opsiyonel)
+  };
+  notes?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+/**
+ * Gelir (Income) Veri Yapısı
+ */
+export interface Income {
+  id: string;
+  name: string;
+  amount: number;
+  type: IncomeType;
+  date: string; // ISO 8601 format
+  // Tekrarlama bilgisi (düzenli gelir için)
+  recurrence?: {
+    frequency: RecurrenceFrequency;
+    endDate?: string;
+  };
+  notes?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+/**
+ * Uygulama Ayarları
+ */
+export interface AppSettings {
+  // Bildirim ayarları
+  notificationsEnabled: boolean;
+  notificationDaysBefore: number; // Kaç gün önceden bildirim gönderilecek
+  // Tema ayarları
+  theme: "light" | "dark" | "system";
+  // Para birimi
+  currency: string; // TRY, USD, EUR vb.
+}
+
+/**
+ * Uygulama Durumu (State)
+ */
+export interface AppState {
+  payments: Payment[];
+  incomes: Income[];
+  settings: AppSettings;
+}
+
+/**
+ * Varsayılan Ayarlar
+ */
+export const DEFAULT_SETTINGS: AppSettings = {
+  notificationsEnabled: true,
+  notificationDaysBefore: 3,
+  theme: "system",
+  currency: "TRY",
+};
+
+/**
+ * Kategori İsimleri (Türkçe)
+ */
+export const CATEGORY_NAMES: Record<PaymentCategory, string> = {
+  [PaymentCategory.CREDIT_CARD]: "Kredi Kartı",
+  [PaymentCategory.LOAN]: "Kredi",
+  [PaymentCategory.OTHER]: "Diğer",
+};
+
+/**
+ * Gelir Tipi İsimleri (Türkçe)
+ */
+export const INCOME_TYPE_NAMES: Record<IncomeType, string> = {
+  [IncomeType.REGULAR]: "Düzenli",
+  [IncomeType.IRREGULAR]: "Düzenli Olmayan",
+};
+
+/**
+ * Tekrarlama Sıklığı İsimleri (Türkçe)
+ */
+export const RECURRENCE_NAMES: Record<RecurrenceFrequency, string> = {
+  [RecurrenceFrequency.NONE]: "Tekrarlanmaz",
+  [RecurrenceFrequency.WEEKLY]: "Haftalık",
+  [RecurrenceFrequency.MONTHLY]: "Aylık",
+  [RecurrenceFrequency.YEARLY]: "Yıllık",
+};
+
+/**
+ * Durum İsimleri (Türkçe)
+ */
+export const STATUS_NAMES: Record<PaymentStatus, string> = {
+  [PaymentStatus.PENDING]: "Bekliyor",
+  [PaymentStatus.PAID]: "Ödendi",
+  [PaymentStatus.OVERDUE]: "Gecikti",
+};

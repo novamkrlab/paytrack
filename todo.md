@@ -1,0 +1,58 @@
+# Proje TODO Listesi
+
+## Tasarım ve Yapılandırma
+- [x] Uygulama logosu oluştur
+- [x] app.config.ts dosyasını marka bilgileriyle güncelle
+- [x] Tema renklerini finans uygulamasına uygun şekilde ayarla
+- [x] Tab bar ikonlarını icon-symbol.tsx'e ekle
+
+## Veri Modeli ve Depolama
+- [x] Payment (Ödeme) veri tipini tanımla
+- [x] Income (Gelir) veri tipini tanımla
+- [x] Settings (Ayarlar) veri tipini tanımla
+- [x] AsyncStorage yardımcı fonksiyonlarını oluştur
+- [x] Context ve reducer yapısını kur
+
+## Ekranlar ve Bileşenler
+- [x] Ana Ekran (Home) - Özet kartı ve yaklaşan ödemeler
+- [x] Ödemeler Ekranı - Tüm ödemeleri listeleme ve filtreleme
+- [x] Gelirler Ekranı - Tüm gelirleri listeleme
+- [x] Takvim Ekranı - Aylık takvim görünümü (temel yapı)
+- [x] Ayarlar Ekranı - Bildirim ve tema ayarları
+- [ ] Ödeme/Gelir Ekleme Ekranı - Form ekranı
+- [ ] Detay Ekranı - Ödeme/gelir detayları
+
+## Bileşenler
+- [x] PaymentCard bileşeni - Ödeme kartı
+- [x] IncomeCard bileşeni - Gelir kartı
+- [x] SummaryCard bileşeni - Özet kartı
+- [ ] CalendarView bileşeni - Takvim görünümü
+- [ ] FormInput bileşenleri - Text, numeric, date picker
+- [ ] StatusBadge bileşeni - Durum göstergesi
+
+## Fonksiyonellik
+- [x] Ödeme ekleme/düzenleme/silme işlemleri (Context API)
+- [x] Gelir ekleme/düzenleme/silme işlemleri (Context API)
+- [x] Ödeme durumu güncelleme (ödendi/ödenmedi)
+- [ ] Sola kaydırma ile hızlı işlemler
+- [x] Tarih hesaplamaları ve sıralama
+- [x] Filtreleme ve kategori seçimi
+- [x] Aylık özet hesaplamaları
+
+## Bildirim Sistemi
+- [x] expo-notifications kurulumu ve izin yönetimi
+- [x] Yerel bildirim oluşturma fonksiyonu
+- [x] Bildirim zamanlama (ödeme tarihine göre)
+- [ ] Bildirime tıklayınca ilgili ekrana yönlendirme
+- [x] Bildirim ayarlarını yönetme
+
+## Test ve İyileştirme
+- [x] Tüm kullanıcı akışlarını test et (temel fonksiyonlar)
+- [x] Haptic feedback ekle (butonlarda)
+- [ ] Animasyonları iyileştir
+- [x] Hata durumlarını kontrol et
+- [x] Dark mode uyumluluğunu test et
+
+## Teslim
+- [ ] Checkpoint oluştur
+- [ ] Kullanıcıya teslim et
