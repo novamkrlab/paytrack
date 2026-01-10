@@ -105,8 +105,7 @@ export default function HomeScreen() {
           <TouchableOpacity
             className="bg-primary rounded-2xl p-4 items-center active:opacity-80"
             onPress={() => {
-              // TODO: Ödeme ekleme ekranına yönlendir
-              console.log("Add payment");
+              router.push("/add-payment" as any);
             }}
           >
             <Text className="text-background font-semibold text-base">
@@ -117,8 +116,7 @@ export default function HomeScreen() {
           <TouchableOpacity
             className="bg-success rounded-2xl p-4 items-center active:opacity-80"
             onPress={() => {
-              // TODO: Gelir ekleme ekranına yönlendir
-              console.log("Add income");
+              router.push("/add-income" as any);
             }}
           >
             <Text className="text-background font-semibold text-base">

@@ -24,6 +24,7 @@ export enum IncomeType {
  */
 export enum RecurrenceFrequency {
   NONE = "none",
+  DAILY = "daily",
   WEEKLY = "weekly",
   MONTHLY = "monthly",
   YEARLY = "yearly",
@@ -137,6 +138,7 @@ export const INCOME_TYPE_NAMES: Record<IncomeType, string> = {
  */
 export const RECURRENCE_NAMES: Record<RecurrenceFrequency, string> = {
   [RecurrenceFrequency.NONE]: "Tekrarlanmaz",
+  [RecurrenceFrequency.DAILY]: "Günlük",
   [RecurrenceFrequency.WEEKLY]: "Haftalık",
   [RecurrenceFrequency.MONTHLY]: "Aylık",
   [RecurrenceFrequency.YEARLY]: "Yıllık",

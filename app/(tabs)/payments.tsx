@@ -5,6 +5,7 @@
 
 import { ScrollView, Text, View, TouchableOpacity } from "react-native";
 import { useState } from "react";
+import { useRouter } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
 import { PaymentCard } from "@/components/payment-card";
 import { useApp } from "@/lib/app-context";
@@ -13,6 +14,7 @@ import { PaymentCategory } from "@/types";
 type FilterType = "all" | PaymentCategory;
 
 export default function PaymentsScreen() {
+  const router = useRouter();
   const { state } = useApp();
   const [filter, setFilter] = useState<FilterType>("all");
 
@@ -136,7 +138,7 @@ export default function PaymentsScreen() {
         <TouchableOpacity
           className="bg-primary rounded-2xl p-4 items-center mt-6 active:opacity-80"
           onPress={() => {
-            console.log("Add payment");
+            router.push("/add-payment" as any);
           }}
         >
           <Text className="text-background font-semibold text-base">

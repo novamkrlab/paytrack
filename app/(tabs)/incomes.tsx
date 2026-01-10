@@ -4,6 +4,7 @@
 
 import { ScrollView, Text, View, TouchableOpacity } from "react-native";
 import { useState } from "react";
+import { useRouter } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
 import { IncomeCard } from "@/components/income-card";
 import { useApp } from "@/lib/app-context";
@@ -12,6 +13,7 @@ import { IncomeType } from "@/types";
 type FilterType = "all" | IncomeType;
 
 export default function IncomesScreen() {
+  const router = useRouter();
   const { state } = useApp();
   const [filter, setFilter] = useState<FilterType>("all");
 
@@ -105,7 +107,7 @@ export default function IncomesScreen() {
 
         <TouchableOpacity
           className="bg-success rounded-2xl p-4 items-center mt-6 active:opacity-80"
-          onPress={() => console.log("Add income")}
+          onPress={() => router.push("/add-income" as any)}
         >
           <Text className="text-background font-semibold text-base">
             Yeni Gelir Ekle

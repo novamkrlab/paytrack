@@ -54,5 +54,16 @@
 - [x] Dark mode uyumluluğunu test et
 
 ## Teslim
-- [ ] Checkpoint oluştur
-- [ ] Kullanıcıya teslim et
+- [x] Checkpoint oluştur (v1.0)
+- [x] Kullanıcıya teslim et (v1.0)
+- [ ] Checkpoint oluştur (v1.1 - Form ekranları)
+- [ ] Kullanıcıya teslim et (v1.1)
+
+## Yeni Özellikler (Kullanıcı İsteği)
+- [x] Ödeme ekleme formu ekranı
+- [x] Gelir ekleme formu ekranı
+- [ ] Ödeme detay ve düzenleme ekranı
+- [ ] Gelir detay ve düzenleme ekranı
+- [x] Form input bileşenleri (TextInput, DatePicker, Picker)
+- [ ] Silme onay dialogu
+- [x] Form validasyonu
