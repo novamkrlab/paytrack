@@ -108,6 +108,7 @@ interface AppContextType {
   updatePayment: (payment: Payment) => Promise<void>;
   deletePayment: (id: string) => Promise<void>;
   markPaymentAsPaid: (id: string) => Promise<void>;
+  togglePaymentStatus: (id: string) => Promise<void>;
   addIncome: (income: Omit<Income, "id" | "createdAt" | "updatedAt">) => Promise<void>;
   updateIncome: (income: Income) => Promise<void>;
   deleteIncome: (id: string) => Promise<void>;
@@ -304,6 +305,23 @@ export function AppProvider({ children }: { children: ReactNode }) {
     await saveSettings(newSettings);
   };
 
+  // Ödeme durumunu toggle etme
+  const togglePaymentStatus = async (id: string) => {
+    const payment = state.payments.find((p) => p.id === id);
+    if (!payment) return;
+    const updatedPayment = {
+      ...payment,
+      isPaid: !payment.isPaid,
+      updatedAt: new Date().toISOString(),
+    };
+    const finalPayment = updatePaymentStatus(updatedPayment);
+    dispatch({ type: "UPDATE_PAYMENT", payload: finalPayment });
+    const updatedPayments = state.payments.map((p) =>
+      p.id === finalPayment.id ? finalPayment : p
+    );
+    await savePayments(updatedPayments);
+  };
+
   // Tüm verileri sıfırlama
   const resetAllData = async () => {
     try {
@@ -325,6 +343,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     updatePayment,
     deletePayment,
     markPaymentAsPaid,
+    togglePaymentStatus,
     addIncome,
     updateIncome,
     deleteIncome,

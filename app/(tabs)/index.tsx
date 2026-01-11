@@ -84,11 +84,8 @@ export default function HomeScreen() {
               <PaymentCard
                 key={payment.id}
                 payment={payment}
+                onPress={() => router.push(`/payment-detail?id=${payment.id}` as any)}
                 currency={state.settings.currency}
-                onPress={() => {
-                  // TODO: Detay ekranına yönlendir
-                  console.log("Payment detail:", payment.id);
-                }}
               />
             ))}
           </View>

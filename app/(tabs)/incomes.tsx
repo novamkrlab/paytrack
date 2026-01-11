@@ -92,8 +92,8 @@ export default function IncomesScreen() {
               <IncomeCard
                 key={income.id}
                 income={income}
+                onPress={() => router.push(`/income-detail?id=${income.id}` as any)}
                 currency={state.settings.currency}
-                onPress={() => console.log("Income detail:", income.id)}
               />
             ))}
           </View>

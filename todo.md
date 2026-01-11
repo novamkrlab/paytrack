@@ -56,8 +56,10 @@
 ## Teslim
 - [x] Checkpoint oluştur (v1.0)
 - [x] Kullanıcıya teslim et (v1.0)
-- [ ] Checkpoint oluştur (v1.1 - Form ekranları)
-- [ ] Kullanıcıya teslim et (v1.1)
+- [x] Checkpoint oluştur (v1.1 - Form ekranları)
+- [x] Kullanıcıya teslim et (v1.1)
+- [ ] Checkpoint oluştur (v1.2 - Detay ekranları)
+- [ ] Kullanıcıya teslim et (v1.2)
 
 ## Yeni Özellikler (Kullanıcı İsteği)
 - [x] Ödeme ekleme formu ekranı
@@ -67,3 +69,11 @@
 - [x] Form input bileşenleri (TextInput, DatePicker, Picker)
 - [ ] Silme onay dialogu
 - [x] Form validasyonu
+
+## Detay ve Düzenleme Ekranları (Yeni)
+- [x] Ödeme detay ekranı oluştur
+- [x] Gelir detay ekranı oluştur
+- [x] Düzenleme modu ekle
+- [x] Silme onay dialogu ekle
+- [x] "Ödendi" olarak işaretleme butonu
+- [x] Kart bileşenlerine tıklama olayı ekle

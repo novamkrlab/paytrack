@@ -117,10 +117,8 @@ export default function PaymentsScreen() {
               <PaymentCard
                 key={payment.id}
                 payment={payment}
+                onPress={() => router.push(`/payment-detail?id=${payment.id}` as any)}
                 currency={state.settings.currency}
-                onPress={() => {
-                  console.log("Payment detail:", payment.id);
-                }}
               />
             ))}
           </View>

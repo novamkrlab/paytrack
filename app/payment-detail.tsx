@@ -1,0 +1,213 @@
+/**
+ * Ödeme Detay Ekranı
+ */
+
+import { ScrollView, Text, View, TouchableOpacity, Alert } from "react-native";
+import { useState } from "react";
+import { useRouter, useLocalSearchParams } from "expo-router";
+import { ScreenContainer } from "@/components/screen-container";
+import {
+  TextInputField,
+  DatePickerField,
+  PickerField,
+  SwitchField,
+} from "@/components/form-input";
+import { useApp } from "@/lib/app-context";
+import {
+  PaymentCategory,
+  RecurrenceFrequency,
+  CATEGORY_NAMES,
+  STATUS_NAMES,
+} from "@/types";
+
+export default function PaymentDetailScreen() {
+  const router = useRouter();
+  const params = useLocalSearchParams();
+  const { state, updatePayment, deletePayment, togglePaymentStatus } = useApp();
+  
+  const payment = state.payments.find((p) => p.id === params.id);
+  const [isEditing, setIsEditing] = useState(false);
+
+  const [name, setName] = useState(payment?.name || "");
+  const [amount, setAmount] = useState(payment?.amount.toString() || "");
+  const [category, setCategory] = useState<PaymentCategory>(payment?.category || PaymentCategory.OTHER);
+  const [dueDate, setDueDate] = useState(payment?.dueDate ? new Date(payment.dueDate) : new Date());
+  const [notes, setNotes] = useState(payment?.notes || "");
+  const [hasInstallments, setHasInstallments] = useState(!!payment?.installments);
+  const [installmentTotal, setInstallmentTotal] = useState(payment?.installments?.total.toString() || "");
+  const [installmentCurrent, setInstallmentCurrent] = useState(payment?.installments?.current.toString() || "");
+  const [hasRecurrence, setHasRecurrence] = useState(!!payment?.recurrence);
+  const [recurrenceFrequency, setRecurrenceFrequency] = useState<RecurrenceFrequency>(
+    payment?.recurrence?.frequency || RecurrenceFrequency.MONTHLY
+  );
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  if (!payment) {
+    return (
+      <ScreenContainer>
+        <View className="flex-1 items-center justify-center p-6">
+          <Text className="text-xl text-foreground">Ödeme bulunamadı</Text>
+          <TouchableOpacity
+            className="mt-4 bg-primary rounded-2xl px-6 py-3"
+            onPress={() => router.back()}
+          >
+            <Text className="text-background font-semibold">Geri Dön</Text>
+          </TouchableOpacity>
+        </View>
+      </ScreenContainer>
+    );
+  }
+
+  const categoryOptions = [
+    { label: "Kredi Kartı", value: PaymentCategory.CREDIT_CARD },
+    { label: "Kredi", value: PaymentCategory.LOAN },
+    { label: "Diğer", value: PaymentCategory.OTHER },
+  ];
+
+  const recurrenceOptions = [
+    { label: "Günlük", value: RecurrenceFrequency.DAILY },
+    { label: "Haftalık", value: RecurrenceFrequency.WEEKLY },
+    { label: "Aylık", value: RecurrenceFrequency.MONTHLY },
+    { label: "Yıllık", value: RecurrenceFrequency.YEARLY },
+  ];
+
+  const validate = (): boolean => {
+    const newErrors: Record<string, string> = {};
+    if (!name.trim()) newErrors.name = "Ödeme adı gerekli";
+    if (!amount.trim()) newErrors.amount = "Tutar gerekli";
+    else if (isNaN(Number(amount)) || Number(amount) <= 0) newErrors.amount = "Geçerli bir tutar giriniz";
+    if (hasInstallments) {
+      if (!installmentTotal.trim() || isNaN(Number(installmentTotal)) || Number(installmentTotal) <= 0)
+        newErrors.installmentTotal = "Geçerli bir sayı giriniz";
+      if (!installmentCurrent.trim() || isNaN(Number(installmentCurrent)) || Number(installmentCurrent) <= 0)
+        newErrors.installmentCurrent = "Geçerli bir sayı giriniz";
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSave = async () => {
+    if (!validate()) return;
+    const updatedPayment = {
+      ...payment,
+      name: name.trim(),
+      amount: Number(amount),
+      category,
+      dueDate: dueDate.toISOString(),
+      notes: notes.trim() || undefined,
+      installments: hasInstallments ? { total: Number(installmentTotal), current: Number(installmentCurrent) } : undefined,
+      recurrence: hasRecurrence ? { frequency: recurrenceFrequency } : undefined,
+    };
+    await updatePayment(updatedPayment);
+    setIsEditing(false);
+    Alert.alert("Başarılı", "Ödeme güncellendi");
+  };
+
+  const handleDelete = () => {
+    Alert.alert(
+      "Ödemeyi Sil",
+      "Bu ödemeyi silmek istediğinizden emin misiniz?",
+      [
+        { text: "İptal", style: "cancel" },
+        {
+          text: "Sil",
+          style: "destructive",
+          onPress: async () => {
+            await deletePayment(payment.id);
+            router.back();
+          },
+        },
+      ]
+    );
+  };
+
+  const handleTogglePaid = async () => {
+    await togglePaymentStatus(payment.id);
+  };
+
+  return (
+    <ScreenContainer>
+      <ScrollView className="flex-1" contentContainerStyle={{ paddingHorizontal: 16, paddingTop: 16, paddingBottom: 32 }}>
+        <View className="mb-6">
+          <Text className="text-3xl font-bold text-foreground">{isEditing ? "Ödeme Düzenle" : "Ödeme Detayı"}</Text>
+          <Text className="text-base text-muted mt-1">{isEditing ? "Bilgileri güncelleyin" : payment.name}</Text>
+        </View>
+
+        {!isEditing ? (
+          <View className="gap-4">
+            <View className="bg-surface rounded-2xl p-4 border border-border">
+              <Text className="text-sm text-muted mb-1">Tutar</Text>
+              <Text className="text-2xl font-bold text-foreground">{payment.amount.toFixed(2)} ₺</Text>
+            </View>
+            <View className="bg-surface rounded-2xl p-4 border border-border">
+              <Text className="text-sm text-muted mb-1">Kategori</Text>
+              <Text className="text-base text-foreground">{CATEGORY_NAMES[payment.category]}</Text>
+            </View>
+            <View className="bg-surface rounded-2xl p-4 border border-border">
+              <Text className="text-sm text-muted mb-1">Ödeme Tarihi</Text>
+              <Text className="text-base text-foreground">{new Date(payment.dueDate).toLocaleDateString("tr-TR")}</Text>
+            </View>
+            <View className="bg-surface rounded-2xl p-4 border border-border">
+              <Text className="text-sm text-muted mb-1">Durum</Text>
+              <Text className="text-base text-foreground">{STATUS_NAMES[payment.status]}</Text>
+            </View>
+            {payment.installments && (
+              <View className="bg-surface rounded-2xl p-4 border border-border">
+                <Text className="text-sm text-muted mb-1">Taksit</Text>
+                <Text className="text-base text-foreground">{payment.installments.current} / {payment.installments.total}</Text>
+              </View>
+            )}
+            {payment.notes && (
+              <View className="bg-surface rounded-2xl p-4 border border-border">
+                <Text className="text-sm text-muted mb-1">Notlar</Text>
+                <Text className="text-base text-foreground">{payment.notes}</Text>
+              </View>
+            )}
+            <View className="flex-row gap-3 mt-4">
+              <TouchableOpacity className="flex-1 bg-primary rounded-2xl p-4 items-center" onPress={handleTogglePaid}>
+                <Text className="text-background font-semibold">{payment.isPaid ? "Ödenmedi Yap" : "Ödendi Yap"}</Text>
+              </TouchableOpacity>
+            </View>
+            <View className="flex-row gap-3">
+              <TouchableOpacity className="flex-1 bg-surface border border-border rounded-2xl p-4 items-center" onPress={() => setIsEditing(true)}>
+                <Text className="text-foreground font-semibold">Düzenle</Text>
+              </TouchableOpacity>
+              <TouchableOpacity className="flex-1 bg-error rounded-2xl p-4 items-center" onPress={handleDelete}>
+                <Text className="text-background font-semibold">Sil</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        ) : (
+          <View>
+            <TextInputField label="Ödeme Adı" value={name} onChangeText={setName} error={errors.name} required />
+            <TextInputField label="Tutar" value={amount} onChangeText={setAmount} keyboardType="numeric" error={errors.amount} required />
+            <PickerField label="Kategori" value={category} onChange={(value) => setCategory(value as PaymentCategory)} options={categoryOptions} required />
+            <DatePickerField label="Ödeme Tarihi" value={dueDate} onChange={setDueDate} required />
+            <TextInputField label="Notlar" value={notes} onChangeText={setNotes} multiline />
+            <SwitchField label="Taksitli Ödeme" value={hasInstallments} onChange={setHasInstallments} />
+            {hasInstallments && (
+              <View className="ml-4 mb-4">
+                <TextInputField label="Toplam Taksit" value={installmentTotal} onChangeText={setInstallmentTotal} keyboardType="numeric" error={errors.installmentTotal} required />
+                <TextInputField label="Mevcut Taksit" value={installmentCurrent} onChangeText={setInstallmentCurrent} keyboardType="numeric" error={errors.installmentCurrent} required />
+              </View>
+            )}
+            <SwitchField label="Tekrarlanan Ödeme" value={hasRecurrence} onChange={setHasRecurrence} />
+            {hasRecurrence && (
+              <View className="ml-4 mb-4">
+                <PickerField label="Sıklık" value={recurrenceFrequency} onChange={(value) => setRecurrenceFrequency(value as RecurrenceFrequency)} options={recurrenceOptions} required />
+              </View>
+            )}
+            <View className="flex-row gap-3 mt-6">
+              <TouchableOpacity className="flex-1 bg-surface border border-border rounded-2xl p-4 items-center" onPress={() => setIsEditing(false)}>
+                <Text className="text-foreground font-semibold">İptal</Text>
+              </TouchableOpacity>
+              <TouchableOpacity className="flex-1 bg-primary rounded-2xl p-4 items-center" onPress={handleSave}>
+                <Text className="text-background font-semibold">Kaydet</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        )}
+      </ScrollView>
+    </ScreenContainer>
+  );
+}
