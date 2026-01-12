@@ -58,8 +58,10 @@
 - [x] Kullanıcıya teslim et (v1.0)
 - [x] Checkpoint oluştur (v1.1 - Form ekranları)
 - [x] Kullanıcıya teslim et (v1.1)
-- [ ] Checkpoint oluştur (v1.2 - Detay ekranları)
-- [ ] Kullanıcıya teslim et (v1.2)
+- [x] Checkpoint oluştur (v1.2 - Detay ekranları)
+- [x] Kullanıcıya teslim et (v1.2)
+- [ ] Checkpoint oluştur (v1.3 - Takvim görünümü)
+- [ ] Kullanıcıya teslim et (v1.3)
 
 ## Yeni Özellikler (Kullanıcı İsteği)
 - [x] Ödeme ekleme formu ekranı
@@ -77,3 +79,12 @@
 - [x] Silme onay dialogu ekle
 - [x] "Ödendi" olarak işaretleme butonu
 - [x] Kart bileşenlerine tıklama olayı ekle
+
+## Takvim Görünümü (Yeni)
+- [x] Takvim bileşeni oluştur
+- [x] Ay değiştirme butonları ekle
+- [x] Ödemeleri takvimde göster (kırmızı nokta)
+- [x] Gelirleri takvimde göster (yeşil nokta)
+- [x] Tarihe tıklayınca o günün detaylarını göster
+- [x] Bugünü vurgula
+- [x] Takvim ekranını güncelle

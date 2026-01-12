@@ -1,29 +1,125 @@
 /**
  * Takvim Ekranı
+ * Aylık takvim görünümü ve günlük detaylar
  */
 
 import { ScrollView, Text, View } from "react-native";
+import { useState } from "react";
 import { ScreenContainer } from "@/components/screen-container";
+import { Calendar } from "@/components/calendar";
+import { PaymentCard } from "@/components/payment-card";
+import { IncomeCard } from "@/components/income-card";
+import { useApp } from "@/lib/app-context";
+import { useRouter } from "expo-router";
 
 export default function CalendarScreen() {
+  const router = useRouter();
+  const { state } = useApp();
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+
+  // Seçili tarihteki ödemeler
+  const selectedPayments = selectedDate
+    ? state.payments.filter((p) => {
+        const paymentDate = new Date(p.dueDate).toDateString();
+        return paymentDate === selectedDate.toDateString();
+      })
+    : [];
+
+  // Seçili tarihteki gelirler
+  const selectedIncomes = selectedDate
+    ? state.incomes.filter((i) => {
+        const incomeDate = new Date(i.date).toDateString();
+        return incomeDate === selectedDate.toDateString();
+      })
+    : [];
+
+  const handleDatePress = (date: Date) => {
+    setSelectedDate(date);
+  };
+
   return (
     <ScreenContainer>
       <ScrollView
         className="flex-1"
-        contentContainerStyle={{ paddingHorizontal: 16, paddingTop: 16, paddingBottom: 32 }}
+        contentContainerStyle={{
+          paddingHorizontal: 16,
+          paddingTop: 16,
+          paddingBottom: 32,
+        }}
       >
+        {/* Başlık */}
         <View className="mb-6">
           <Text className="text-3xl font-bold text-foreground">Takvim</Text>
           <Text className="text-base text-muted mt-1">
-            Ödemelerinizi takvimde görüntüleyin
+            Ödemelerinizi ve gelirlerinizi takip edin
           </Text>
         </View>
 
-        <View className="bg-surface rounded-2xl p-8 items-center justify-center border border-border">
-          <Text className="text-muted text-center text-base">
-            Takvim görünümü yakında eklenecek
-          </Text>
-        </View>
+        {/* Takvim */}
+        <Calendar
+          payments={state.payments}
+          incomes={state.incomes}
+          onDatePress={handleDatePress}
+        />
+
+        {/* Seçili Tarih Detayları */}
+        {selectedDate && (
+          <View className="mt-6">
+            <Text className="text-xl font-bold text-foreground mb-4">
+              {selectedDate.toLocaleDateString("tr-TR", {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              })}
+            </Text>
+
+            {selectedPayments.length === 0 && selectedIncomes.length === 0 && (
+              <View className="bg-surface rounded-2xl p-8 items-center justify-center border border-border">
+                <Text className="text-muted text-center text-base">
+                  Bu tarihte ödeme veya gelir bulunmuyor
+                </Text>
+              </View>
+            )}
+
+            {/* Ödemeler */}
+            {selectedPayments.length > 0 && (
+              <View className="mb-4">
+                <Text className="text-base font-semibold text-foreground mb-2">
+                  Ödemeler ({selectedPayments.length})
+                </Text>
+                {selectedPayments.map((payment) => (
+                  <PaymentCard
+                    key={payment.id}
+                    payment={payment}
+                    onPress={() =>
+                      router.push(`/payment-detail?id=${payment.id}` as any)
+                    }
+                    currency={state.settings.currency}
+                  />
+                ))}
+              </View>
+            )}
+
+            {/* Gelirler */}
+            {selectedIncomes.length > 0 && (
+              <View>
+                <Text className="text-base font-semibold text-foreground mb-2">
+                  Gelirler ({selectedIncomes.length})
+                </Text>
+                {selectedIncomes.map((income) => (
+                  <IncomeCard
+                    key={income.id}
+                    income={income}
+                    onPress={() =>
+                      router.push(`/income-detail?id=${income.id}` as any)
+                    }
+                    currency={state.settings.currency}
+                  />
+                ))}
+              </View>
+            )}
+          </View>
+        )}
       </ScrollView>
     </ScreenContainer>
   );
