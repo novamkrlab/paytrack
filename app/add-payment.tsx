@@ -83,6 +83,15 @@ export default function AddPaymentScreen() {
   return (
     <ScreenContainer>
       <ScrollView className="flex-1" contentContainerStyle={{ paddingHorizontal: 16, paddingTop: 16, paddingBottom: 32 }}>
+        {/* Geri Dönme Butonu */}
+        <TouchableOpacity
+          onPress={() => router.back()}
+          className="flex-row items-center mb-4"
+        >
+          <Text className="text-2xl text-primary mr-2">‹</Text>
+          <Text className="text-base text-primary font-medium">Geri</Text>
+        </TouchableOpacity>
+
         <View className="mb-6">
           <Text className="text-3xl font-bold text-foreground">Ödeme Ekle</Text>
           <Text className="text-base text-muted mt-1">Yeni ödeme bilgilerini girin</Text>

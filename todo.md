@@ -60,8 +60,10 @@
 - [x] Kullanıcıya teslim et (v1.1)
 - [x] Checkpoint oluştur (v1.2 - Detay ekranları)
 - [x] Kullanıcıya teslim et (v1.2)
-- [ ] Checkpoint oluştur (v1.3 - Takvim görünümü)
-- [ ] Kullanıcıya teslim et (v1.3)
+- [x] Checkpoint oluştur (v1.3 - Takvim görünümü)
+- [x] Kullanıcıya teslim et (v1.3)
+- [ ] Checkpoint oluştur (v1.4 - Geri dönme butonları)
+- [ ] Kullanıcıya teslim et (v1.4)
 
 ## Yeni Özellikler (Kullanıcı İsteği)
 - [x] Ödeme ekleme formu ekranı
@@ -88,3 +90,9 @@
 - [x] Tarihe tıklayınca o günün detaylarını göster
 - [x] Bugünü vurgula
 - [x] Takvim ekranını güncelle
+
+## Geri Dönme Butonları (Kullanıcı İsteği)
+- [x] Ödeme detay ekranına geri dönme butonu ekle
+- [x] Gelir detay ekranına geri dönme butonu ekle
+- [x] Ödeme ekleme ekranına geri dönme butonu ekle
+- [x] Gelir ekleme ekranına geri dönme butonu ekle
