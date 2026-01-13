@@ -51,9 +51,16 @@ export function PaymentCard({ payment, onPress, currency = "TRY" }: PaymentCardP
             {CATEGORY_NAMES[payment.category]}
           </Text>
           {payment.installments && (
-            <Text className="text-sm text-muted ml-2">
-              • {payment.installments.current}/{payment.installments.total} Taksit
-            </Text>
+            <>
+              <Text className="text-sm text-muted ml-2">
+                • {payment.installments.current}/{payment.installments.total} Taksit
+              </Text>
+              {payment.installments.endDate && (
+                <Text className="text-xs text-muted ml-2">
+                  (Son: {formatDateShort(payment.installments.endDate)})
+                </Text>
+              )}
+            </>
           )}
         </View>
 

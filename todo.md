@@ -62,8 +62,10 @@
 - [x] Kullanıcıya teslim et (v1.2)
 - [x] Checkpoint oluştur (v1.3 - Takvim görünümü)
 - [x] Kullanıcıya teslim et (v1.3)
-- [ ] Checkpoint oluştur (v1.4 - Geri dönme butonları)
-- [ ] Kullanıcıya teslim et (v1.4)
+- [x] Checkpoint oluştur (v1.4 - Geri dönme butonları)
+- [x] Kullanıcıya teslim et (v1.4)
+- [ ] Checkpoint oluştur (v1.5 - Son taksit tarihi)
+- [ ] Kullanıcıya teslim et (v1.5)
 
 ## Yeni Özellikler (Kullanıcı İsteği)
 - [x] Ödeme ekleme formu ekranı
@@ -96,3 +98,10 @@
 - [x] Gelir detay ekranına geri dönme butonu ekle
 - [x] Ödeme ekleme ekranına geri dönme butonu ekle
 - [x] Gelir ekleme ekranına geri dönme butonu ekle
+
+## Son Taksit Tarihi (Kullanıcı İsteği)
+- [x] Payment tipine endDate alanı ekle
+- [x] Ödeme ekleme formuna son taksit tarihi alanı ekle
+- [x] Ödeme düzenleme formuna son taksit tarihi alanı ekle
+- [x] PaymentCard'da son taksit tarihini göster
+- [x] Detay ekranında son taksit bilgisini göster

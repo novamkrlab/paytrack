@@ -31,6 +31,7 @@ export default function AddPaymentScreen() {
   const [hasInstallments, setHasInstallments] = useState(false);
   const [installmentTotal, setInstallmentTotal] = useState("");
   const [installmentCurrent, setInstallmentCurrent] = useState("");
+  const [installmentEndDate, setInstallmentEndDate] = useState<Date | null>(null);
   const [hasRecurrence, setHasRecurrence] = useState(false);
   const [recurrenceFrequency, setRecurrenceFrequency] = useState<RecurrenceFrequency>(RecurrenceFrequency.MONTHLY);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -73,7 +74,11 @@ export default function AddPaymentScreen() {
       status: PaymentStatus.PENDING,
       isPaid: false,
       notes: notes.trim() || undefined,
-      installments: hasInstallments ? { total: Number(installmentTotal), current: Number(installmentCurrent) } : undefined,
+      installments: hasInstallments ? { 
+        total: Number(installmentTotal), 
+        current: Number(installmentCurrent),
+        endDate: installmentEndDate ? installmentEndDate.toISOString() : undefined
+      } : undefined,
       recurrence: hasRecurrence ? { frequency: recurrenceFrequency } : undefined,
     };
     await addPayment(payment);
@@ -106,6 +111,7 @@ export default function AddPaymentScreen() {
           <View className="ml-4 mb-4">
             <TextInputField label="Toplam Taksit Sayısı" value={installmentTotal} onChangeText={setInstallmentTotal} placeholder="12" keyboardType="numeric" error={errors.installmentTotal} required />
             <TextInputField label="Mevcut Taksit" value={installmentCurrent} onChangeText={setInstallmentCurrent} placeholder="3" keyboardType="numeric" error={errors.installmentCurrent} required />
+            <DatePickerField label="Son Taksit Tarihi" value={installmentEndDate || new Date()} onChange={setInstallmentEndDate} />
           </View>
         )}
         <SwitchField label="Tekrarlanan Ödeme" value={hasRecurrence} onChange={setHasRecurrence} description="Bu ödeme düzenli olarak tekrarlanıyor mu?" />

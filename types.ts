@@ -54,6 +54,7 @@ export interface Payment {
   installments?: {
     total: number; // Toplam taksit sayısı
     current: number; // Kaçıncı taksit
+    endDate?: string; // Son taksit tarihi (ISO 8601 format)
   };
   // Tekrarlama bilgisi (opsiyonel)
   recurrence?: {

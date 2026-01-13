@@ -36,6 +36,9 @@ export default function PaymentDetailScreen() {
   const [hasInstallments, setHasInstallments] = useState(!!payment?.installments);
   const [installmentTotal, setInstallmentTotal] = useState(payment?.installments?.total.toString() || "");
   const [installmentCurrent, setInstallmentCurrent] = useState(payment?.installments?.current.toString() || "");
+  const [installmentEndDate, setInstallmentEndDate] = useState<Date | null>(
+    payment?.installments?.endDate ? new Date(payment.installments.endDate) : null
+  );
   const [hasRecurrence, setHasRecurrence] = useState(!!payment?.recurrence);
   const [recurrenceFrequency, setRecurrenceFrequency] = useState<RecurrenceFrequency>(
     payment?.recurrence?.frequency || RecurrenceFrequency.MONTHLY
@@ -95,7 +98,11 @@ export default function PaymentDetailScreen() {
       category,
       dueDate: dueDate.toISOString(),
       notes: notes.trim() || undefined,
-      installments: hasInstallments ? { total: Number(installmentTotal), current: Number(installmentCurrent) } : undefined,
+      installments: hasInstallments ? { 
+        total: Number(installmentTotal), 
+        current: Number(installmentCurrent),
+        endDate: installmentEndDate ? installmentEndDate.toISOString() : undefined
+      } : undefined,
       recurrence: hasRecurrence ? { frequency: recurrenceFrequency } : undefined,
     };
     await updatePayment(updatedPayment);
@@ -164,6 +171,11 @@ export default function PaymentDetailScreen() {
               <View className="bg-surface rounded-2xl p-4 border border-border">
                 <Text className="text-sm text-muted mb-1">Taksit</Text>
                 <Text className="text-base text-foreground">{payment.installments.current} / {payment.installments.total}</Text>
+                {payment.installments.endDate && (
+                  <Text className="text-sm text-muted mt-1">
+                    Son Taksit: {new Date(payment.installments.endDate).toLocaleDateString('tr-TR')}
+                  </Text>
+                )}
               </View>
             )}
             {payment.notes && (
@@ -198,6 +210,7 @@ export default function PaymentDetailScreen() {
               <View className="ml-4 mb-4">
                 <TextInputField label="Toplam Taksit" value={installmentTotal} onChangeText={setInstallmentTotal} keyboardType="numeric" error={errors.installmentTotal} required />
                 <TextInputField label="Mevcut Taksit" value={installmentCurrent} onChangeText={setInstallmentCurrent} keyboardType="numeric" error={errors.installmentCurrent} required />
+                <DatePickerField label="Son Taksit Tarihi" value={installmentEndDate || new Date()} onChange={setInstallmentEndDate} />
               </View>
             )}
             <SwitchField label="Tekrarlanan Ödeme" value={hasRecurrence} onChange={setHasRecurrence} />
