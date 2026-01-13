@@ -72,13 +72,16 @@ export function Calendar({ payments, incomes, onDatePress }: CalendarProps) {
     onDatePress?.(date);
   };
 
-  // Takvim günlerini oluştur
-  const renderDays = () => {
-    const days = [];
-
+  // Takvim günlerini oluştur (satır satır)
+  const renderCalendar = () => {
+    const weeks = [];
+    let currentWeek = [];
+    
     // Boş günler (ayın başlangıcından önceki günler)
     for (let i = 0; i < firstDayOfWeek; i++) {
-      days.push(<View key={`empty-${i}`} className="flex-1 aspect-square" />);
+      currentWeek.push(
+        <View key={`empty-${i}`} style={{ width: '14.28%', aspectRatio: 1 }} />
+      );
     }
 
     // Ayın günleri
@@ -87,11 +90,11 @@ export function Calendar({ payments, incomes, onDatePress }: CalendarProps) {
       const payment = hasPayment(day);
       const income = hasIncome(day);
 
-      days.push(
+      currentWeek.push(
         <TouchableOpacity
           key={day}
           onPress={() => handleDatePress(day)}
-          className="flex-1 aspect-square p-1"
+          style={{ width: '14.28%', aspectRatio: 1, padding: 2 }}
         >
           <View
             className={cn(
@@ -101,27 +104,53 @@ export function Calendar({ payments, incomes, onDatePress }: CalendarProps) {
           >
             <Text
               className={cn(
-                "text-base font-medium",
-                today ? "text-background" : "text-foreground"
+                "text-sm font-semibold",
+                today ? "text-white" : "text-foreground"
               )}
+              style={{ color: today ? "#FFFFFF" : undefined }}
             >
               {day}
             </Text>
             {/* İndikatörler */}
-            <View className="flex-row gap-1 mt-1">
+            <View className="flex-row gap-1 mt-0.5">
               {payment && (
-                <View className="w-1.5 h-1.5 rounded-full bg-error" />
+                <View className="w-1 h-1 rounded-full bg-error" />
               )}
               {income && (
-                <View className="w-1.5 h-1.5 rounded-full bg-success" />
+                <View className="w-1 h-1 rounded-full bg-success" />
               )}
             </View>
           </View>
         </TouchableOpacity>
       );
+
+      // Hafta tamamlandı mı?
+      if (currentWeek.length === 7) {
+        weeks.push(
+          <View key={`week-${weeks.length}`} className="flex-row">
+            {currentWeek}
+          </View>
+        );
+        currentWeek = [];
+      }
     }
 
-    return days;
+    // Son haftayı ekle (eksikse)
+    if (currentWeek.length > 0) {
+      // Kalan günleri boş view ile doldur
+      while (currentWeek.length < 7) {
+        currentWeek.push(
+          <View key={`empty-end-${currentWeek.length}`} style={{ width: '14.28%', aspectRatio: 1 }} />
+        );
+      }
+      weeks.push(
+        <View key={`week-${weeks.length}`} className="flex-row">
+          {currentWeek}
+        </View>
+      );
+    }
+
+    return weeks;
   };
 
   // Ay adları
@@ -176,7 +205,7 @@ export function Calendar({ payments, incomes, onDatePress }: CalendarProps) {
       </View>
 
       {/* Takvim günleri */}
-      <View className="flex-row flex-wrap">{renderDays()}</View>
+      <View>{renderCalendar()}</View>
 
       {/* Açıklama */}
       <View className="flex-row items-center justify-center gap-4 mt-4 pt-4 border-t border-border">

@@ -64,8 +64,10 @@
 - [x] Kullanıcıya teslim et (v1.3)
 - [x] Checkpoint oluştur (v1.4 - Geri dönme butonları)
 - [x] Kullanıcıya teslim et (v1.4)
-- [ ] Checkpoint oluştur (v1.5 - Son taksit tarihi)
-- [ ] Kullanıcıya teslim et (v1.5)
+- [x] Checkpoint oluştur (v1.5 - Son taksit tarihi)
+- [x] Kullanıcıya teslim et (v1.5)
+- [ ] Checkpoint oluştur (v1.6 - Takvim düzeltmesi)
+- [ ] Kullanıcıya teslim et (v1.6)
 
 ## Yeni Özellikler (Kullanıcı İsteği)
 - [x] Ödeme ekleme formu ekranı
@@ -105,3 +107,8 @@
 - [x] Ödeme düzenleme formuna son taksit tarihi alanı ekle
 - [x] PaymentCard'da son taksit tarihini göster
 - [x] Detay ekranında son taksit bilgisini göster
+
+## Takvim Görüntüleme Hatası (Kullanıcı Bildirimi)
+- [x] Takvim bileşeninde gün numaralarının görünmeme sorunu
+- [x] Dark mode'da text rengi sorunu kontrol et
+- [x] Takvim grid yapısını düzelt
