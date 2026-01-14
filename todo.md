@@ -66,8 +66,10 @@
 - [x] Kullanıcıya teslim et (v1.4)
 - [x] Checkpoint oluştur (v1.5 - Son taksit tarihi)
 - [x] Kullanıcıya teslim et (v1.5)
-- [ ] Checkpoint oluştur (v1.6 - Takvim düzeltmesi)
-- [ ] Kullanıcıya teslim et (v1.6)
+- [x] Checkpoint oluştur (v1.6 - Takvim düzeltmesi)
+- [x] Kullanıcıya teslim et (v1.6)
+- [ ] Checkpoint oluştur (v1.7 - Tarih karşılaştırma düzeltmesi)
+- [ ] Kullanıcıya teslim et (v1.7)
 
 ## Yeni Özellikler (Kullanıcı İsteği)
 - [x] Ödeme ekleme formu ekranı
@@ -112,3 +114,8 @@
 - [x] Takvim bileşeninde gün numaralarının görünmeme sorunu
 - [x] Dark mode'da text rengi sorunu kontrol et
 - [x] Takvim grid yapısını düzelt
+
+## Takvim Tarih Karşılaştırma Hatası (Kullanıcı Bildirimi)
+- [x] Ödeme ve gelir noktaları yanlış güne yerleşiyor
+- [x] Tarih karşılaştırma mantığını düzelt
+- [x] UTC/timezone sorununu çöz

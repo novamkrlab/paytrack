@@ -43,13 +43,19 @@ export function Calendar({ payments, incomes, onDatePress }: CalendarProps) {
 
   // Belirli bir tarihte ödeme var mı?
   const hasPayment = (day: number): boolean => {
-    const dateStr = new Date(year, month, day).toISOString().split("T")[0];
+    const y = year;
+    const m = String(month + 1).padStart(2, '0');
+    const d = String(day).padStart(2, '0');
+    const dateStr = `${y}-${m}-${d}`;
     return payments.some((p) => p.dueDate.startsWith(dateStr));
   };
 
   // Belirli bir tarihte gelir var mı?
   const hasIncome = (day: number): boolean => {
-    const dateStr = new Date(year, month, day).toISOString().split("T")[0];
+    const y = year;
+    const m = String(month + 1).padStart(2, '0');
+    const d = String(day).padStart(2, '0');
+    const dateStr = `${y}-${m}-${d}`;
     return incomes.some((i) => i.date.startsWith(dateStr));
   };
 
