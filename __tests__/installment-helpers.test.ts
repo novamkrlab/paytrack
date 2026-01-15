@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
-import { generateInstallments, formatInstallmentInfo, calculateRemainingInstallments } from "../utils/installment-helpers";
-import { PaymentCategory } from "../types";
+import { generateInstallments, formatInstallmentInfo, calculateRemainingInstallments, generateRecurringPayments } from "../utils/installment-helpers";
+import { PaymentCategory, RecurrenceFrequency } from "../types";
 
 describe("installment-helpers", () => {
   describe("generateInstallments", () => {
@@ -95,6 +95,76 @@ describe("installment-helpers", () => {
 
     it("should not return negative numbers", () => {
       expect(calculateRemainingInstallments(15, 12)).toBe(0);
+    });
+  });
+
+  describe("generateRecurringPayments", () => {
+    it("should generate monthly recurring payments correctly", () => {
+      const payments = generateRecurringPayments(
+        "Kira",
+        5000,
+        PaymentCategory.OTHER,
+        new Date("2026-01-01"),
+        new Date("2026-03-01"),
+        RecurrenceFrequency.MONTHLY
+      );
+      
+      expect(payments).toHaveLength(2); // Ocak, Şubat (Mart dahil değil, son tarih dahil değil)
+    });
+
+    it("should generate weekly recurring payments correctly", () => {
+      const payments = generateRecurringPayments(
+        "Haftalık",
+        100,
+        PaymentCategory.OTHER,
+        new Date("2026-01-01"),
+        new Date("2026-01-22"),
+        RecurrenceFrequency.WEEKLY
+      );
+      
+      expect(payments.length).toBeGreaterThanOrEqual(3);
+    });
+
+    it("should set correct payment names with index", () => {
+      const payments = generateRecurringPayments(
+        "Test",
+        1000,
+        PaymentCategory.OTHER,
+        new Date("2026-01-01"),
+        new Date("2026-02-01"),
+        RecurrenceFrequency.MONTHLY
+      );
+      
+      expect(payments[0].name).toBe("Test (1)");
+      expect(payments[1].name).toBe("Test (2)");
+    });
+
+    it("should set all payments as unpaid", () => {
+      const payments = generateRecurringPayments(
+        "Test",
+        1000,
+        PaymentCategory.OTHER,
+        new Date("2026-01-01"),
+        new Date("2026-03-01"),
+        RecurrenceFrequency.MONTHLY
+      );
+      
+      payments.forEach(payment => {
+        expect(payment.isPaid).toBe(false);
+      });
+    });
+
+    it("should prevent infinite loops", () => {
+      const payments = generateRecurringPayments(
+        "Test",
+        1000,
+        PaymentCategory.OTHER,
+        new Date("2020-01-01"),
+        new Date("2030-01-01"),
+        RecurrenceFrequency.DAILY
+      );
+      
+      expect(payments.length).toBeLessThanOrEqual(1000);
     });
   });
 });

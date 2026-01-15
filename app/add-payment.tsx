@@ -8,12 +8,13 @@ import { useRouter } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
 import { TextInputField, DatePickerField, PickerField, SwitchField } from "@/components/form-input";
 import { calculatePeriodCount, calculateTotalAmount } from "@/utils/date-helpers";
-import { generateInstallments } from "@/utils/installment-helpers";
+import { generateInstallments, generateRecurringPayments } from "@/utils/installment-helpers";
 import { useApp } from "@/lib/app-context";
 import {
   PaymentCategory,
   PaymentStatus,
   RecurrenceFrequency,
+  RECURRENCE_NAMES,
 } from "@/types";
 
 export default function AddPaymentScreen() {
@@ -31,6 +32,7 @@ export default function AddPaymentScreen() {
   const [installmentEndDate, setInstallmentEndDate] = useState<Date | null>(null);
   const [autoGenerateInstallments, setAutoGenerateInstallments] = useState(false);
   const [recurrenceEndDate, setRecurrenceEndDate] = useState<Date | null>(null);
+  const [autoGenerateRecurrence, setAutoGenerateRecurrence] = useState(false);
   const [hasRecurrence, setHasRecurrence] = useState(false);
   const [recurrenceFrequency, setRecurrenceFrequency] = useState<RecurrenceFrequency>(RecurrenceFrequency.MONTHLY);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -68,6 +70,31 @@ export default function AddPaymentScreen() {
 
   const handleSubmit = async () => {
     if (!validate()) return;
+
+    // Otomatik tekrarlanan ödeme oluşturma aktifse
+    if (hasRecurrence && autoGenerateRecurrence && recurrenceEndDate) {
+      const recurringPayments = generateRecurringPayments(
+        name.trim(),
+        Number(amount),
+        category,
+        dueDate,
+        recurrenceEndDate,
+        recurrenceFrequency,
+        notes.trim() || undefined
+      );
+
+      // Tüm tekrarlanan ödemeleri ekle
+      for (const payment of recurringPayments) {
+        await addPayment(payment);
+      }
+
+      Alert.alert(
+        "Başarılı",
+        `${recurringPayments.length} tekrarlanan ödeme otomatik oluşturuldu`,
+        [{ text: "Tamam", onPress: () => router.back() }]
+      );
+      return;
+    }
 
     // Otomatik taksit oluşturma aktifse
     if (hasInstallments && autoGenerateInstallments) {
@@ -169,6 +196,12 @@ export default function AddPaymentScreen() {
         <SwitchField label="Tekrarlanan Ödeme" value={hasRecurrence} onChange={setHasRecurrence} description="Bu ödeme düzenli olarak tekrarlanıyor mu?" />
         {hasRecurrence && (
           <View className="ml-4 mb-4">
+            <SwitchField 
+              label="Otomatik Oluştur" 
+              value={autoGenerateRecurrence} 
+              onChange={setAutoGenerateRecurrence} 
+              description="Tüm tekrarlanan ödemeleri otomatik oluştur" 
+            />
             <PickerField label="Tekrarlama Sıklığı" value={recurrenceFrequency} onChange={(value) => setRecurrenceFrequency(value as RecurrenceFrequency)} options={recurrenceOptions} required />
             <DatePickerField label="Son Ödeme Tarihi" value={recurrenceEndDate || new Date()} onChange={setRecurrenceEndDate} />
             {recurrenceEndDate && amount && (
@@ -179,6 +212,14 @@ export default function AddPaymentScreen() {
                   <Text className="font-semibold text-primary">
                     {calculateTotalAmount(Number(amount), dueDate, recurrenceEndDate, recurrenceFrequency).toLocaleString('tr-TR')} ₺
                   </Text>
+                </Text>
+              </View>
+            )}
+            {autoGenerateRecurrence && recurrenceEndDate && (
+              <View className="mt-2 p-3 bg-surface rounded-lg border border-border">
+                <Text className="text-xs text-muted mb-1">⚠️ Otomatik Oluşturma</Text>
+                <Text className="text-sm text-foreground">
+                  {calculatePeriodCount(dueDate, recurrenceEndDate, recurrenceFrequency)} adet ödeme otomatik oluşturulacak ({RECURRENCE_NAMES[recurrenceFrequency].toLowerCase()})
                 </Text>
               </View>
             )}

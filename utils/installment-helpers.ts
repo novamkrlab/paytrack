@@ -2,7 +2,7 @@
  * Taksit Yardımcı Fonksiyonları
  */
 
-import { Payment, PaymentCategory, PaymentStatus } from "@/types";
+import { Payment, PaymentCategory, PaymentStatus, RecurrenceFrequency } from "@/types";
 
 /**
  * Taksitli ödeme için tüm taksitleri otomatik oluşturur
@@ -62,4 +62,68 @@ export function formatInstallmentInfo(current: number, total: number): string {
  */
 export function calculateRemainingInstallments(current: number, total: number): number {
   return Math.max(0, total - current + 1);
+}
+
+/**
+ * Tekrarlanan ödeme için tüm ödemeleri otomatik oluşturur
+ */
+export function generateRecurringPayments(
+  baseName: string,
+  amount: number,
+  category: PaymentCategory,
+  startDate: Date,
+  endDate: Date,
+  frequency: RecurrenceFrequency,
+  notes?: string
+): Payment[] {
+  const payments: Payment[] = [];
+  let currentDate = new Date(startDate);
+  const finalDate = new Date(endDate);
+  let index = 1;
+
+  while (currentDate <= finalDate) {
+    const payment: Payment = {
+      id: `${Date.now()}-${index}`,
+      name: `${baseName} (${index})`,
+      amount,
+      category,
+      dueDate: currentDate.toISOString(),
+      status: PaymentStatus.PENDING,
+      recurrence: {
+        frequency,
+        endDate: endDate.toISOString(),
+      },
+      notes: notes ? `${notes} (Tekrar ${index})` : `Tekrar ${index}`,
+      isPaid: false,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+
+    payments.push(payment);
+
+    // Bir sonraki tarihi hesapla
+    const nextDate = new Date(currentDate);
+    switch (frequency) {
+      case RecurrenceFrequency.DAILY:
+        nextDate.setDate(nextDate.getDate() + 1);
+        break;
+      case RecurrenceFrequency.WEEKLY:
+        nextDate.setDate(nextDate.getDate() + 7);
+        break;
+      case RecurrenceFrequency.MONTHLY:
+        nextDate.setMonth(nextDate.getMonth() + 1);
+        break;
+      case RecurrenceFrequency.YEARLY:
+        nextDate.setFullYear(nextDate.getFullYear() + 1);
+        break;
+    }
+
+    currentDate = nextDate;
+    index++;
+
+    // Sonsuz döngüyü önle
+    if (index > 1000) break;
+  }
+
+  return payments;
 }
