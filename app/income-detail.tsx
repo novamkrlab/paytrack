@@ -92,21 +92,58 @@ export default function IncomeDetailScreen() {
   };
 
   const handleDelete = () => {
-    Alert.alert(
-      "Geliri Sil",
-      "Bu geliri silmek istediğinizden emin misiniz?",
-      [
-        { text: "İptal", style: "cancel" },
-        {
-          text: "Sil",
-          style: "destructive",
-          onPress: async () => {
-            await deleteIncome(income.id);
-            router.back();
-          },
-        },
-      ]
+    // Aynı isme sahip diğer gelirleri bul (tekrarlar)
+    const relatedIncomes = state.incomes.filter(
+      (i) => i.name === income.name && i.id !== income.id
     );
+
+    if (relatedIncomes.length > 0) {
+      // Tekrarlar varsa, seçenek sun
+      Alert.alert(
+        "Geliri Sil",
+        `Bu gelirle aynı isimde ${relatedIncomes.length} gelir daha var. Ne yapmak istersiniz?`,
+        [
+          { text: "İptal", style: "cancel" },
+          {
+            text: "Sadece bunu sil",
+            onPress: async () => {
+              await deleteIncome(income.id);
+              router.back();
+            },
+          },
+          {
+            text: `Tümünü sil (${relatedIncomes.length + 1})`,
+            style: "destructive",
+            onPress: async () => {
+              // Bu geliri ve tüm tekrarları sil
+              await deleteIncome(income.id);
+              for (const relatedIncome of relatedIncomes) {
+                await deleteIncome(relatedIncome.id);
+              }
+              Alert.alert("Başarılı", `${relatedIncomes.length + 1} gelir silindi`);
+              router.back();
+            },
+          },
+        ]
+      );
+    } else {
+      // Tekrar yoksa, normal silme
+      Alert.alert(
+        "Geliri Sil",
+        "Bu geliri silmek istediğinizden emin misiniz?",
+        [
+          { text: "İptal", style: "cancel" },
+          {
+            text: "Sil",
+            style: "destructive",
+            onPress: async () => {
+              await deleteIncome(income.id);
+              router.back();
+            },
+          },
+        ]
+      );
+    }
   };
 
   return (

@@ -167,21 +167,58 @@ export default function PaymentDetailScreen() {
   };
 
   const handleDelete = () => {
-    Alert.alert(
-      "Ödemeyi Sil",
-      "Bu ödemeyi silmek istediğinizden emin misiniz?",
-      [
-        { text: "İptal", style: "cancel" },
-        {
-          text: "Sil",
-          style: "destructive",
-          onPress: async () => {
-            await deletePayment(payment.id);
-            router.back();
-          },
-        },
-      ]
+    // Aynı isme sahip diğer ödemeleri bul (tekrarlar)
+    const relatedPayments = state.payments.filter(
+      (p) => p.name === payment.name && p.id !== payment.id
     );
+
+    if (relatedPayments.length > 0) {
+      // Tekrarlar varsa, seçenek sun
+      Alert.alert(
+        "Ödemeyi Sil",
+        `Bu ödemeyle aynı isimde ${relatedPayments.length} ödeme daha var. Ne yapmak istersiniz?`,
+        [
+          { text: "İptal", style: "cancel" },
+          {
+            text: "Sadece bunu sil",
+            onPress: async () => {
+              await deletePayment(payment.id);
+              router.back();
+            },
+          },
+          {
+            text: `Tümünü sil (${relatedPayments.length + 1})`,
+            style: "destructive",
+            onPress: async () => {
+              // Bu ödemeyi ve tüm tekrarları sil
+              await deletePayment(payment.id);
+              for (const relatedPayment of relatedPayments) {
+                await deletePayment(relatedPayment.id);
+              }
+              Alert.alert("Başarılı", `${relatedPayments.length + 1} ödeme silindi`);
+              router.back();
+            },
+          },
+        ]
+      );
+    } else {
+      // Tekrar yoksa, normal silme
+      Alert.alert(
+        "Ödemeyi Sil",
+        "Bu ödemeyi silmek istediğinizden emin misiniz?",
+        [
+          { text: "İptal", style: "cancel" },
+          {
+            text: "Sil",
+            style: "destructive",
+            onPress: async () => {
+              await deletePayment(payment.id);
+              router.back();
+            },
+          },
+        ]
+      );
+    }
   };
 
   const handleTogglePaid = async () => {

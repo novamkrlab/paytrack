@@ -76,8 +76,10 @@
 - [x] Kullanıcıya teslim et (v1.9)
 - [x] Checkpoint oluştur (v2.0 - Otomatik tekrarlanan ödeme oluşturma)
 - [x] Kullanıcıya teslim et (v2.0)
-- [ ] Checkpoint oluştur (v2.1 - Ödeme düzenleme otomatik oluşturma)
-- [ ] Kullanıcıya teslim et (v2.1)
+- [x] Checkpoint oluştur (v2.1 - Ödeme düzenleme otomatik oluşturma)
+- [x] Kullanıcıya teslim et (v2.1)
+- [ ] Checkpoint oluştur (v2.2 - Tekrar silme özelliği)
+- [ ] Kullanıcıya teslim et (v2.2)
 
 ## Yeni Özellikler (Kullanıcı İsteği)
 - [x] Ödeme ekleme formu ekranı
@@ -157,3 +159,10 @@
 - [x] Tekrarlanan ödeme için otomatik oluşturma seçeneği
 - [x] Mevcut ödemeyi baz alarak yeni kayıtlar oluştur
 - [x] Kullanıcıya onay dialogu göster
+
+## Tekrar Silme Özelliği (Kullanıcı İsteği)
+- [x] Ödeme silme dialoguna "Tüm tekrarları sil" seçeneği ekle
+- [x] Aynı seriye ait ödemeleri tespit et (aynı isim)
+- [x] Toplu silme fonksiyonu ekle
+- [x] Kullanıcıya kaç ödeme silineceğini göster
+- [x] Gelir silme için de aynı özelliği ekle
