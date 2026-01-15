@@ -344,5 +344,13 @@
 - [x] İngilizce dil dosyasına eksik incomeDetail çevirilerini ekle (i18n/en.json)
 - [x] Türkçe dil dosyasına eksik incomeDetail çevirilerini ekle (i18n/tr.json)
 - [x] Test et (tüm detay ekranlar İngilizce'de çalışıyor mu) - TypeScript hatası yok
-- [ ] Checkpoint oluştur (v4.2 - İngilizce dil desteği TAM)
-- [ ] Kullanıcıya teslim et (v4.2)
+- [x] Checkpoint oluştur (v4.2 - İngilizce dil desteği TAM)
+- [x] Kullanıcıya teslim et (v4.2)
+
+## Bildirim Metinlerini Çevirme (v4.3)
+- [x] Bildirim servisini çevir (utils/upcoming-payments.ts)
+- [x] İngilizce dil dosyasına eksik bildirim çevirilerini ekle (i18n/en.json)
+- [x] Türkçe dil dosyasına eksik bildirim çevirilerini ekle (i18n/tr.json)
+- [x] Test et (bildirimler İngilizce'de çalışıyor mu) - TypeScript hatası yok
+- [ ] Checkpoint oluştur (v4.3 - İngilizce dil desteği - Bildirimler)
+- [ ] Kullanıcıya teslim et (v4.3)

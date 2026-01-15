@@ -222,6 +222,19 @@
     "payments": "Ödemeler",
     "incomes": "Gelirler"
   },
+  "notifications": {
+    "noUpcoming": "Yaklaşan Ödeme Yok",
+    "noUpcomingBody": "Önümüzdeki 7 gün içinde ödenecek ödeme bulunmuyor.",
+    "todayCount": "Bugün {{count}} Ödeme Var",
+    "tomorrowCount": "Yarın {{count}} Ödeme Var",
+    "thisWeekCount": "Bu Hafta {{count}} Ödeme Var",
+    "total": "Toplam",
+    "tomorrow": "Yarın",
+    "thisWeek": "Bu hafta",
+    "morePayments": "{{count}} ödeme daha",
+    "firstPayment": "İlk ödeme",
+    "daysLater": "{{count}} gün sonra"
+  },
   "settings": {
     "title": "Ayarlar",
     "theme": "Tema",

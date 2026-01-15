@@ -3,6 +3,7 @@
  */
 
 import { Payment } from "@/types";
+import i18n from "@/i18n";
 
 /**
  * İki tarihin aynı gün olup olmadığını kontrol eder
@@ -86,8 +87,8 @@ export function generateNotificationSummary(payments: Payment[]): {
 
   if (upcomingPayments.length === 0) {
     return {
-      title: "Yaklaşan Ödeme Yok",
-      body: "Önümüzdeki 7 gün içinde ödenecek ödeme bulunmuyor.",
+      title: i18n.t("notifications.noUpcoming"),
+      body: i18n.t("notifications.noUpcomingBody"),
     };
   }
 
@@ -99,32 +100,34 @@ export function generateNotificationSummary(payments: Payment[]): {
   let title = "";
   let body = "";
 
+  const locale = i18n.language === "tr" ? "tr-TR" : "en-US";
+
   if (todayPayments.length > 0) {
-    title = `Bugün ${todayPayments.length} Ödeme Var`;
+    title = i18n.t("notifications.todayCount", { count: todayPayments.length });
     const todayTotal = todayPayments.reduce((sum, p) => sum + p.amount, 0);
-    body = `Toplam: ${todayTotal.toLocaleString("tr-TR")} ₺\n`;
+    body = `${i18n.t("notifications.total")}: ${todayTotal.toLocaleString(locale)} ₺\n`;
     
     if (tomorrowPayments.length > 0) {
-      body += `Yarın: ${tomorrowPayments.length} ödeme\n`;
+      body += `${i18n.t("notifications.tomorrow")}: ${tomorrowPayments.length}\n`;
     }
     
     if (upcomingPayments.length > todayPayments.length + tomorrowPayments.length) {
       const remainingCount = upcomingPayments.length - todayPayments.length - tomorrowPayments.length;
-      body += `Bu hafta: ${remainingCount} ödeme daha`;
+      body += `${i18n.t("notifications.thisWeek")}: ${i18n.t("notifications.morePayments", { count: remainingCount })}`;
     }
   } else if (tomorrowPayments.length > 0) {
-    title = `Yarın ${tomorrowPayments.length} Ödeme Var`;
+    title = i18n.t("notifications.tomorrowCount", { count: tomorrowPayments.length });
     const tomorrowTotal = tomorrowPayments.reduce((sum, p) => sum + p.amount, 0);
-    body = `Toplam: ${tomorrowTotal.toLocaleString("tr-TR")} ₺\n`;
+    body = `${i18n.t("notifications.total")}: ${tomorrowTotal.toLocaleString(locale)} ₺\n`;
     
     if (upcomingPayments.length > tomorrowPayments.length) {
       const remainingCount = upcomingPayments.length - tomorrowPayments.length;
-      body += `Bu hafta: ${remainingCount} ödeme daha`;
+      body += `${i18n.t("notifications.thisWeek")}: ${i18n.t("notifications.morePayments", { count: remainingCount })}`;
     }
   } else {
-    title = `Bu Hafta ${upcomingPayments.length} Ödeme Var`;
-    body = `Toplam: ${totalAmount.toLocaleString("tr-TR")} ₺\n`;
-    body += `İlk ödeme: ${upcomingPayments[0].name} (${getDaysUntil(new Date(upcomingPayments[0].dueDate))} gün sonra)`;
+    title = i18n.t("notifications.thisWeekCount", { count: upcomingPayments.length });
+    body = `${i18n.t("notifications.total")}: ${totalAmount.toLocaleString(locale)} ₺\n`;
+    body += `${i18n.t("notifications.firstPayment")}: ${upcomingPayments[0].name} (${i18n.t("notifications.daysLater", { count: getDaysUntil(new Date(upcomingPayments[0].dueDate)) })})`;
   }
 
   return { title, body: body.trim() };

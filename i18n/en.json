@@ -182,6 +182,19 @@
     "payments": "Payments",
     "incomes": "Incomes"
   },
+  "notifications": {
+    "noUpcoming": "No Upcoming Payments",
+    "noUpcomingBody": "No payments due in the next 7 days.",
+    "todayCount": "{{count}} Payment(s) Today",
+    "tomorrowCount": "{{count}} Payment(s) Tomorrow",
+    "thisWeekCount": "{{count}} Payment(s) This Week",
+    "total": "Total",
+    "tomorrow": "Tomorrow",
+    "thisWeek": "This week",
+    "morePayments": "{{count}} more payment(s)",
+    "firstPayment": "First payment",
+    "daysLater": "{{count}} day(s) later"
+  },
   "settings": {
     "title": "Settings",
     "theme": "Theme",
