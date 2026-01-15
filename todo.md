@@ -80,8 +80,8 @@
 - [x] Kullanıcıya teslim et (v2.1)
 - [x] Checkpoint oluştur (v2.2 - Tekrar silme özelliği)
 - [x] Kullanıcıya teslim et (v2.2)
-- [ ] Checkpoint oluştur (v2.3 - Otomatik oluşturma takibi)
-- [ ] Kullanıcıya teslim et (v2.3)
+- [x] Checkpoint oluştur (v2.3 - Otomatik oluşturma takibi)
+- [x] Kullanıcıya teslim et (v2.3)
 
 ## Yeni Özellikler (Kullanıcı İsteği)
 - [x] Ödeme ekleme formu ekranı
@@ -174,3 +174,12 @@
 - [x] Otomatik oluşturma kullanıldığında bu alanı true yap
 - [x] Düzenleme ekranında bu alana göre switch'i devre dışı bırak
 - [x] Switch devre dışıysa kullanıcıya açıklama göster
+
+## Ödeme Düzenleme Hatası (Kullanıcı Bildirimi)
+- [x] Ödeme düzenleme ekranında kopyalama sorunu tespit et
+- [x] updatePayment fonksiyonunu kontrol et
+- [x] Düzenleme ekranında ID'nin doğru geçtiğini kontrol et
+- [x] Hatayı düzelt (otomatik oluşturma sırasında mevcut ödeme siliniyor)
+- [x] Test et
+- [ ] Checkpoint oluştur (v2.4 - Düzenleme hatası düzeltmesi)
+- [ ] Kullanıcıya teslim et (v2.4)
