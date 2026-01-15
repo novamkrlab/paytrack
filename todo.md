@@ -242,5 +242,18 @@
 - [x] Export/import işlemleri için loading göstergeleri ekle
 - [x] Hata durumları için kullanıcı dostu mesajlar ekle
 - [x] Test et (kod tamamlandı, kullanıcı testi gerekli)
-- [ ] Checkpoint oluştur (v3.1 - Veri yedekleme/geri yükleme)
-- [ ] Kullanıcıya teslim et (v3.1)
+- [x] Checkpoint oluştur (v3.1 - Veri yedekleme/geri yükleme)
+- [x] Kullanıcıya teslim et (v3.1)
+
+## Onboarding Ekranı (Google Play Hazırlık - Öncelik 2)
+- [x] Onboarding ekranı oluştur (app/onboarding.tsx)
+- [x] 3 sayfa içeriği hazırla (ödeme takibi, otomatik özellikler, bildirimler)
+- [x] Swipe ile sayfa geçişi ekle (FlatList horizontal)
+- [x] "Atla" butonu ekle (sağ üst)
+- [x] "İleri" ve "Başla" butonları ekle
+- [x] İlk açılış kontrolü ekle (AsyncStorage)
+- [x] Root layout'a onboarding yönlendirmesi ekle
+- [x] Modern, minimal tasarım uygula
+- [x] Test et (kod tamamlandı, kullanıcı testi gerekli)
+- [ ] Checkpoint oluştur (v3.2 - Onboarding ekranı)
+- [ ] Kullanıcıya teslim et (v3.2)
