@@ -352,5 +352,20 @@
 - [x] İngilizce dil dosyasına eksik bildirim çevirilerini ekle (i18n/en.json)
 - [x] Türkçe dil dosyasına eksik bildirim çevirilerini ekle (i18n/tr.json)
 - [x] Test et (bildirimler İngilizce'de çalışıyor mu) - TypeScript hatası yok
-- [ ] Checkpoint oluştur (v4.3 - İngilizce dil desteği - Bildirimler)
-- [ ] Kullanıcıya teslim et (v4.3)
+- [x] Checkpoint oluştur (v4.3 - İngilizce dil desteği - Bildirimler)
+- [x] Kullanıcıya teslim et (v4.3)
+
+## Para Birimi Formatını Dinamikleştirme (v4.4)
+- [x] Para birimi yardımcı fonksiyonu oluştur (utils/currency-helpers.ts)
+- [x] Ana sayfa ekranında para birimi formatını güncelle - ₺ sembolü yok
+- [x] Ödemeler listesi ekranında para birimi formatını güncelle - ₺ sembolü yok
+- [x] Gelirler listesi ekranında para birimi formatını güncelle - ₺ sembolü yok
+- [x] Payment-detail ekranında para birimi formatını güncelle
+- [x] Income-detail ekranında para birimi formatını güncelle
+- [x] Add-payment ekranında para birimi formatını güncelle
+- [x] Add-income ekranında para birimi formatını güncelle - ₺ sembolü yok
+- [x] Takvim ekranında para birimi formatını güncelle - ₺ sembolü yok
+- [x] Bildirim servisinde para birimi formatını güncelle
+- [x] Test et (para birimi formatı İngilizce'de $ gösteriyor mu) - TypeScript hatası yok
+- [ ] Checkpoint oluştur (v4.4 - Para birimi formatı dinamik)
+- [ ] Kullanıcıya teslim et (v4.4)

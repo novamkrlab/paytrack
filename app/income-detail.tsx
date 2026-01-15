@@ -19,6 +19,7 @@ import {
   INCOME_TYPE_NAMES,
 } from "@/types";
 import { useTranslation } from "react-i18next";
+import { formatCurrency } from "@/utils/currency-helpers";
 
 export default function IncomeDetailScreen() {
   const router = useRouter();
@@ -208,7 +209,7 @@ export default function IncomeDetailScreen() {
           <View className="gap-4">
             <View className="bg-surface rounded-2xl p-4 border border-border">
               <Text className="text-sm text-muted mb-1">{t("incomeDetail.amount")}</Text>
-              <Text className="text-2xl font-bold text-success">{income.amount.toFixed(2)} ₺</Text>
+              <Text className="text-2xl font-bold text-success">{formatCurrency(income.amount)}</Text>
             </View>
             <View className="bg-surface rounded-2xl p-4 border border-border">
               <Text className="text-sm text-muted mb-1">{t("incomeDetail.type")}</Text>

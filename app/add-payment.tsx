@@ -17,6 +17,7 @@ import {
   RECURRENCE_NAMES,
 } from "@/types";
 import { useTranslation } from "react-i18next";
+import { formatCurrency } from "@/utils/currency-helpers";
 
 export default function AddPaymentScreen() {
   const router = useRouter();
@@ -210,9 +211,9 @@ export default function AddPaymentScreen() {
               <View className="mt-2 p-3 bg-surface rounded-lg border border-border">
                 <Text className="text-xs text-muted mb-1">{t("paymentDetail.totalAmountCalculation")}</Text>
                 <Text className="text-sm text-foreground">
-                  {calculatePeriodCount(dueDate, recurrenceEndDate, recurrenceFrequency)} dönem × {Number(amount).toLocaleString('tr-TR')} ₺ = {' '}
+                  {calculatePeriodCount(dueDate, recurrenceEndDate, recurrenceFrequency)} dönem × {formatCurrency(Number(amount))} = {' '}
                   <Text className="font-semibold text-primary">
-                    {calculateTotalAmount(Number(amount), dueDate, recurrenceEndDate, recurrenceFrequency).toLocaleString('tr-TR')} ₺
+                    {formatCurrency(calculateTotalAmount(Number(amount), dueDate, recurrenceEndDate, recurrenceFrequency))}
                   </Text>
                 </Text>
               </View>

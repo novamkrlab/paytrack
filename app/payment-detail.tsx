@@ -17,6 +17,7 @@ import {
   STATUS_NAMES,
 } from "@/types";
 import { useTranslation } from "react-i18next";
+import { formatCurrency } from "@/utils/currency-helpers";
 
 export default function PaymentDetailScreen() {
   const router = useRouter();
@@ -318,7 +319,7 @@ export default function PaymentDetailScreen() {
           <View className="gap-4">
             <View className="bg-surface rounded-2xl p-4 border border-border">
               <Text className="text-sm text-muted mb-1">{t("paymentDetail.amount")}</Text>
-              <Text className="text-2xl font-bold text-foreground">{payment.amount.toFixed(2)} ₺</Text>
+              <Text className="text-2xl font-bold text-foreground">{formatCurrency(payment.amount)}</Text>
             </View>
             <View className="bg-surface rounded-2xl p-4 border border-border">
               <Text className="text-sm text-muted mb-1">{t("paymentDetail.category")}</Text>
@@ -409,9 +410,9 @@ export default function PaymentDetailScreen() {
                   <View className="mt-2 p-3 bg-surface rounded-lg border border-border">
                     <Text className="text-xs text-muted mb-1">{t("paymentDetail.totalAmountCalculation")}</Text>
                     <Text className="text-sm text-foreground">
-                      {calculatePeriodCount(dueDate, recurrenceEndDate, recurrenceFrequency)} {t("paymentDetail.periods")} × {Number(amount).toLocaleString(i18n.language === "tr" ? "tr-TR" : "en-US")} ₺ = {' '}
+                      {calculatePeriodCount(dueDate, recurrenceEndDate, recurrenceFrequency)} {t("paymentDetail.periods")} × {formatCurrency(Number(amount))} = {' '}
                       <Text className="font-semibold text-primary">
-                        {calculateTotalAmount(Number(amount), dueDate, recurrenceEndDate, recurrenceFrequency).toLocaleString(i18n.language === "tr" ? "tr-TR" : "en-US")} ₺
+                        {formatCurrency(calculateTotalAmount(Number(amount), dueDate, recurrenceEndDate, recurrenceFrequency))}
                       </Text>
                     </Text>
                   </View>
