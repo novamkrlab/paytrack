@@ -2,7 +2,7 @@
  * Ayarlar Ekranı
  */
 
-import { ScrollView, Text, View, Switch, TouchableOpacity, Alert, Platform } from "react-native";
+import { ScrollView, Text, View, Switch, TouchableOpacity, Alert, Platform, ActivityIndicator } from "react-native";
 import { ScreenContainer } from "@/components/screen-container";
 import { useApp } from "@/lib/app-context";
 import { useColorScheme } from "@/hooks/use-color-scheme";
@@ -17,10 +17,12 @@ import {
 } from "@/services/daily-notification";
 
 export default function SettingsScreen() {
-  const { state, updateSettings, resetAllData } = useApp();
+  const { state, updateSettings, resetAllData, exportData, importData } = useApp();
   const colorScheme = useColorScheme();
   const [dailyNotificationEnabled, setDailyNotificationEnabled] = useState(true);
   const [dailyNotificationHour, setDailyNotificationHour] = useState(8);
+  const [isExporting, setIsExporting] = useState(false);
+  const [isImporting, setIsImporting] = useState(false);
 
   // Bildirim ayarlarını yükle
   useEffect(() => {
@@ -85,6 +87,47 @@ export default function SettingsScreen() {
       ],
       "plain-text",
       dailyNotificationHour.toString()
+    );
+  };
+
+  const handleExportData = async () => {
+    setIsExporting(true);
+    const result = await exportData();
+    setIsExporting(false);
+    
+    if (result.success) {
+      Alert.alert("Başarılı", result.message);
+    } else {
+      Alert.alert("Hata", result.message);
+    }
+  };
+
+  const handleImportData = () => {
+    Alert.alert(
+      "Verileri İçe Aktar",
+      "Mevcut verilerinizi korumak istiyor musunuz?",
+      [
+        { text: "İptal", style: "cancel" },
+        {
+          text: "Mevcut Verileri Sil",
+          style: "destructive",
+          onPress: async () => {
+            setIsImporting(true);
+            const result = await importData(true);
+            setIsImporting(false);
+            Alert.alert(result.success ? "Başarılı" : "Hata", result.message);
+          },
+        },
+        {
+          text: "Birleştir",
+          onPress: async () => {
+            setIsImporting(true);
+            const result = await importData(false);
+            setIsImporting(false);
+            Alert.alert(result.success ? "Başarılı" : "Hata", result.message);
+          },
+        },
+      ]
     );
   };
 
@@ -241,14 +284,47 @@ export default function SettingsScreen() {
             Veri Yönetimi
           </Text>
 
-          <TouchableOpacity
-            className="bg-error rounded-2xl p-4 items-center active:opacity-80"
-            onPress={handleResetData}
-          >
-            <Text className="text-background font-semibold text-base">
-              Tüm Verileri Sil
-            </Text>
-          </TouchableOpacity>
+          <View className="gap-3">
+            {/* Dışa Aktar */}
+            <TouchableOpacity
+              className="bg-primary rounded-2xl p-4 items-center active:opacity-80"
+              onPress={handleExportData}
+              disabled={isExporting}
+            >
+              {isExporting ? (
+                <ActivityIndicator color="#fff" />
+              ) : (
+                <Text className="text-background font-semibold text-base">
+                  Verileri Dışa Aktar
+                </Text>
+              )}
+            </TouchableOpacity>
+
+            {/* İçe Aktar */}
+            <TouchableOpacity
+              className="bg-success rounded-2xl p-4 items-center active:opacity-80"
+              onPress={handleImportData}
+              disabled={isImporting}
+            >
+              {isImporting ? (
+                <ActivityIndicator color="#fff" />
+              ) : (
+                <Text className="text-background font-semibold text-base">
+                  Verileri İçe Aktar
+                </Text>
+              )}
+            </TouchableOpacity>
+
+            {/* Tüm Verileri Sil */}
+            <TouchableOpacity
+              className="bg-error rounded-2xl p-4 items-center active:opacity-80"
+              onPress={handleResetData}
+            >
+              <Text className="text-background font-semibold text-base">
+                Tüm Verileri Sil
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
 
         {/* Uygulama Bilgisi */}

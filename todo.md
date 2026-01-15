@@ -227,5 +227,20 @@
 - [x] Bildirime tıklayınca Ödemeler ekranı açılmasını sağla
 - [x] Uygulama açılışında bildirim izni iste
 - [x] Test et (kod tamamlandı, kullanıcı testi gerekli)
-- [ ] Checkpoint oluştur (v3.0 - Günlük ödeme bildirimi)
-- [ ] Kullanıcıya teslim et (v3.0)
+- [x] Checkpoint oluştur (v3.0 - Günlük ödeme bildirimi)
+- [x] Kullanıcıya teslim et (v3.0)
+
+## Veri Yedekleme/Geri Yükleme (Google Play Hazırlık - Öncelik 1)
+- [x] Export fonksiyonu yaz (JSON formatında tüm veriler)
+- [x] Import fonksiyonu yaz (JSON dosyasından veri okuma)
+- [x] Dosya paylaşımı için expo-sharing entegrasyonu
+- [x] Dosya seçici için expo-document-picker entegrasyonu
+- [x] Ayarlar ekranına "Veri Yönetimi" bölümü ekle
+- [x] "Verileri Dışa Aktar" butonu ekle
+- [x] "Verileri İçe Aktar" butonu ekle
+- [x] İçe aktarma sırasında "Mevcut verileri sil" seçeneği ekle
+- [x] Export/import işlemleri için loading göstergeleri ekle
+- [x] Hata durumları için kullanıcı dostu mesajlar ekle
+- [x] Test et (kod tamamlandı, kullanıcı testi gerekli)
+- [ ] Checkpoint oluştur (v3.1 - Veri yedekleme/geri yükleme)
+- [ ] Kullanıcıya teslim et (v3.1)

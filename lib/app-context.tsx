@@ -114,6 +114,9 @@ interface AppContextType {
   deleteIncome: (id: string) => Promise<void>;
   updateSettings: (settings: Partial<AppSettings>) => Promise<void>;
   resetAllData: () => Promise<void>;
+  // Veri yedekleme/geri yükleme
+  exportData: () => Promise<{ success: boolean; message: string }>;
+  importData: (replaceExisting: boolean) => Promise<{ success: boolean; message: string }>;
 }
 
 // Context oluşturma
@@ -332,7 +335,64 @@ export function AppProvider({ children }: { children: ReactNode }) {
       ]);
       dispatch({ type: "RESET_ALL" });
     } catch (error) {
-      console.error("Veri sıfırlama hatası:", error);
+      console.error("Reset error:", error);
+    }
+  };
+
+  // Verileri dışa aktar
+  const exportData = async (): Promise<{ success: boolean; message: string }> => {
+    try {
+      const { exportData: exportDataFn } = await import("@/services/data-backup");
+      return await exportDataFn(state.payments, state.incomes, state.settings);
+    } catch (error) {
+      console.error("Export error:", error);
+      return {
+        success: false,
+        message: `Dışa aktarma hatası: ${error instanceof Error ? error.message : "Bilinmeyen hata"}`,
+      };
+    }
+  };
+
+  // Verileri içe aktar
+  const importData = async (replaceExisting: boolean): Promise<{ success: boolean; message: string }> => {
+    try {
+      const { importData: importDataFn, mergeData } = await import("@/services/data-backup");
+      const result = await importDataFn();
+
+      if (!result.success || !result.data) {
+        return result;
+      }
+
+      // Verileri birleştir veya değiştir
+      const { payments, incomes } = mergeData(
+        state.payments,
+        state.incomes,
+        result.data.payments,
+        result.data.incomes,
+        replaceExisting
+      );
+
+      // State'ı güncelle
+      dispatch({ type: "SET_PAYMENTS", payload: payments });
+      dispatch({ type: "SET_INCOMES", payload: incomes });
+
+      // AsyncStorage'a kaydet
+      await savePayments(payments);
+      await saveIncomes(incomes);
+
+      // Bildirimleri yeniden zamanla
+      await scheduleAllPaymentNotifications(payments);
+
+      return {
+        success: true,
+        message: `${result.data.payments.length} ödeme ve ${result.data.incomes.length} gelir başarıyla içe aktarıldı`,
+      };
+    } catch (error) {
+      console.error("Import error:", error);
+      return {
+        success: false,
+        message: `İçe aktarma hatası: ${error instanceof Error ? error.message : "Bilinmeyen hata"}`,
+      };
     }
   };
 
@@ -349,6 +409,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
     deleteIncome,
     updateSettings,
     resetAllData,
+    exportData,
+    importData,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
