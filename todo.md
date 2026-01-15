@@ -70,8 +70,10 @@
 - [x] Kullanıcıya teslim et (v1.6)
 - [x] Checkpoint oluştur (v1.7 - Tarih karşılaştırma düzeltmesi)
 - [x] Kullanıcıya teslim et (v1.7)
-- [ ] Checkpoint oluştur (v1.8 - Tekrarlanan ödemeler iyileştirmesi)
-- [ ] Kullanıcıya teslim et (v1.8)
+- [x] Checkpoint oluştur (v1.8 - Tekrarlanan ödemeler iyileştirmesi)
+- [x] Kullanıcıya teslim et (v1.8)
+- [ ] Checkpoint oluştur (v1.9 - Otomatik taksit oluşturma)
+- [ ] Kullanıcıya teslim et (v1.9)
 
 ## Yeni Özellikler (Kullanıcı İsteği)
 - [x] Ödeme ekleme formu ekranı
@@ -129,3 +131,11 @@
 - [x] Ödeme ekleme formunu güncelle
 - [x] Ödeme düzenleme formunu güncelle
 - [x] Detay ekranında toplam tutar bilgisini göster
+
+## Otomatik Taksit Oluşturma (Kullanıcı İsteği)
+- [x] Taksit oluşturma fonksiyonu yaz (ilk tarih + taksit sayısı → tüm taksitler)
+- [x] Ödeme ekleme formuna "Otomatik Oluştur" seçeneği ekle
+- [x] Her taksit için ayrı ödeme kaydı oluştur
+- [x] Taksit numarasını otomatik ata (1/12, 2/12, vb.)
+- [x] Kullanıcıya onay dialogu göster
+- [x] Oluşturulan taksitleri listele

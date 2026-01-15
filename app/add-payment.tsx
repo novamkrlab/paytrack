@@ -8,6 +8,7 @@ import { useRouter } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
 import { TextInputField, DatePickerField, PickerField, SwitchField } from "@/components/form-input";
 import { calculatePeriodCount, calculateTotalAmount } from "@/utils/date-helpers";
+import { generateInstallments } from "@/utils/installment-helpers";
 import { useApp } from "@/lib/app-context";
 import {
   PaymentCategory,
@@ -28,6 +29,7 @@ export default function AddPaymentScreen() {
   const [installmentTotal, setInstallmentTotal] = useState("");
   const [installmentCurrent, setInstallmentCurrent] = useState("");
   const [installmentEndDate, setInstallmentEndDate] = useState<Date | null>(null);
+  const [autoGenerateInstallments, setAutoGenerateInstallments] = useState(false);
   const [recurrenceEndDate, setRecurrenceEndDate] = useState<Date | null>(null);
   const [hasRecurrence, setHasRecurrence] = useState(false);
   const [recurrenceFrequency, setRecurrenceFrequency] = useState<RecurrenceFrequency>(RecurrenceFrequency.MONTHLY);
@@ -54,8 +56,11 @@ export default function AddPaymentScreen() {
     if (hasInstallments) {
       if (!installmentTotal.trim()) newErrors.installmentTotal = "Toplam taksit sayısı gerekli";
       else if (isNaN(Number(installmentTotal)) || Number(installmentTotal) <= 0) newErrors.installmentTotal = "Geçerli bir sayı giriniz";
-      if (!installmentCurrent.trim()) newErrors.installmentCurrent = "Mevcut taksit sayısı gerekli";
-      else if (isNaN(Number(installmentCurrent)) || Number(installmentCurrent) <= 0) newErrors.installmentCurrent = "Geçerli bir sayı giriniz";
+      // Otomatik oluşturma aktif değilse mevcut taksit gerekli
+      if (!autoGenerateInstallments) {
+        if (!installmentCurrent.trim()) newErrors.installmentCurrent = "Mevcut taksit sayısı gerekli";
+        else if (isNaN(Number(installmentCurrent)) || Number(installmentCurrent) <= 0) newErrors.installmentCurrent = "Geçerli bir sayı giriniz";
+      }
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -63,6 +68,32 @@ export default function AddPaymentScreen() {
 
   const handleSubmit = async () => {
     if (!validate()) return;
+
+    // Otomatik taksit oluşturma aktifse
+    if (hasInstallments && autoGenerateInstallments) {
+      const installments = generateInstallments(
+        name.trim(),
+        Number(amount),
+        category,
+        dueDate,
+        Number(installmentTotal),
+        notes.trim() || undefined
+      );
+
+      // Tüm taksitleri ekle
+      for (const installment of installments) {
+        await addPayment(installment);
+      }
+
+      Alert.alert(
+        "Başarılı",
+        `${installments.length} taksit otomatik oluşturuldu`,
+        [{ text: "Tamam", onPress: () => router.back() }]
+      );
+      return;
+    }
+
+    // Normal ödeme ekleme
     const payment = {
       name: name.trim(),
       amount: Number(amount),
@@ -109,9 +140,30 @@ export default function AddPaymentScreen() {
         <SwitchField label="Taksitli Ödeme" value={hasInstallments} onChange={setHasInstallments} description="Bu ödeme taksitli mi?" />
         {hasInstallments && (
           <View className="ml-4 mb-4">
+            <SwitchField 
+              label="Otomatik Oluştur" 
+              value={autoGenerateInstallments} 
+              onChange={(value) => {
+                setAutoGenerateInstallments(value);
+                if (value) {
+                  setInstallmentCurrent("1"); // Otomatik oluşturma aktifse ilk taksit 1
+                }
+              }} 
+              description="Tüm taksitleri otomatik oluştur" 
+            />
             <TextInputField label="Toplam Taksit Sayısı" value={installmentTotal} onChangeText={setInstallmentTotal} placeholder="12" keyboardType="numeric" error={errors.installmentTotal} required />
-            <TextInputField label="Mevcut Taksit" value={installmentCurrent} onChangeText={setInstallmentCurrent} placeholder="3" keyboardType="numeric" error={errors.installmentCurrent} required />
+            {!autoGenerateInstallments && (
+              <TextInputField label="Mevcut Taksit" value={installmentCurrent} onChangeText={setInstallmentCurrent} placeholder="3" keyboardType="numeric" error={errors.installmentCurrent} required />
+            )}
             <DatePickerField label="Son Taksit Tarihi" value={installmentEndDate || new Date()} onChange={setInstallmentEndDate} />
+            {autoGenerateInstallments && installmentTotal && (
+              <View className="mt-2 p-3 bg-surface rounded-lg border border-border">
+                <Text className="text-xs text-muted mb-1">⚠️ Otomatik Oluşturma</Text>
+                <Text className="text-sm text-foreground">
+                  {installmentTotal} adet taksit otomatik oluşturulacak (aylık)
+                </Text>
+              </View>
+            )}
           </View>
         )}
         <SwitchField label="Tekrarlanan Ödeme" value={hasRecurrence} onChange={setHasRecurrence} description="Bu ödeme düzenli olarak tekrarlanıyor mu?" />
