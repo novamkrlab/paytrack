@@ -16,10 +16,12 @@ import {
   CATEGORY_NAMES,
   STATUS_NAMES,
 } from "@/types";
+import { useTranslation } from "react-i18next";
 
 export default function PaymentDetailScreen() {
   const router = useRouter();
   const params = useLocalSearchParams();
+  const { t, i18n } = useTranslation();
   const { state, addPayment, updatePayment, deletePayment, togglePaymentStatus } = useApp();
   
   const payment = state.payments.find((p) => p.id === params.id);
@@ -51,12 +53,12 @@ export default function PaymentDetailScreen() {
     return (
       <ScreenContainer>
         <View className="flex-1 items-center justify-center p-6">
-          <Text className="text-xl text-foreground">Ödeme bulunamadı</Text>
+          <Text className="text-xl text-foreground">{t("paymentDetail.notFound")}</Text>
           <TouchableOpacity
             className="mt-4 bg-primary rounded-2xl px-6 py-3"
             onPress={() => router.back()}
           >
-            <Text className="text-background font-semibold">Geri Dön</Text>
+            <Text className="text-background font-semibold">{t("paymentDetail.goBack")}</Text>
           </TouchableOpacity>
         </View>
       </ScreenContainer>
@@ -64,28 +66,28 @@ export default function PaymentDetailScreen() {
   }
 
   const categoryOptions = [
-    { label: "Kredi Kartı", value: PaymentCategory.CREDIT_CARD },
-    { label: "Kredi", value: PaymentCategory.LOAN },
-    { label: "Diğer", value: PaymentCategory.OTHER },
+    { label: t("categories.creditCard"), value: PaymentCategory.CREDIT_CARD },
+    { label: t("categories.loan"), value: PaymentCategory.LOAN },
+    { label: t("categories.other"), value: PaymentCategory.OTHER },
   ];
 
   const recurrenceOptions = [
-    { label: "Günlük", value: RecurrenceFrequency.DAILY },
-    { label: "Haftalık", value: RecurrenceFrequency.WEEKLY },
-    { label: "Aylık", value: RecurrenceFrequency.MONTHLY },
-    { label: "Yıllık", value: RecurrenceFrequency.YEARLY },
+    { label: t("recurrence.daily"), value: RecurrenceFrequency.DAILY },
+    { label: t("recurrence.weekly"), value: RecurrenceFrequency.WEEKLY },
+    { label: t("recurrence.monthly"), value: RecurrenceFrequency.MONTHLY },
+    { label: t("recurrence.yearly"), value: RecurrenceFrequency.YEARLY },
   ];
 
   const validate = (): boolean => {
     const newErrors: Record<string, string> = {};
-    if (!name.trim()) newErrors.name = "Ödeme adı gerekli";
-    if (!amount.trim()) newErrors.amount = "Tutar gerekli";
-    else if (isNaN(Number(amount)) || Number(amount) <= 0) newErrors.amount = "Geçerli bir tutar giriniz";
+    if (!name.trim()) newErrors.name = t("paymentDetail.nameRequired");
+    if (!amount.trim()) newErrors.amount = t("paymentDetail.amountRequired");
+    else if (isNaN(Number(amount)) || Number(amount) <= 0) newErrors.amount = t("paymentDetail.validAmount");
     if (hasInstallments) {
       if (!installmentTotal.trim() || isNaN(Number(installmentTotal)) || Number(installmentTotal) <= 0)
-        newErrors.installmentTotal = "Geçerli bir sayı giriniz";
+        newErrors.installmentTotal = t("paymentDetail.validNumber");
       if (!installmentCurrent.trim() || isNaN(Number(installmentCurrent)) || Number(installmentCurrent) <= 0)
-        newErrors.installmentCurrent = "Geçerli bir sayı giriniz";
+        newErrors.installmentCurrent = t("paymentDetail.validNumber");
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -115,9 +117,9 @@ export default function PaymentDetailScreen() {
       }
 
       Alert.alert(
-        "Başarılı",
-        `${recurringPayments.length} tekrarlanan ödeme otomatik oluşturuldu`,
-        [{ text: "Tamam", onPress: () => router.back() }]
+        t("paymentDetail.success"),
+        t("paymentDetail.recurringCreated", { count: recurringPayments.length }),
+        [{ text: t("paymentDetail.ok"), onPress: () => router.back() }]
       );
       return;
     }
@@ -142,9 +144,9 @@ export default function PaymentDetailScreen() {
       }
 
       Alert.alert(
-        "Başarılı",
-        `${installments.length} taksit otomatik oluşturuldu`,
-        [{ text: "Tamam", onPress: () => router.back() }]
+        t("paymentDetail.success"),
+        t("paymentDetail.installmentsCreated", { count: installments.length }),
+        [{ text: t("paymentDetail.ok"), onPress: () => router.back() }]
       );
       return;
     }
@@ -169,7 +171,7 @@ export default function PaymentDetailScreen() {
     };
     await updatePayment(updatedPayment);
     setIsEditing(false);
-    Alert.alert("Başarılı", "Ödeme güncellendi");
+    Alert.alert(t("paymentDetail.success"), t("paymentDetail.updated"));
   };
 
   const handleDelete = () => {
@@ -223,9 +225,9 @@ export default function PaymentDetailScreen() {
 
       // Seçenekleri hazırla
       const buttons: any[] = [
-        { text: "İptal", style: "cancel" },
+        { text: t("paymentDetail.cancel"), style: "cancel" },
         {
-          text: "Sadece bunu sil",
+          text: t("paymentDetail.deleteOnlyThis"),
           onPress: async () => {
             await deletePayment(payment.id);
             router.back();
@@ -244,7 +246,7 @@ export default function PaymentDetailScreen() {
             for (const futurePayment of futurePayments) {
               await deletePayment(futurePayment.id);
             }
-            Alert.alert("Başarılı", `${futurePayments.length + 1} ödeme silindi`);
+            Alert.alert(t("paymentDetail.success"), t("paymentDetail.deleted", { count: futurePayments.length + 1 }));
             router.back();
           },
         });
@@ -260,26 +262,26 @@ export default function PaymentDetailScreen() {
           for (const relatedPayment of relatedPayments) {
             await deletePayment(relatedPayment.id);
           }
-          Alert.alert("Başarılı", `${relatedPayments.length + 1} ödeme silindi`);
+          Alert.alert(t("paymentDetail.success"), t("paymentDetail.deleted", { count: relatedPayments.length + 1 }));
           router.back();
         },
       });
 
       // Tekrarlar varsa, seçenek sun
       Alert.alert(
-        "Ödemeyi Sil",
-        `Bu ödemeyle aynı isimde ${relatedPayments.length} ödeme daha var. Ne yapmak istersiniz?`,
+        t("paymentDetail.deleteTitle"),
+        t("paymentDetail.deleteMultipleMessage", { count: relatedPayments.length }),
         buttons
       );
     } else {
       // Tekrar yoksa, normal silme
       Alert.alert(
-        "Ödemeyi Sil",
-        "Bu ödemeyi silmek istediğinizden emin misiniz?",
+        t("paymentDetail.deleteTitle"),
+        t("paymentDetail.deleteMessage"),
         [
-          { text: "İptal", style: "cancel" },
+          { text: t("paymentDetail.cancel"), style: "cancel" },
           {
-            text: "Sil",
+            text: t("paymentDetail.delete"),
             style: "destructive",
             onPress: async () => {
               await deletePayment(payment.id);
@@ -304,46 +306,46 @@ export default function PaymentDetailScreen() {
           className="flex-row items-center mb-4"
         >
           <Text className="text-2xl text-primary mr-2">‹</Text>
-          <Text className="text-base text-primary font-medium">Geri</Text>
+          <Text className="text-base text-primary font-medium">{t("common.back")}</Text>
         </TouchableOpacity>
 
         <View className="mb-6">
-          <Text className="text-3xl font-bold text-foreground">{isEditing ? "Ödeme Düzenle" : "Ödeme Detayı"}</Text>
-          <Text className="text-base text-muted mt-1">{isEditing ? "Bilgileri güncelleyin" : payment.name}</Text>
+          <Text className="text-3xl font-bold text-foreground">{isEditing ? t("paymentDetail.editTitle") : t("paymentDetail.title")}</Text>
+          <Text className="text-base text-muted mt-1">{isEditing ? t("paymentDetail.subtitle") : payment.name}</Text>
         </View>
 
         {!isEditing ? (
           <View className="gap-4">
             <View className="bg-surface rounded-2xl p-4 border border-border">
-              <Text className="text-sm text-muted mb-1">Tutar</Text>
+              <Text className="text-sm text-muted mb-1">{t("paymentDetail.amount")}</Text>
               <Text className="text-2xl font-bold text-foreground">{payment.amount.toFixed(2)} ₺</Text>
             </View>
             <View className="bg-surface rounded-2xl p-4 border border-border">
-              <Text className="text-sm text-muted mb-1">Kategori</Text>
+              <Text className="text-sm text-muted mb-1">{t("paymentDetail.category")}</Text>
               <Text className="text-base text-foreground">{CATEGORY_NAMES[payment.category]}</Text>
             </View>
             <View className="bg-surface rounded-2xl p-4 border border-border">
-              <Text className="text-sm text-muted mb-1">Ödeme Tarihi</Text>
-              <Text className="text-base text-foreground">{new Date(payment.dueDate).toLocaleDateString("tr-TR")}</Text>
+              <Text className="text-sm text-muted mb-1">{t("paymentDetail.paymentDate")}</Text>
+              <Text className="text-base text-foreground">{new Date(payment.dueDate).toLocaleDateString(i18n.language === "tr" ? "tr-TR" : "en-US")}</Text>
             </View>
             <View className="bg-surface rounded-2xl p-4 border border-border">
-              <Text className="text-sm text-muted mb-1">Durum</Text>
+              <Text className="text-sm text-muted mb-1">{t("paymentDetail.status")}</Text>
               <Text className="text-base text-foreground">{STATUS_NAMES[payment.status]}</Text>
             </View>
             {payment.installments && (
               <View className="bg-surface rounded-2xl p-4 border border-border">
-                <Text className="text-sm text-muted mb-1">Taksit</Text>
+                <Text className="text-sm text-muted mb-1">{t("paymentDetail.installment")}</Text>
                 <Text className="text-base text-foreground">{payment.installments.current} / {payment.installments.total}</Text>
                 {payment.installments.endDate && (
                   <Text className="text-sm text-muted mt-1">
-                    Son Taksit: {new Date(payment.installments.endDate).toLocaleDateString('tr-TR')}
+                    {t("paymentDetail.lastInstallment")}: {new Date(payment.installments.endDate).toLocaleDateString(i18n.language === "tr" ? "tr-TR" : "en-US")}
                   </Text>
                 )}
               </View>
             )}
             {payment.notes && (
               <View className="bg-surface rounded-2xl p-4 border border-border">
-                <Text className="text-sm text-muted mb-1">Notlar</Text>
+                <Text className="text-sm text-muted mb-1">{t("paymentDetail.notes")}</Text>
                 <Text className="text-base text-foreground">{payment.notes}</Text>
               </View>
             )}
@@ -354,71 +356,71 @@ export default function PaymentDetailScreen() {
             </View>
             <View className="flex-row gap-3">
               <TouchableOpacity className="flex-1 bg-surface border border-border rounded-2xl p-4 items-center" onPress={() => setIsEditing(true)}>
-                <Text className="text-foreground font-semibold">Düzenle</Text>
+                <Text className="text-foreground font-semibold">{t("paymentDetail.edit")}</Text>
               </TouchableOpacity>
               <TouchableOpacity className="flex-1 bg-error rounded-2xl p-4 items-center" onPress={handleDelete}>
-                <Text className="text-background font-semibold">Sil</Text>
+                <Text className="text-background font-semibold">{t("paymentDetail.delete")}</Text>
               </TouchableOpacity>
             </View>
           </View>
         ) : (
           <View>
-            <TextInputField label="Ödeme Adı" value={name} onChangeText={setName} error={errors.name} required />
-            <TextInputField label="Tutar" value={amount} onChangeText={setAmount} keyboardType="numeric" error={errors.amount} required />
-            <PickerField label="Kategori" value={category} onChange={(value) => setCategory(value as PaymentCategory)} options={categoryOptions} required />
-            <DatePickerField label="Ödeme Tarihi" value={dueDate} onChange={setDueDate} required />
-            <TextInputField label="Notlar" value={notes} onChangeText={setNotes} multiline />
-            <SwitchField label="Taksitli Ödeme" value={hasInstallments} onChange={setHasInstallments} />
+            <TextInputField label={t("paymentDetail.name")} value={name} onChangeText={setName} error={errors.name} required />
+            <TextInputField label={t("paymentDetail.amount")} value={amount} onChangeText={setAmount} keyboardType="numeric" error={errors.amount} required />
+            <PickerField label={t("paymentDetail.category")} value={category} onChange={(value) => setCategory(value as PaymentCategory)} options={categoryOptions} required />
+            <DatePickerField label={t("paymentDetail.paymentDate")} value={dueDate} onChange={setDueDate} required />
+            <TextInputField label={t("paymentDetail.notes")} value={notes} onChangeText={setNotes} multiline />
+            <SwitchField label={t("paymentDetail.installmentPayment")} value={hasInstallments} onChange={setHasInstallments} />
             {hasInstallments && (
               <View className="ml-4 mb-4">
                 <SwitchField 
-                  label="Otomatik Oluştur" 
+                  label={t("paymentDetail.autoGenerateInstallments")} 
                   value={autoGenerateInstallments || !!payment.autoGenerated} 
                   onChange={setAutoGenerateInstallments} 
-                  description={payment.autoGenerated ? "Bu ödeme zaten otomatik oluşturulmuş" : "Tüm taksitleri otomatik oluştur"} 
+                  description={payment.autoGenerated ? t("paymentDetail.willCreateInstallments", { count: Number(installmentTotal) }) : t("paymentDetail.willCreateInstallments", { count: Number(installmentTotal) })} 
                   disabled={payment.autoGenerated}
                 />
-                <TextInputField label="Toplam Taksit" value={installmentTotal} onChangeText={setInstallmentTotal} keyboardType="numeric" error={errors.installmentTotal} required />
-                <TextInputField label="Mevcut Taksit" value={installmentCurrent} onChangeText={setInstallmentCurrent} keyboardType="numeric" error={errors.installmentCurrent} required />
-                <DatePickerField label="Son Taksit Tarihi" value={installmentEndDate || new Date()} onChange={setInstallmentEndDate} />
+                <TextInputField label={t("paymentDetail.totalInstallments")} value={installmentTotal} onChangeText={setInstallmentTotal} keyboardType="numeric" error={errors.installmentTotal} required />
+                <TextInputField label={t("paymentDetail.currentInstallment")} value={installmentCurrent} onChangeText={setInstallmentCurrent} keyboardType="numeric" error={errors.installmentCurrent} required />
+                <DatePickerField label={t("paymentDetail.lastInstallmentDate")} value={installmentEndDate || new Date()} onChange={setInstallmentEndDate} />
                 {autoGenerateInstallments && (
                   <View className="mt-2 p-3 bg-surface rounded-lg border border-border">
-                    <Text className="text-xs text-muted mb-1">⚠️ Otomatik Oluşturma</Text>
+                    <Text className="text-xs text-muted mb-1">⚠️ {t("paymentDetail.autoGenerateInstallments")}</Text>
                     <Text className="text-sm text-foreground">
-                      {installmentTotal} adet taksit otomatik oluşturulacak
+                      {t("paymentDetail.willCreateInstallments", { count: Number(installmentTotal) })}
                     </Text>
                   </View>
                 )}
               </View>
             )}
-            <SwitchField label="Tekrarlanan Ödeme" value={hasRecurrence} onChange={setHasRecurrence} />
+            <SwitchField label={t("paymentDetail.recurringPayment")} value={hasRecurrence} onChange={setHasRecurrence} />
             {hasRecurrence && (
               <View className="ml-4 mb-4">
                 <SwitchField 
-                  label="Otomatik Oluştur" 
+                  label={t("paymentDetail.autoGenerateRecurring")} 
                   value={autoGenerateRecurrence || !!payment.autoGenerated} 
                   onChange={setAutoGenerateRecurrence} 
-                  description={payment.autoGenerated ? "Bu ödeme zaten otomatik oluşturulmuş" : "Tüm tekrarlanan ödemeleri otomatik oluştur"} 
+                  description={payment.autoGenerated ? t("paymentDetail.willCreateRecurring", { count: 0 }) : t("paymentDetail.willCreateRecurring", { count: recurrenceEndDate ? calculatePeriodCount(dueDate, recurrenceEndDate, recurrenceFrequency) : 0 })} 
                   disabled={payment.autoGenerated}
                 />
-                <PickerField label="Sıklık" value={recurrenceFrequency} onChange={(value) => setRecurrenceFrequency(value as RecurrenceFrequency)} options={recurrenceOptions} required />
-                <DatePickerField label="Son Ödeme Tarihi" value={recurrenceEndDate || new Date()} onChange={setRecurrenceEndDate} />
+                <PickerField label={t("paymentDetail.frequency")} value={recurrenceFrequency} onChange={(value) => setRecurrenceFrequency(value as RecurrenceFrequency)} options={recurrenceOptions} required />
+                <DatePickerField label={t("paymentDetail.lastPaymentDate")} value={recurrenceEndDate || new Date()} onChange={setRecurrenceEndDate} />
                 {recurrenceEndDate && amount && (
                   <View className="mt-2 p-3 bg-surface rounded-lg border border-border">
-                    <Text className="text-xs text-muted mb-1">Toplam Tutar Hesaplaması</Text>
+                    <Text className="text-xs text-muted mb-1">{t("paymentDetail.totalAmountCalculation")}</Text>
                     <Text className="text-sm text-foreground">
-                      {calculatePeriodCount(dueDate, recurrenceEndDate, recurrenceFrequency)} dönem × {Number(amount).toLocaleString('tr-TR')} ₺ = {' '}
+                      {calculatePeriodCount(dueDate, recurrenceEndDate, recurrenceFrequency)} {t("paymentDetail.periods")} × {Number(amount).toLocaleString(i18n.language === "tr" ? "tr-TR" : "en-US")} ₺ = {' '}
                       <Text className="font-semibold text-primary">
-                        {calculateTotalAmount(Number(amount), dueDate, recurrenceEndDate, recurrenceFrequency).toLocaleString('tr-TR')} ₺
+                        {calculateTotalAmount(Number(amount), dueDate, recurrenceEndDate, recurrenceFrequency).toLocaleString(i18n.language === "tr" ? "tr-TR" : "en-US")} ₺
                       </Text>
                     </Text>
                   </View>
                 )}
                 {autoGenerateRecurrence && recurrenceEndDate && (
                   <View className="mt-2 p-3 bg-surface rounded-lg border border-border">
-                    <Text className="text-xs text-muted mb-1">⚠️ Otomatik Oluşturma</Text>
+                    <Text className="text-xs text-muted mb-1">⚠️ {t("paymentDetail.autoGenerateRecurring")}</Text>
                     <Text className="text-sm text-foreground">
-                      {calculatePeriodCount(dueDate, recurrenceEndDate, recurrenceFrequency)} adet ödeme otomatik oluşturulacak
+                      {t("paymentDetail.willCreateRecurring", { count: calculatePeriodCount(dueDate, recurrenceEndDate, recurrenceFrequency) })}
                     </Text>
                   </View>
                 )}
@@ -426,10 +428,10 @@ export default function PaymentDetailScreen() {
             )}
             <View className="flex-row gap-3 mt-6">
               <TouchableOpacity className="flex-1 bg-surface border border-border rounded-2xl p-4 items-center" onPress={() => setIsEditing(false)}>
-                <Text className="text-foreground font-semibold">İptal</Text>
+                <Text className="text-foreground font-semibold">{t("paymentDetail.cancel")}</Text>
               </TouchableOpacity>
               <TouchableOpacity className="flex-1 bg-primary rounded-2xl p-4 items-center" onPress={handleSave}>
-                <Text className="text-background font-semibold">Kaydet</Text>
+                <Text className="text-background font-semibold">{t("paymentDetail.save")}</Text>
               </TouchableOpacity>
             </View>
           </View>

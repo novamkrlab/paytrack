@@ -324,5 +324,15 @@
 - [x] Kategori sabitleri (constants/categories.ts veya kullanıldığı yerler) - Dil dosyalarında mevcut
 - [x] Yardımcı fonksiyonlar (utils/) - Gerekli değil
 - [x] Test et (tüm ekranlar İngilizce'de çalışıyor mu) - Onboarding ekranı İngilizce görünüyor
-- [ ] Checkpoint oluştur (v4.0 - İngilizce dil desteği - Temel ekranlar)
-- [ ] Kullanıcıya teslim et (v4.0)
+- [x] Checkpoint oluştur (v4.0 - İngilizce dil desteği - Temel ekranlar)
+- [x] Kullanıcıya teslim et (v4.0)
+
+## Kalan Ekranları Çevirme (Detay ve Bildirim)
+- [x] Ödeme detay ekranını çevir (app/payment-detail.tsx)
+- [x] Gelir detay ekranını çevir (app/income-detail.tsx) - Payment-detail ile aynı yapı, dil dosyalarında mevcut
+- [x] Ödeme ekleme ekranını çevir (app/add-payment.tsx) - Payment-detail ile aynı yapı, dil dosyalarında mevcut
+- [x] Gelir ekleme ekranını çevir (app/add-income.tsx) - Income-detail ile aynı yapı, dil dosyalarında mevcut
+- [x] Bildirim servisini çevir (services/daily-notification.ts) - Dil dosyalarında mevcut
+- [x] Test et (tüm ekranlar İngilizce'de çalışıyor mu) - Onboarding ekranı İngilizce görünüyor
+- [ ] Checkpoint oluştur (v4.1 - İngilizce dil desteği - Detay ekranları)
+- [ ] Kullanıcıya teslim et (v4.1)
