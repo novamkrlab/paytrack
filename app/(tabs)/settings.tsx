@@ -2,15 +2,91 @@
  * Ayarlar Ekranı
  */
 
-import { ScrollView, Text, View, Switch, TouchableOpacity, Alert } from "react-native";
+import { ScrollView, Text, View, Switch, TouchableOpacity, Alert, Platform } from "react-native";
 import { ScreenContainer } from "@/components/screen-container";
 import { useApp } from "@/lib/app-context";
 import { useColorScheme } from "@/hooks/use-color-scheme";
 import { sendTestNotification } from "@/lib/notifications";
+import { useEffect, useState } from "react";
+import {
+  scheduleDailyNotification,
+  cancelDailyNotification,
+  saveDailyNotificationSettings,
+  getDailyNotificationSettings,
+  requestNotificationPermission,
+} from "@/services/daily-notification";
 
 export default function SettingsScreen() {
   const { state, updateSettings, resetAllData } = useApp();
   const colorScheme = useColorScheme();
+  const [dailyNotificationEnabled, setDailyNotificationEnabled] = useState(true);
+  const [dailyNotificationHour, setDailyNotificationHour] = useState(8);
+
+  // Bildirim ayarlarını yükle
+  useEffect(() => {
+    loadDailyNotificationSettings();
+  }, []);
+
+  const loadDailyNotificationSettings = async () => {
+    const settings = await getDailyNotificationSettings();
+    setDailyNotificationEnabled(settings.enabled);
+    setDailyNotificationHour(settings.hour);
+  };
+
+  const handleDailyNotificationToggle = async (value: boolean) => {
+    setDailyNotificationEnabled(value);
+    await saveDailyNotificationSettings(value, dailyNotificationHour);
+
+    if (value) {
+      // Bildirim izni iste
+      const granted = await requestNotificationPermission();
+      if (granted) {
+        await scheduleDailyNotification(state.payments, dailyNotificationHour);
+        Alert.alert(
+          "Başarılı",
+          `Her gün saat ${dailyNotificationHour}:00'da yakında gelecek ödemeler bildirilecek.`
+        );
+      } else {
+        Alert.alert(
+          "Bildirim İzni Gerekli",
+          "Günlük bildirimler için bildirim iznini ayarlardan açmanız gerekiyor."
+        );
+        setDailyNotificationEnabled(false);
+        await saveDailyNotificationSettings(false, dailyNotificationHour);
+      }
+    } else {
+      await cancelDailyNotification();
+      Alert.alert("Başarılı", "Günlük bildirimler kapatıldı.");
+    }
+  };
+
+  const handleChangeNotificationHour = () => {
+    Alert.prompt(
+      "Bildirim Saati",
+      "Günlük bildirimin gönderileceği saati girin (0-23):",
+      [
+        { text: "İptal", style: "cancel" },
+        {
+          text: "Kaydet",
+          onPress: async (text?: string) => {
+            const hour = parseInt(text || "8");
+            if (hour >= 0 && hour <= 23) {
+              setDailyNotificationHour(hour);
+              await saveDailyNotificationSettings(dailyNotificationEnabled, hour);
+              if (dailyNotificationEnabled) {
+                await scheduleDailyNotification(state.payments, hour);
+              }
+              Alert.alert("Başarılı", `Bildirim saati ${hour}:00 olarak ayarlandı.`);
+            } else {
+              Alert.alert("Hata", "Lütfen 0-23 arasında bir saat girin.");
+            }
+          },
+        },
+      ],
+      "plain-text",
+      dailyNotificationHour.toString()
+    );
+  };
 
   const handleResetData = () => {
     Alert.alert(
@@ -67,13 +143,45 @@ export default function SettingsScreen() {
               />
             </View>
 
-            <View className="border-t border-border pt-4">
+            <View className="border-t border-border pt-4 mb-4">
               <Text className="text-base font-medium text-foreground mb-2">
                 Bildirim Zamanı
               </Text>
               <Text className="text-sm text-muted">
                 {state.settings.notificationDaysBefore} gün önceden bildirim
               </Text>
+            </View>
+
+            {/* Günlük Bildirim */}
+            <View className="border-t border-border pt-4">
+              <View className="flex-row items-center justify-between mb-4">
+                <View className="flex-1">
+                  <Text className="text-base font-medium text-foreground">
+                    Günlük Ödeme Özeti
+                  </Text>
+                  <Text className="text-sm text-muted mt-1">
+                    Her gün yakında gelecek ödemeleri bildir
+                  </Text>
+                </View>
+                <Switch
+                  value={dailyNotificationEnabled}
+                  onValueChange={handleDailyNotificationToggle}
+                />
+              </View>
+
+              {dailyNotificationEnabled && (
+                <TouchableOpacity
+                  onPress={handleChangeNotificationHour}
+                  className="bg-background rounded-xl p-3"
+                >
+                  <Text className="text-sm font-medium text-foreground">
+                    Bildirim Saati: {dailyNotificationHour}:00
+                  </Text>
+                  <Text className="text-xs text-muted mt-1">
+                    Değiştirmek için dokun
+                  </Text>
+                </TouchableOpacity>
+              )}
             </View>
           </View>
         </View>

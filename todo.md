@@ -215,5 +215,17 @@
 - [x] "Deneme1 (1)" için "Deneme1 (2)", "Deneme1 (3)" bulmasını sağla
 - [x] Hem taksitli hem tekrarlanan ödemeler için base name çıkar (getBaseName fonksiyonu)
 - [x] Test et
-- [ ] Checkpoint oluştur (v2.8 - relatedPayments düzeltmesi)
-- [ ] Kullanıcıya teslim et (v2.8)
+- [x] Checkpoint oluştur (v2.8 - relatedPayments düzeltmesi)
+- [x] Kullanıcıya teslim et (v2.8)
+
+## Günlük Ödeme Bildirimi (Kullanıcı İsteği - Widget Alternatifi)
+- [x] Yakında gelecek ödemeleri getiren fonksiyon yaz (bugün + 7 gün)
+- [x] Bildirim içeriğini hazırla (bugün, yarın, bu hafta)
+- [x] Her sabah saat 8'de bildirim gönderen sistem kur
+- [x] Ayarlar ekranına bildirim aç/kapa seçeneği ekle
+- [x] Ayarlar ekranına bildirim saati seçici ekle
+- [x] Bildirime tıklayınca Ödemeler ekranı açılmasını sağla
+- [x] Uygulama açılışında bildirim izni iste
+- [x] Test et (kod tamamlandı, kullanıcı testi gerekli)
+- [ ] Checkpoint oluştur (v3.0 - Günlük ödeme bildirimi)
+- [ ] Kullanıcıya teslim et (v3.0)
