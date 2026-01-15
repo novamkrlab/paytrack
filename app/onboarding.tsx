@@ -10,6 +10,7 @@ import { router } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useColors } from "@/hooks/use-colors";
 import { IconSymbol } from "@/components/ui/icon-symbol";
+import { useTranslation } from "react-i18next";
 
 const { width } = Dimensions.get("window");
 
@@ -21,36 +22,39 @@ interface OnboardingPage {
   color: string;
 }
 
-const pages: OnboardingPage[] = [
-  {
-    id: "1",
-    title: "Ödeme Takibi",
-    description: "Tüm ödemelerinizi ve gelirlerinizi tek yerden takip edin. Kredi kartı, kredi, fatura ve diğer tüm ödemeleriniz için.",
-    icon: "house.fill",
-    color: "#0a7ea4",
-  },
-  {
-    id: "2",
-    title: "Otomatik Özellikler",
-    description: "Taksitler ve tekrarlanan ödemeler otomatik oluşturulsun. Bir kere girin, gerisini uygulama halletsın.",
-    icon: "chevron.left.forwardslash.chevron.right",
-    color: "#22C55E",
-  },
-  {
-    id: "3",
-    title: "Bildirimler",
-    description: "Ödeme tarihlerinizi asla kaçırmayın. Günlük özet ve ödeme hatırlatıcıları ile her zaman haberdar olun.",
-    icon: "paperplane.fill",
-    color: "#F59E0B",
-  },
-];
+// Pages will be populated from translations
 
 const ONBOARDING_KEY = "@odeme_takibi:onboarding_completed";
 
 export default function OnboardingScreen() {
   const colors = useColors();
+  const { t } = useTranslation();
   const [currentIndex, setCurrentIndex] = useState(0);
   const flatListRef = useRef<FlatList>(null);
+
+  const pages: OnboardingPage[] = [
+    {
+      id: "1",
+      title: t("onboarding.page1.title"),
+      description: t("onboarding.page1.description"),
+      icon: "house.fill",
+      color: "#0a7ea4",
+    },
+    {
+      id: "2",
+      title: t("onboarding.page2.title"),
+      description: t("onboarding.page2.description"),
+      icon: "chevron.left.forwardslash.chevron.right",
+      color: "#22C55E",
+    },
+    {
+      id: "3",
+      title: t("onboarding.page3.title"),
+      description: t("onboarding.page3.description"),
+      icon: "paperplane.fill",
+      color: "#F59E0B",
+    },
+  ];
 
   const handleNext = () => {
     if (currentIndex < pages.length - 1) {
@@ -139,7 +143,7 @@ export default function OnboardingScreen() {
               },
             ]}
           >
-            Atla
+            {t("common.skip")}
           </Text>
         </TouchableOpacity>
       )}
@@ -187,7 +191,7 @@ export default function OnboardingScreen() {
         onPress={handleNext}
       >
         <Text style={styles.nextButtonText}>
-          {currentIndex === pages.length - 1 ? "Başla" : "İleri"}
+          {currentIndex === pages.length - 1 ? t("common.start") : t("common.next")}
         </Text>
       </TouchableOpacity>
     </SafeAreaView>

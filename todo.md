@@ -296,3 +296,18 @@
 - [x] Kategori ve yaş sınırı belirle (Finans, 3+)
 - [x] Tüm materyalleri bir klasörde topla (google-play-assets/)
 - [x] Kullanıcıya teslim et
+
+## İngilizce Dil Desteği (Kullanıcı İsteği - Öncelik 6)
+- [x] i18n kütüphanesi kur (i18next, react-i18next, expo-localization)
+- [x] Dil dosyaları oluştur (tr.json, en.json)
+- [x] Tüm metinleri çevir (ekranlar, butonlar, formlar)
+- [ ] Kategori isimlerini çevir
+- [ ] Bildirim metinlerini çevir
+- [ ] Onboarding içeriklerini çevir
+- [ ] Tarih formatlarını dinamikleştir
+- [ ] Para birimi formatlarını dinamikleştir
+- [ ] Ayarlar ekranına dil seçici ekle
+- [ ] Otomatik dil algılama ekle (cihaz diline göre)
+- [ ] Test et (Türkçe/İngilizce geçiş)
+- [ ] Checkpoint oluştur (v3.6 - İngilizce dil desteği)
+- [ ] Kullanıcıya teslim et (v3.6)

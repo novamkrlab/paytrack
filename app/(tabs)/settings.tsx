@@ -16,10 +16,13 @@ import {
   getDailyNotificationSettings,
   requestNotificationPermission,
 } from "@/services/daily-notification";
+import { useTranslation } from "react-i18next";
+import i18n, { saveLanguage } from "@/i18n";
 
 export default function SettingsScreen() {
   const { state, updateSettings, resetAllData, exportData, importData } = useApp();
   const colorScheme = useColorScheme();
+  const { t } = useTranslation();
   const [dailyNotificationEnabled, setDailyNotificationEnabled] = useState(true);
   const [dailyNotificationHour, setDailyNotificationHour] = useState(8);
   const [isExporting, setIsExporting] = useState(false);
@@ -227,6 +230,35 @@ export default function SettingsScreen() {
                 </TouchableOpacity>
               )}
             </View>
+          </View>
+        </View>
+
+        {/* Dil */}
+        <View className="mb-6">
+          <Text className="text-lg font-semibold text-foreground mb-3">
+            {t("settings.language")}
+          </Text>
+
+          <View className="bg-surface rounded-2xl border border-border overflow-hidden">
+            <TouchableOpacity
+              className="p-4 flex-row items-center justify-between active:opacity-80"
+              onPress={async () => {
+                const newLang = i18n.language === "tr" ? "en" : "tr";
+                await i18n.changeLanguage(newLang);
+                await saveLanguage(newLang);
+                Alert.alert(
+                  t("common.success"),
+                  t("settings.language") + ": " + (newLang === "tr" ? "Türkçe" : "English")
+                );
+              }}
+            >
+              <Text className="text-base font-medium text-foreground">
+                {i18n.language === "tr" ? "Türkçe" : "English"}
+              </Text>
+              <Text className="text-sm text-muted">
+                {t("common.change")}
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
 

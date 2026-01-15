@@ -1,0 +1,201 @@
+{
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "close": "Close",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "skip": "Skip",
+    "start": "Start",
+    "done": "Done",
+    "yes": "Yes",
+    "no": "No",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "search": "Search",
+    "filter": "Filter",
+    "all": "All",
+    "change": "Change"
+  },
+  "tabs": {
+    "home": "Home",
+    "payments": "Payments",
+    "incomes": "Incomes",
+    "calendar": "Calendar",
+    "settings": "Settings"
+  },
+  "home": {
+    "title": "Payment Tracker",
+    "subtitle": "Track all your payments and incomes in one place. For credit cards, loans, bills, and all other payments.",
+    "upcomingPayments": "Upcoming Payments",
+    "recentIncomes": "Recent Incomes",
+    "summary": "Summary",
+    "totalPayments": "Total Payments",
+    "totalIncomes": "Total Incomes",
+    "balance": "Balance"
+  },
+  "payments": {
+    "title": "Payments",
+    "subtitle": "View all your payments",
+    "addPayment": "Add New Payment",
+    "noPayments": "No payments added yet",
+    "filterByCategory": "Filter by category"
+  },
+  "incomes": {
+    "title": "Incomes",
+    "subtitle": "View all your incomes",
+    "addIncome": "Add New Income",
+    "noIncomes": "No incomes added yet"
+  },
+  "paymentDetail": {
+    "title": "Payment Detail",
+    "addTitle": "New Payment",
+    "editTitle": "Edit Payment",
+    "name": "Payment Name",
+    "amount": "Amount",
+    "category": "Category",
+    "dueDate": "Due Date",
+    "status": "Status",
+    "notes": "Notes",
+    "installments": "Number of Installments",
+    "recurrence": "Recurrence",
+    "autoGenerate": "Auto Generate",
+    "generateInstallments": "Generate Installments",
+    "generateRecurring": "Generate Recurring Payments",
+    "deleteConfirm": "Are you sure you want to delete this payment?",
+    "deleteOptions": {
+      "single": "Delete only this",
+      "fromThis": "Delete from this onwards",
+      "all": "Delete all"
+    }
+  },
+  "incomeDetail": {
+    "title": "Income Detail",
+    "addTitle": "New Income",
+    "editTitle": "Edit Income",
+    "name": "Income Name",
+    "amount": "Amount",
+    "category": "Category",
+    "date": "Date",
+    "notes": "Notes",
+    "recurrence": "Recurrence",
+    "autoGenerate": "Auto Generate",
+    "generateRecurring": "Generate Recurring Incomes",
+    "deleteConfirm": "Are you sure you want to delete this income?",
+    "deleteOptions": {
+      "single": "Delete only this",
+      "fromThis": "Delete from this onwards",
+      "all": "Delete all"
+    }
+  },
+  "categories": {
+    "all": "All",
+    "creditCard": "Credit Card",
+    "credit": "Loan",
+    "bill": "Bill",
+    "other": "Other",
+    "salary": "Salary",
+    "rent": "Rental Income",
+    "investment": "Investment Income"
+  },
+  "status": {
+    "paid": "Paid",
+    "pending": "Pending",
+    "overdue": "Overdue"
+  },
+  "recurrence": {
+    "none": "None",
+    "daily": "Daily",
+    "weekly": "Weekly",
+    "monthly": "Monthly",
+    "yearly": "Yearly"
+  },
+  "settings": {
+    "title": "Settings",
+    "theme": "Theme",
+    "themeLight": "Light",
+    "themeDark": "Dark",
+    "themeAuto": "Auto",
+    "language": "Language",
+    "languageTurkish": "Turkish",
+    "languageEnglish": "English",
+    "notifications": "Notifications",
+    "dailyNotification": "Daily Payment Reminder",
+    "notificationTime": "Notification Time",
+    "dataManagement": "Data Management",
+    "exportData": "Export Data",
+    "importData": "Import Data",
+    "about": "About",
+    "privacyPolicy": "Privacy Policy",
+    "version": "Version"
+  },
+  "onboarding": {
+    "page1": {
+      "title": "Payment Tracker",
+      "description": "Track all your payments and incomes in one place. For credit cards, loans, bills, and all other payments."
+    },
+    "page2": {
+      "title": "Automatic Features",
+      "description": "Auto-generate installment payments and recurring payments. Create all your installments or monthly payments with one click."
+    },
+    "page3": {
+      "title": "Smart Notifications",
+      "description": "Never miss a payment date. We'll remind you of upcoming payments every day at your chosen time."
+    }
+  },
+  "notifications": {
+    "title": "Upcoming Payments",
+    "today": "Today",
+    "tomorrow": "Tomorrow",
+    "thisWeek": "This Week",
+    "noPayments": "No upcoming payments",
+    "totalAmount": "Total Amount"
+  },
+  "dataManagement": {
+    "exportSuccess": "Data exported successfully",
+    "exportError": "Error occurred during export",
+    "importSuccess": "Data imported successfully",
+    "importError": "Error occurred during import",
+    "importConfirm": "Do you want to delete existing data?",
+    "importMerge": "Merge",
+    "importReplace": "Replace"
+  },
+  "errors": {
+    "requiredField": "This field is required",
+    "invalidAmount": "Invalid amount",
+    "invalidDate": "Invalid date",
+    "invalidEmail": "Invalid email address",
+    "networkError": "Network error. Please try again.",
+    "unknownError": "An unknown error occurred"
+  },
+  "privacyPolicy": {
+    "title": "Privacy Policy",
+    "lastUpdated": "Last Updated",
+    "intro": "Payment Tracker app respects your privacy and protects your personal data.",
+    "dataCollection": {
+      "title": "Data Collection",
+      "content": "Our app does not collect any personal data. All your payment and income information is stored locally on your device."
+    },
+    "dataStorage": {
+      "title": "Data Storage",
+      "content": "All your data is stored in your device's local storage. No data is sent to our servers or third-party servers."
+    },
+    "dataSharing": {
+      "title": "Data Sharing",
+      "content": "Your data is not shared with any third parties. We do not use advertising networks or analytics services."
+    },
+    "notifications": {
+      "title": "Notifications",
+      "content": "The app uses local notifications for payment reminders. These notifications are generated and sent entirely on your device."
+    },
+    "contact": {
+      "title": "Contact",
+      "content": "If you have any questions about our privacy policy, please contact us:"
+    }
+  }
+}

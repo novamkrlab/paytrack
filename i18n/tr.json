@@ -1,0 +1,201 @@
+{
+  "common": {
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "delete": "Sil",
+    "edit": "Düzenle",
+    "add": "Ekle",
+    "close": "Kapat",
+    "confirm": "Onayla",
+    "back": "Geri",
+    "next": "İleri",
+    "skip": "Atla",
+    "start": "Başla",
+    "done": "Tamam",
+    "yes": "Evet",
+    "no": "Hayır",
+    "loading": "Yükleniyor...",
+    "error": "Hata",
+    "success": "Başarılı",
+    "search": "Ara",
+    "filter": "Filtrele",
+    "all": "Tümü",
+    "change": "Değiştir"
+  },
+  "tabs": {
+    "home": "Ana Sayfa",
+    "payments": "Ödemeler",
+    "incomes": "Gelirler",
+    "calendar": "Takvim",
+    "settings": "Ayarlar"
+  },
+  "home": {
+    "title": "Ödeme Takibi",
+    "subtitle": "Tüm ödemelerinizi ve gelirlerinizi tek yerden takip edin. Kredi kartı, kredi, fatura ve diğer tüm ödemeleriniz için.",
+    "upcomingPayments": "Yaklaşan Ödemeler",
+    "recentIncomes": "Son Gelirler",
+    "summary": "Özet",
+    "totalPayments": "Toplam Ödemeler",
+    "totalIncomes": "Toplam Gelirler",
+    "balance": "Denge"
+  },
+  "payments": {
+    "title": "Ödemeler",
+    "subtitle": "Tüm ödemelerinizi görüntüleyin",
+    "addPayment": "Yeni Ödeme Ekle",
+    "noPayments": "Henüz ödeme eklenmemiş",
+    "filterByCategory": "Kategoriye göre filtrele"
+  },
+  "incomes": {
+    "title": "Gelirler",
+    "subtitle": "Tüm gelirlerinizi görüntüleyin",
+    "addIncome": "Yeni Gelir Ekle",
+    "noIncomes": "Henüz gelir eklenmemiş"
+  },
+  "paymentDetail": {
+    "title": "Ödeme Detayı",
+    "addTitle": "Yeni Ödeme",
+    "editTitle": "Ödemeyi Düzenle",
+    "name": "Ödeme Adı",
+    "amount": "Tutar",
+    "category": "Kategori",
+    "dueDate": "Ödeme Tarihi",
+    "status": "Durum",
+    "notes": "Notlar",
+    "installments": "Taksit Sayısı",
+    "recurrence": "Tekrar",
+    "autoGenerate": "Otomatik Oluştur",
+    "generateInstallments": "Taksitleri Oluştur",
+    "generateRecurring": "Tekrarlanan Ödemeler Oluştur",
+    "deleteConfirm": "Bu ödemeyi silmek istediğinizden emin misiniz?",
+    "deleteOptions": {
+      "single": "Sadece bunu sil",
+      "fromThis": "Bundan sonrakini sil",
+      "all": "Tümünü sil"
+    }
+  },
+  "incomeDetail": {
+    "title": "Gelir Detayı",
+    "addTitle": "Yeni Gelir",
+    "editTitle": "Geliri Düzenle",
+    "name": "Gelir Adı",
+    "amount": "Tutar",
+    "category": "Kategori",
+    "date": "Tarih",
+    "notes": "Notlar",
+    "recurrence": "Tekrar",
+    "autoGenerate": "Otomatik Oluştur",
+    "generateRecurring": "Tekrarlanan Gelirleri Oluştur",
+    "deleteConfirm": "Bu geliri silmek istediğinizden emin misiniz?",
+    "deleteOptions": {
+      "single": "Sadece bunu sil",
+      "fromThis": "Bundan sonrakini sil",
+      "all": "Tümünü sil"
+    }
+  },
+  "categories": {
+    "all": "Tümü",
+    "creditCard": "Kredi Kartı",
+    "credit": "Kredi",
+    "bill": "Fatura",
+    "other": "Diğer",
+    "salary": "Maaş",
+    "rent": "Kira Geliri",
+    "investment": "Yatırım Geliri"
+  },
+  "status": {
+    "paid": "Ödendi",
+    "pending": "Bekliyor",
+    "overdue": "Gecikti"
+  },
+  "recurrence": {
+    "none": "Yok",
+    "daily": "Günlük",
+    "weekly": "Haftalık",
+    "monthly": "Aylık",
+    "yearly": "Yıllık"
+  },
+  "settings": {
+    "title": "Ayarlar",
+    "theme": "Tema",
+    "themeLight": "Açık",
+    "themeDark": "Koyu",
+    "themeAuto": "Otomatik",
+    "language": "Dil",
+    "languageTurkish": "Türkçe",
+    "languageEnglish": "İngilizce",
+    "notifications": "Bildirimler",
+    "dailyNotification": "Günlük Ödeme Hatırlatıcısı",
+    "notificationTime": "Bildirim Saati",
+    "dataManagement": "Veri Yönetimi",
+    "exportData": "Verileri Dışa Aktar",
+    "importData": "Verileri İçe Aktar",
+    "about": "Hakkında",
+    "privacyPolicy": "Gizlilik Politikası",
+    "version": "Versiyon"
+  },
+  "onboarding": {
+    "page1": {
+      "title": "Ödeme Takibi",
+      "description": "Tüm ödemelerinizi ve gelirlerinizi tek yerden takip edin. Kredi kartı, kredi, fatura ve diğer tüm ödemeleriniz için."
+    },
+    "page2": {
+      "title": "Otomatik Özellikler",
+      "description": "Taksitli ödemeler ve tekrarlanan ödemeler için otomatik oluşturma. Tek tıkla tüm taksitlerinizi veya aylık ödemelerinizi oluşturun."
+    },
+    "page3": {
+      "title": "Akıllı Bildirimler",
+      "description": "Ödeme tarihlerinizi asla kaçırmayın. Her gün belirlediğiniz saatte yaklaşan ödemelerinizi size hatırlatalım."
+    }
+  },
+  "notifications": {
+    "title": "Yaklaşan Ödemeler",
+    "today": "Bugün",
+    "tomorrow": "Yarın",
+    "thisWeek": "Bu Hafta",
+    "noPayments": "Yaklaşan ödeme yok",
+    "totalAmount": "Toplam Tutar"
+  },
+  "dataManagement": {
+    "exportSuccess": "Veriler başarıyla dışa aktarıldı",
+    "exportError": "Dışa aktarma sırasında hata oluştu",
+    "importSuccess": "Veriler başarıyla içe aktarıldı",
+    "importError": "İçe aktarma sırasında hata oluştu",
+    "importConfirm": "Mevcut verileri silmek istiyor musunuz?",
+    "importMerge": "Birleştir",
+    "importReplace": "Değiştir"
+  },
+  "errors": {
+    "requiredField": "Bu alan zorunludur",
+    "invalidAmount": "Geçersiz tutar",
+    "invalidDate": "Geçersiz tarih",
+    "invalidEmail": "Geçersiz e-posta adresi",
+    "networkError": "Ağ hatası. Lütfen tekrar deneyin.",
+    "unknownError": "Bilinmeyen bir hata oluştu"
+  },
+  "privacyPolicy": {
+    "title": "Gizlilik Politikası",
+    "lastUpdated": "Son Güncelleme",
+    "intro": "Ödeme Takibi uygulaması, gizliliğinize saygı duyar ve kişisel verilerinizi korur.",
+    "dataCollection": {
+      "title": "Veri Toplama",
+      "content": "Uygulamamız hiçbir kişisel veri toplamaz. Tüm ödeme ve gelir bilgileriniz cihazınızda yerel olarak saklanır."
+    },
+    "dataStorage": {
+      "title": "Veri Saklama",
+      "content": "Tüm verileriniz cihazınızın yerel depolama alanında saklanır. Hiçbir veri sunucularımıza veya üçüncü taraf sunuculara gönderilmez."
+    },
+    "dataSharing": {
+      "title": "Veri Paylaşımı",
+      "content": "Verileriniz hiçbir üçüncü tarafla paylaşılmaz. Reklam ağları veya analitik hizmetler kullanmıyoruz."
+    },
+    "notifications": {
+      "title": "Bildirimler",
+      "content": "Uygulama, ödeme hatırlatıcıları için yerel bildirimler kullanır. Bu bildirimler tamamen cihazınızda oluşturulur ve gönderilir."
+    },
+    "contact": {
+      "title": "İletişim",
+      "content": "Gizlilik politikamız hakkında sorularınız varsa, lütfen bizimle iletişime geçin:"
+    }
+  }
+}
