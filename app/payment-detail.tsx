@@ -8,6 +8,7 @@ import { useRouter, useLocalSearchParams } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
 import { TextInputField, DatePickerField, PickerField, SwitchField } from "@/components/form-input";
 import { calculatePeriodCount, calculateTotalAmount } from "@/utils/date-helpers";
+import { generateInstallments, generateRecurringPayments } from "@/utils/installment-helpers";
 import { useApp } from "@/lib/app-context";
 import {
   PaymentCategory,
@@ -19,7 +20,7 @@ import {
 export default function PaymentDetailScreen() {
   const router = useRouter();
   const params = useLocalSearchParams();
-  const { state, updatePayment, deletePayment, togglePaymentStatus } = useApp();
+  const { state, addPayment, updatePayment, deletePayment, togglePaymentStatus } = useApp();
   
   const payment = state.payments.find((p) => p.id === params.id);
   const [isEditing, setIsEditing] = useState(false);
@@ -42,6 +43,8 @@ export default function PaymentDetailScreen() {
   const [recurrenceEndDate, setRecurrenceEndDate] = useState<Date | null>(
     payment?.recurrence?.endDate ? new Date(payment.recurrence.endDate) : null
   );
+  const [autoGenerateInstallments, setAutoGenerateInstallments] = useState(false);
+  const [autoGenerateRecurrence, setAutoGenerateRecurrence] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   if (!payment) {
@@ -90,6 +93,57 @@ export default function PaymentDetailScreen() {
 
   const handleSave = async () => {
     if (!validate()) return;
+
+    // Otomatik tekrarlanan ödeme oluşturma aktifse
+    if (hasRecurrence && autoGenerateRecurrence && recurrenceEndDate) {
+      const recurringPayments = generateRecurringPayments(
+        name.trim(),
+        Number(amount),
+        category,
+        dueDate,
+        recurrenceEndDate,
+        recurrenceFrequency,
+        notes.trim() || undefined
+      );
+
+      // Tüm tekrarlanan ödemeleri ekle
+      for (const newPayment of recurringPayments) {
+        await addPayment(newPayment);
+      }
+
+      Alert.alert(
+        "Başarılı",
+        `${recurringPayments.length} tekrarlanan ödeme otomatik oluşturuldu`,
+        [{ text: "Tamam", onPress: () => router.back() }]
+      );
+      return;
+    }
+
+    // Otomatik taksit oluşturma aktifse
+    if (hasInstallments && autoGenerateInstallments) {
+      const installments = generateInstallments(
+        name.trim(),
+        Number(amount),
+        category,
+        dueDate,
+        Number(installmentTotal),
+        notes.trim() || undefined
+      );
+
+      // Tüm taksitleri ekle
+      for (const installment of installments) {
+        await addPayment(installment);
+      }
+
+      Alert.alert(
+        "Başarılı",
+        `${installments.length} taksit otomatik oluşturuldu`,
+        [{ text: "Tamam", onPress: () => router.back() }]
+      );
+      return;
+    }
+
+    // Normal güncelleme
     const updatedPayment = {
       ...payment,
       name: name.trim(),
@@ -210,14 +264,34 @@ export default function PaymentDetailScreen() {
             <SwitchField label="Taksitli Ödeme" value={hasInstallments} onChange={setHasInstallments} />
             {hasInstallments && (
               <View className="ml-4 mb-4">
+                <SwitchField 
+                  label="Otomatik Oluştur" 
+                  value={autoGenerateInstallments} 
+                  onChange={setAutoGenerateInstallments} 
+                  description="Tüm taksitleri otomatik oluştur" 
+                />
                 <TextInputField label="Toplam Taksit" value={installmentTotal} onChangeText={setInstallmentTotal} keyboardType="numeric" error={errors.installmentTotal} required />
                 <TextInputField label="Mevcut Taksit" value={installmentCurrent} onChangeText={setInstallmentCurrent} keyboardType="numeric" error={errors.installmentCurrent} required />
                 <DatePickerField label="Son Taksit Tarihi" value={installmentEndDate || new Date()} onChange={setInstallmentEndDate} />
+                {autoGenerateInstallments && (
+                  <View className="mt-2 p-3 bg-surface rounded-lg border border-border">
+                    <Text className="text-xs text-muted mb-1">⚠️ Otomatik Oluşturma</Text>
+                    <Text className="text-sm text-foreground">
+                      {installmentTotal} adet taksit otomatik oluşturulacak
+                    </Text>
+                  </View>
+                )}
               </View>
             )}
             <SwitchField label="Tekrarlanan Ödeme" value={hasRecurrence} onChange={setHasRecurrence} />
             {hasRecurrence && (
               <View className="ml-4 mb-4">
+                <SwitchField 
+                  label="Otomatik Oluştur" 
+                  value={autoGenerateRecurrence} 
+                  onChange={setAutoGenerateRecurrence} 
+                  description="Tüm tekrarlanan ödemeleri otomatik oluştur" 
+                />
                 <PickerField label="Sıklık" value={recurrenceFrequency} onChange={(value) => setRecurrenceFrequency(value as RecurrenceFrequency)} options={recurrenceOptions} required />
                 <DatePickerField label="Son Ödeme Tarihi" value={recurrenceEndDate || new Date()} onChange={setRecurrenceEndDate} />
                 {recurrenceEndDate && amount && (
@@ -228,6 +302,14 @@ export default function PaymentDetailScreen() {
                       <Text className="font-semibold text-primary">
                         {calculateTotalAmount(Number(amount), dueDate, recurrenceEndDate, recurrenceFrequency).toLocaleString('tr-TR')} ₺
                       </Text>
+                    </Text>
+                  </View>
+                )}
+                {autoGenerateRecurrence && recurrenceEndDate && (
+                  <View className="mt-2 p-3 bg-surface rounded-lg border border-border">
+                    <Text className="text-xs text-muted mb-1">⚠️ Otomatik Oluşturma</Text>
+                    <Text className="text-sm text-foreground">
+                      {calculatePeriodCount(dueDate, recurrenceEndDate, recurrenceFrequency)} adet ödeme otomatik oluşturulacak
                     </Text>
                   </View>
                 )}

@@ -74,8 +74,10 @@
 - [x] Kullanıcıya teslim et (v1.8)
 - [x] Checkpoint oluştur (v1.9 - Otomatik taksit oluşturma)
 - [x] Kullanıcıya teslim et (v1.9)
-- [ ] Checkpoint oluştur (v2.0 - Otomatik tekrarlanan ödeme oluşturma)
-- [ ] Kullanıcıya teslim et (v2.0)
+- [x] Checkpoint oluştur (v2.0 - Otomatik tekrarlanan ödeme oluşturma)
+- [x] Kullanıcıya teslim et (v2.0)
+- [ ] Checkpoint oluştur (v2.1 - Ödeme düzenleme otomatik oluşturma)
+- [ ] Kullanıcıya teslim et (v2.1)
 
 ## Yeni Özellikler (Kullanıcı İsteği)
 - [x] Ödeme ekleme formu ekranı
@@ -148,3 +150,10 @@
 - [x] Her dönem için ayrı ödeme kaydı oluştur
 - [x] Kullanıcıya onay dialogu göster
 - [x] Oluşturulan ödemeleri listele
+
+## Ödeme Düzenleme Otomatik Oluşturma (Kullanıcı İsteği)
+- [x] Ödeme düzenleme ekranına "Otomatik Oluştur" switch'leri ekle
+- [x] Taksitli ödeme için otomatik oluşturma seçeneği
+- [x] Tekrarlanan ödeme için otomatik oluşturma seçeneği
+- [x] Mevcut ödemeyi baz alarak yeni kayıtlar oluştur
+- [x] Kullanıcıya onay dialogu göster
