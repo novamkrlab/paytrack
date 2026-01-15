@@ -8,9 +8,11 @@ import { router } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
 import { IconSymbol } from "@/components/ui/icon-symbol";
+import { useTranslation } from "react-i18next";
 
 export default function PrivacyPolicyScreen() {
   const colors = useColors();
+  const { t } = useTranslation();
 
   return (
     <ScreenContainer>
@@ -35,7 +37,7 @@ export default function PrivacyPolicyScreen() {
             color: colors.foreground,
           }}
         >
-          Gizlilik Politikası
+          {t("privacyPolicy.title")}
         </Text>
       </View>
 
@@ -55,72 +57,57 @@ export default function PrivacyPolicyScreen() {
             lineHeight: 20,
           }}
         >
-          Son Güncelleme: 15 Ocak 2026
+          {t("privacyPolicy.lastUpdated")}: 15 {t("common.january")} 2026
         </Text>
 
         {/* Giriş */}
-        <Section title="Giriş" colors={colors}>
-          Ödeme Takibi uygulaması, kullanıcılarının gizliliğine saygı gösterir. Bu gizlilik politikası,
-          uygulamamızın hangi verileri topladığını, nasıl kullandığını ve koruduğunu açıklar.
+        <Section title={t("privacyPolicy.intro")} colors={colors}>
+          {t("privacyPolicy.dataCollection.content")}
         </Section>
 
         {/* Veri Toplama */}
-        <Section title="Veri Toplama" colors={colors}>
-          Ödeme Takibi uygulaması <Text style={{ fontWeight: "bold" }}>hiçbir kişisel veri toplamaz</Text>.
-          Tüm ödeme ve gelir bilgileriniz yalnızca cihazınızda yerel olarak saklanır ve hiçbir sunucuya
-          gönderilmez.
+        <Section title={t("privacyPolicy.dataCollection.title")} colors={colors}>
+          {t("privacyPolicy.dataCollection.content")}
         </Section>
 
-        {/* Veri Saklama */}
-        <Section title="Veri Saklama" colors={colors}>
-          • Tüm veriler cihazınızın yerel depolama alanında (AsyncStorage) saklanır{"\n"}
-          • Verileriniz yalnızca sizin erişiminize açıktır{"\n"}
-          • Uygulama silindiğinde tüm veriler otomatik olarak silinir{"\n"}
-          • Veri yedekleme özelliği ile verilerinizi dışa aktarabilirsiniz
+         {/* Veri Saklama */}
+        <Section title={t("privacyPolicy.dataStorage.title")} colors={colors}>
+          {t("privacyPolicy.dataStorage.content")}
         </Section>
 
         {/* Üçüncü Taraf Paylaşım */}
-        <Section title="Üçüncü Taraf Paylaşım" colors={colors}>
-          Ödeme Takibi uygulaması <Text style={{ fontWeight: "bold" }}>hiçbir veriyi üçüncü taraflarla paylaşmaz</Text>.
-          Verileriniz yalnızca cihazınızda kalır ve internet üzerinden hiçbir yere gönderilmez.
+        <Section title={t("privacyPolicy.dataSharing.title")} colors={colors}>
+          {t("privacyPolicy.dataSharing.content")}
         </Section>
 
         {/* Bildirimler */}
-        <Section title="Bildirimler" colors={colors}>
-          Uygulama, ödeme hatırlatıcıları için yerel bildirimler kullanır. Bu bildirimler yalnızca
-          cihazınızda oluşturulur ve hiçbir sunucuya bilgi göndermez. Bildirimleri istediğiniz zaman
-          ayarlardan kapatabilirsiniz.
+        <Section title={t("privacyPolicy.notifications.title")} colors={colors}>
+          {t("privacyPolicy.notifications.content")}
         </Section>
 
-        {/* İzinler */}
-        <Section title="Uygulama İzinleri" colors={colors}>
-          Ödeme Takibi uygulaması aşağıdaki izinleri kullanır:{"\n\n"}
-          • <Text style={{ fontWeight: "bold" }}>Bildirimler</Text>: Ödeme hatırlatıcıları göndermek için{"\n"}
-          • <Text style={{ fontWeight: "bold" }}>Depolama</Text>: Veri yedekleme dosyalarını kaydetmek için
+          {/* İzinler */}
+        <Section title={t("privacyPolicy.permissions.title")} colors={colors}>
+          {t("privacyPolicy.permissions.content")}
         </Section>
 
         {/* Veri Güvenliği */}
-        <Section title="Veri Güvenliği" colors={colors}>
-          Verileriniz cihazınızın yerel depolama alanında güvenli bir şekilde saklanır. Cihazınızın
-          güvenliğini sağlamak için ekran kilidi ve şifre kullanmanızı öneririz.
+        <Section title={t("privacyPolicy.security.title")} colors={colors}>
+          {t("privacyPolicy.security.content")}
         </Section>
 
         {/* Çocukların Gizliliği */}
-        <Section title="Çocukların Gizliliği" colors={colors}>
-          Uygulamamız 13 yaşın altındaki çocuklardan bilerek veri toplamaz. Ebeveynler, çocuklarının
-          uygulamayı kullanımını denetlemelidir.
+        <Section title={t("privacyPolicy.children.title")} colors={colors}>
+          {t("privacyPolicy.children.content")}
         </Section>
 
         {/* Değişiklikler */}
-        <Section title="Politika Değişiklikleri" colors={colors}>
-          Bu gizlilik politikası zaman zaman güncellenebilir. Önemli değişiklikler olduğunda
-          uygulama içinde bildirim yapılacaktır.
+        <Section title={t("privacyPolicy.changes.title")} colors={colors}>
+          {t("privacyPolicy.changes.content")}
         </Section>
 
-        {/* İletişim */}
-        <Section title="İletişim" colors={colors}>
-          Gizlilik politikamız hakkında sorularınız varsa, lütfen bizimle iletişime geçin:{"\n\n"}
-          E-posta: destek@odemetakibi.com
+          {/* İletişim */}
+        <Section title={t("privacyPolicy.contact.title")} colors={colors}>
+          {t("privacyPolicy.contact.content")}
         </Section>
 
         {/* Footer */}
@@ -133,7 +120,7 @@ export default function PrivacyPolicyScreen() {
             lineHeight: 18,
           }}
         >
-          Ödeme Takibi uygulamasını kullanarak bu gizlilik politikasını kabul etmiş olursunuz.
+          {t("privacyPolicy.footer")}
         </Text>
       </ScrollView>
     </ScreenContainer>

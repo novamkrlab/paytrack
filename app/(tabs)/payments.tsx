@@ -10,12 +10,14 @@ import { ScreenContainer } from "@/components/screen-container";
 import { PaymentCard } from "@/components/payment-card";
 import { useApp } from "@/lib/app-context";
 import { PaymentCategory } from "@/types";
+import { useTranslation } from "react-i18next";
 
 type FilterType = "all" | PaymentCategory;
 
 export default function PaymentsScreen() {
   const router = useRouter();
   const { state } = useApp();
+  const { t } = useTranslation();
   const [filter, setFilter] = useState<FilterType>("all");
 
   // Filtrelenmiş ödemeler
@@ -37,9 +39,9 @@ export default function PaymentsScreen() {
       >
         {/* Başlık */}
         <View className="mb-6">
-          <Text className="text-3xl font-bold text-foreground">Ödemeler</Text>
+          <Text className="text-3xl font-bold text-foreground">{t("payments.title")}</Text>
           <Text className="text-base text-muted mt-1">
-            Tüm ödemelerinizi görüntüleyin
+            {t("payments.subtitle")}
           </Text>
         </View>
 
@@ -57,7 +59,7 @@ export default function PaymentsScreen() {
                   filter === "all" ? "text-background" : "text-foreground"
                 }`}
               >
-                Tümü
+                {t("common.all")}
               </Text>
             </TouchableOpacity>
 
@@ -74,7 +76,7 @@ export default function PaymentsScreen() {
                   filter === PaymentCategory.CREDIT_CARD ? "text-background" : "text-foreground"
                 }`}
               >
-                Kredi Kartı
+                {t("categories.creditCard")}
               </Text>
             </TouchableOpacity>
 
@@ -89,7 +91,7 @@ export default function PaymentsScreen() {
                   filter === PaymentCategory.LOAN ? "text-background" : "text-foreground"
                 }`}
               >
-                Kredi
+                {t("categories.loan")}
               </Text>
             </TouchableOpacity>
 
@@ -104,7 +106,7 @@ export default function PaymentsScreen() {
                   filter === PaymentCategory.OTHER ? "text-background" : "text-foreground"
                 }`}
               >
-                Diğer
+                {t("categories.other")}
               </Text>
             </TouchableOpacity>
           </View>
@@ -126,8 +128,8 @@ export default function PaymentsScreen() {
           <View className="bg-surface rounded-2xl p-8 items-center justify-center border border-border">
             <Text className="text-muted text-center text-base">
               {filter === "all"
-                ? "Henüz ödeme eklenmemiş"
-                : "Bu kategoride ödeme bulunmuyor"}
+                ? t("payments.noPayments")
+                : t("payments.noPaymentsInCategory")}
             </Text>
           </View>
         )}
@@ -140,7 +142,7 @@ export default function PaymentsScreen() {
           }}
         >
           <Text className="text-background font-semibold text-base">
-            Yeni Ödeme Ekle
+            {t("payments.addPayment")}
           </Text>
         </TouchableOpacity>
       </ScrollView>

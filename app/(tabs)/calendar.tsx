@@ -11,10 +11,12 @@ import { PaymentCard } from "@/components/payment-card";
 import { IncomeCard } from "@/components/income-card";
 import { useApp } from "@/lib/app-context";
 import { useRouter } from "expo-router";
+import { useTranslation } from "react-i18next";
 
 export default function CalendarScreen() {
   const router = useRouter();
   const { state } = useApp();
+  const { t, i18n } = useTranslation();
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
   // Seçili tarihteki ödemeler
@@ -49,9 +51,9 @@ export default function CalendarScreen() {
       >
         {/* Başlık */}
         <View className="mb-6">
-          <Text className="text-3xl font-bold text-foreground">Takvim</Text>
+          <Text className="text-3xl font-bold text-foreground">{t("calendar.title")}</Text>
           <Text className="text-base text-muted mt-1">
-            Ödemelerinizi ve gelirlerinizi takip edin
+            {t("calendar.subtitle")}
           </Text>
         </View>
 
@@ -66,7 +68,7 @@ export default function CalendarScreen() {
         {selectedDate && (
           <View className="mt-6">
             <Text className="text-xl font-bold text-foreground mb-4">
-              {selectedDate.toLocaleDateString("tr-TR", {
+              {selectedDate.toLocaleDateString(i18n.language === "tr" ? "tr-TR" : "en-US", {
                 day: "numeric",
                 month: "long",
                 year: "numeric",
@@ -76,7 +78,7 @@ export default function CalendarScreen() {
             {selectedPayments.length === 0 && selectedIncomes.length === 0 && (
               <View className="bg-surface rounded-2xl p-8 items-center justify-center border border-border">
                 <Text className="text-muted text-center text-base">
-                  Bu tarihte ödeme veya gelir bulunmuyor
+                  {t("calendar.noData")}
                 </Text>
               </View>
             )}
@@ -85,7 +87,7 @@ export default function CalendarScreen() {
             {selectedPayments.length > 0 && (
               <View className="mb-4">
                 <Text className="text-base font-semibold text-foreground mb-2">
-                  Ödemeler ({selectedPayments.length})
+                  {t("calendar.payments")} ({selectedPayments.length})
                 </Text>
                 {selectedPayments.map((payment) => (
                   <PaymentCard
@@ -104,7 +106,7 @@ export default function CalendarScreen() {
             {selectedIncomes.length > 0 && (
               <View>
                 <Text className="text-base font-semibold text-foreground mb-2">
-                  Gelirler ({selectedIncomes.length})
+                  {t("calendar.incomes")} ({selectedIncomes.length})
                 </Text>
                 {selectedIncomes.map((income) => (
                   <IncomeCard

@@ -20,7 +20,20 @@
     "search": "Search",
     "filter": "Filter",
     "all": "All",
-    "change": "Change"
+    "change": "Change",
+    "viewAll": "View All",
+    "january": "January",
+    "february": "February",
+    "march": "March",
+    "april": "April",
+    "may": "May",
+    "june": "June",
+    "july": "July",
+    "august": "August",
+    "september": "September",
+    "october": "October",
+    "november": "November",
+    "december": "December"
   },
   "tabs": {
     "home": "Home",
@@ -37,20 +50,26 @@
     "summary": "Summary",
     "totalPayments": "Total Payments",
     "totalIncomes": "Total Incomes",
-    "balance": "Balance"
+    "balance": "Balance",
+    "noUpcomingPayments": "No upcoming payments in the next 7 days",
+    "loadTestData": "Load Test Data"
   },
   "payments": {
     "title": "Payments",
     "subtitle": "View all your payments",
     "addPayment": "Add New Payment",
     "noPayments": "No payments added yet",
+    "noPaymentsInCategory": "No payments in this category",
     "filterByCategory": "Filter by category"
   },
   "incomes": {
     "title": "Incomes",
     "subtitle": "View all your incomes",
     "addIncome": "Add New Income",
-    "noIncomes": "No incomes added yet"
+    "noIncomes": "No incomes added yet",
+    "noIncomesInCategory": "No incomes in this category",
+    "regular": "Regular",
+    "irregular": "Irregular"
   },
   "paymentDetail": {
     "title": "Payment Detail",
@@ -115,6 +134,13 @@
     "monthly": "Monthly",
     "yearly": "Yearly"
   },
+  "calendar": {
+    "title": "Calendar",
+    "subtitle": "Track your payments and incomes",
+    "noData": "No payments or incomes on this date",
+    "payments": "Payments",
+    "incomes": "Incomes"
+  },
   "settings": {
     "title": "Settings",
     "theme": "Theme",
@@ -176,26 +202,43 @@
   "privacyPolicy": {
     "title": "Privacy Policy",
     "lastUpdated": "Last Updated",
-    "intro": "Payment Tracker app respects your privacy and protects your personal data.",
+    "intro": "Introduction",
     "dataCollection": {
       "title": "Data Collection",
-      "content": "Our app does not collect any personal data. All your payment and income information is stored locally on your device."
+      "content": "Payment Tracker app does not collect any personal data. All your payment and income information is stored locally on your device and is not sent to any server."
     },
     "dataStorage": {
       "title": "Data Storage",
-      "content": "All your data is stored in your device's local storage. No data is sent to our servers or third-party servers."
+      "content": "\u2022 All data is stored in your device's local storage (AsyncStorage)\n\u2022 Your data is only accessible to you\n\u2022 All data is automatically deleted when the app is uninstalled\n\u2022 You can export your data using the backup feature"
     },
     "dataSharing": {
-      "title": "Data Sharing",
-      "content": "Your data is not shared with any third parties. We do not use advertising networks or analytics services."
+      "title": "Third-Party Sharing",
+      "content": "Payment Tracker app does not share any data with third parties. Your data stays only on your device and is not sent anywhere over the internet."
     },
     "notifications": {
       "title": "Notifications",
-      "content": "The app uses local notifications for payment reminders. These notifications are generated and sent entirely on your device."
+      "content": "The app uses local notifications for payment reminders. These notifications are generated only on your device and do not send any information to any server. You can disable notifications at any time from settings."
+    },
+    "permissions": {
+      "title": "App Permissions",
+      "content": "Payment Tracker app uses the following permissions:\n\n\u2022 Notifications: To send payment reminders\n\u2022 Storage: To save backup files"
+    },
+    "security": {
+      "title": "Data Security",
+      "content": "Your data is securely stored in your device's local storage. We recommend using a screen lock and password to ensure your device's security."
+    },
+    "children": {
+      "title": "Children's Privacy",
+      "content": "Our app does not knowingly collect data from children under 13 years of age. Parents should supervise their children's use of the app."
+    },
+    "changes": {
+      "title": "Policy Changes",
+      "content": "This privacy policy may be updated from time to time. You will be notified within the app when significant changes occur."
     },
     "contact": {
       "title": "Contact",
-      "content": "If you have any questions about our privacy policy, please contact us:"
-    }
+      "content": "If you have any questions about our privacy policy, please contact us:\n\nEmail: destek@odemetakibi.com"
+    },
+    "footer": "By using the Payment Tracker app, you agree to this privacy policy."
   }
 }

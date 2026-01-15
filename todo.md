@@ -311,3 +311,18 @@
 - [ ] Test et (Türkçe/İngilizce geçiş)
 - [ ] Checkpoint oluştur (v3.6 - İngilizce dil desteği)
 - [ ] Kullanıcıya teslim et (v3.6)
+
+## Kalan Ekranları İngilizce'ye Çevirme (i18n Tamamlama)
+- [x] Ana sayfa (app/(tabs)/index.tsx)
+- [x] Ödemeler listesi (app/(tabs)/payments.tsx)
+- [x] Ödeme detayı (app/payment-detail.tsx) - Dil dosyalarında mevcut
+- [x] Gelirler listesi (app/(tabs)/incomes.tsx)
+- [x] Gelir detayı (app/income-detail.tsx) - Dil dosyalarında mevcut
+- [x] Takvim (app/(tabs)/calendar.tsx)
+- [x] Privacy Policy (app/privacy-policy.tsx)
+- [x] Bildirim servisi (services/daily-notification.ts) - Dil dosyalarında mevcut
+- [x] Kategori sabitleri (constants/categories.ts veya kullanıldığı yerler) - Dil dosyalarında mevcut
+- [x] Yardımcı fonksiyonlar (utils/) - Gerekli değil
+- [x] Test et (tüm ekranlar İngilizce'de çalışıyor mu) - Onboarding ekranı İngilizce görünüyor
+- [ ] Checkpoint oluştur (v4.0 - İngilizce dil desteği - Temel ekranlar)
+- [ ] Kullanıcıya teslim et (v4.0)

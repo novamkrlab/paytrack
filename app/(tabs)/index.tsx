@@ -16,10 +16,12 @@ import {
   calculateMonthlyPaymentTotal,
   calculateMonthlyIncomeTotal,
 } from "@/utils/helpers";
+import { useTranslation } from "react-i18next";
 
 export default function HomeScreen() {
   const router = useRouter();
   const { state } = useApp();
+  const { t } = useTranslation();
   const [refreshing, setRefreshing] = useState(false);
 
   // Mevcut ay bilgileri
@@ -52,9 +54,9 @@ export default function HomeScreen() {
       >
         {/* Başlık */}
         <View className="mb-6">
-          <Text className="text-3xl font-bold text-foreground">Ana Sayfa</Text>
+          <Text className="text-3xl font-bold text-foreground">{t("home.title")}</Text>
           <Text className="text-base text-muted mt-1">
-            Finansal durumunuzu takip edin
+            {t("home.subtitle")}
           </Text>
         </View>
 
@@ -68,11 +70,11 @@ export default function HomeScreen() {
         {/* Yaklaşan Ödemeler Başlığı */}
         <View className="flex-row items-center justify-between mb-4">
           <Text className="text-xl font-bold text-foreground">
-            Yaklaşan Ödemeler
+            {t("home.upcomingPayments")}
           </Text>
           {upcomingPayments.length > 0 && (
             <TouchableOpacity onPress={() => router.push("/(tabs)/payments")}>
-              <Text className="text-sm text-primary font-medium">Tümünü Gör</Text>
+              <Text className="text-sm text-primary font-medium">{t("common.viewAll")}</Text>
             </TouchableOpacity>
           )}
         </View>
@@ -92,7 +94,7 @@ export default function HomeScreen() {
         ) : (
           <View className="bg-surface rounded-2xl p-8 items-center justify-center border border-border">
             <Text className="text-muted text-center text-base">
-              Önümüzdeki 7 gün içinde ödeme bulunmuyor
+              {t("home.noUpcomingPayments")}
             </Text>
           </View>
         )}
@@ -106,7 +108,7 @@ export default function HomeScreen() {
             }}
           >
             <Text className="text-background font-semibold text-base">
-              Ödeme Ekle
+              {t("payments.addPayment")}
             </Text>
           </TouchableOpacity>
 
@@ -117,7 +119,7 @@ export default function HomeScreen() {
             }}
           >
             <Text className="text-background font-semibold text-base">
-              Gelir Ekle
+              {t("incomes.addIncome")}
             </Text>
           </TouchableOpacity>
 
@@ -129,7 +131,7 @@ export default function HomeScreen() {
             }}
           >
             <Text className="text-foreground font-semibold text-base">
-              Test Verileri Yükle
+              {t("home.loadTestData")}
             </Text>
           </TouchableOpacity>
         </View>

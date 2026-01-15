@@ -20,7 +20,20 @@
     "search": "Ara",
     "filter": "Filtrele",
     "all": "Tümü",
-    "change": "Değiştir"
+    "change": "Değiştir",
+    "viewAll": "Tümünü Gör",
+    "january": "Ocak",
+    "february": "Şubat",
+    "march": "Mart",
+    "april": "Nisan",
+    "may": "Mayıs",
+    "june": "Haziran",
+    "july": "Temmuz",
+    "august": "Ağustos",
+    "september": "Eylül",
+    "october": "Ekim",
+    "november": "Kasım",
+    "december": "Aralık"
   },
   "tabs": {
     "home": "Ana Sayfa",
@@ -30,27 +43,33 @@
     "settings": "Ayarlar"
   },
   "home": {
-    "title": "Ödeme Takibi",
-    "subtitle": "Tüm ödemelerinizi ve gelirlerinizi tek yerden takip edin. Kredi kartı, kredi, fatura ve diğer tüm ödemeleriniz için.",
+    "title": "Ana Sayfa",
+    "subtitle": "Finansal durumunuzu takip edin",
     "upcomingPayments": "Yaklaşan Ödemeler",
     "recentIncomes": "Son Gelirler",
     "summary": "Özet",
     "totalPayments": "Toplam Ödemeler",
     "totalIncomes": "Toplam Gelirler",
-    "balance": "Denge"
+    "balance": "Denge",
+    "noUpcomingPayments": "Önümüzdeki 7 gün içinde ödeme bulunmuyor",
+    "loadTestData": "Test Verileri Yükle"
   },
   "payments": {
     "title": "Ödemeler",
     "subtitle": "Tüm ödemelerinizi görüntüleyin",
     "addPayment": "Yeni Ödeme Ekle",
     "noPayments": "Henüz ödeme eklenmemiş",
+    "noPaymentsInCategory": "Bu kategoride ödeme bulunmuyor",
     "filterByCategory": "Kategoriye göre filtrele"
   },
   "incomes": {
     "title": "Gelirler",
     "subtitle": "Tüm gelirlerinizi görüntüleyin",
     "addIncome": "Yeni Gelir Ekle",
-    "noIncomes": "Henüz gelir eklenmemiş"
+    "noIncomes": "Henüz gelir eklenmemiş",
+    "noIncomesInCategory": "Bu kategoride gelir bulunmuyor",
+    "regular": "Düzenli",
+    "irregular": "Düzenli Olmayan"
   },
   "paymentDetail": {
     "title": "Ödeme Detayı",
@@ -115,6 +134,13 @@
     "monthly": "Aylık",
     "yearly": "Yıllık"
   },
+  "calendar": {
+    "title": "Takvim",
+    "subtitle": "Ödemelerinizi ve gelirlerinizi takip edin",
+    "noData": "Bu tarihte ödeme veya gelir bulunmuyor",
+    "payments": "Ödemeler",
+    "incomes": "Gelirler"
+  },
   "settings": {
     "title": "Ayarlar",
     "theme": "Tema",
@@ -174,6 +200,48 @@
     "unknownError": "Bilinmeyen bir hata oluştu"
   },
   "privacyPolicy": {
+    "title": "Gizlilik Politikası",
+    "lastUpdated": "Son Güncelleme",
+    "intro": "Giriş",
+    "dataCollection": {
+      "title": "Veri Toplama",
+      "content": "Ödeme Takibi uygulaması hiçbir kişisel veri toplamaz. Tüm ödeme ve gelir bilgileriniz yalnızca cihazınızda yerel olarak saklanır ve hiçbir sunucuya gönderilmez."
+    },
+    "dataStorage": {
+      "title": "Veri Saklama",
+      "content": "\u2022 Tüm veriler cihazınızın yerel depolama alanında (AsyncStorage) saklanır\n\u2022 Verileriniz yalnızca sizin erişiminize açıktır\n\u2022 Uygulama silindiginde tüm veriler otomatik olarak silinir\n\u2022 Veri yedekleme özelliği ile verilerinizi dışa aktarabilirsiniz"
+    },
+    "dataSharing": {
+      "title": "Üçüncü Taraf Paylaşım",
+      "content": "Ödeme Takibi uygulaması hiçbir veriyi üçüncü taraflarla paylaşmaz. Verileriniz yalnızca cihazınızda kalır ve internet üzerinden hiçbir yere gönderilmez."
+    },
+    "notifications": {
+      "title": "Bildirimler",
+      "content": "Uygulama, ödeme hatırlatıcıları için yerel bildirimler kullanır. Bu bildirimler yalnızca cihazınızda oluşturulur ve hiçbir sunucuya bilgi göndermez. Bildirimleri istediğiniz zaman ayarlardan kapatabilirsiniz."
+    },
+    "permissions": {
+      "title": "Uygulama İzinleri",
+      "content": "Ödeme Takibi uygulaması aşağıdaki izinleri kullanır:\n\n\u2022 Bildirimler: Ödeme hatırlatıcıları göndermek için\n\u2022 Depolama: Veri yedekleme dosyalarını kaydetmek için"
+    },
+    "security": {
+      "title": "Veri Güvenliği",
+      "content": "Verileriniz cihazınızın yerel depolama alanında güvenli bir şekilde saklanır. Cihazınızın güvenliğini sağlamak için ekran kilidi ve şifre kullanmanızı öneririz."
+    },
+    "children": {
+      "title": "Çocukların Gizliliği",
+      "content": "Uygulamamaz 13 yaşın altındaki çocuklardan bilerek veri toplamaz. Ebeveynler, çocuklarının uygulamayı kullanımını denetlemelidir."
+    },
+    "changes": {
+      "title": "Politika Değişiklikleri",
+      "content": "Bu gizlilik politikası zaman zaman güncellenebilir. Önemli değişiklikler olduğunda uygulama içinde bildirim yapılacaktır."
+    },
+    "contact": {
+      "title": "İletişim",
+      "content": "Gizlilik politikamız hakkında sorularınız varsa, lütfen bizimle iletişime geçin:\n\nE-posta: destek@odemetakibi.com"
+    },
+    "footer": "Ödeme Takibi uygulamasını kullanarak bu gizlilik politikasını kabul etmiş olursunuz."
+  },
+  "oldPrivacyPolicy": {
     "title": "Gizlilik Politikası",
     "lastUpdated": "Son Güncelleme",
     "intro": "Ödeme Takibi uygulaması, gizliliğinize saygı duyar ve kişisel verilerinizi korur.",

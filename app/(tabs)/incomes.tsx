@@ -9,12 +9,14 @@ import { ScreenContainer } from "@/components/screen-container";
 import { IncomeCard } from "@/components/income-card";
 import { useApp } from "@/lib/app-context";
 import { IncomeType } from "@/types";
+import { useTranslation } from "react-i18next";
 
 type FilterType = "all" | IncomeType;
 
 export default function IncomesScreen() {
   const router = useRouter();
   const { state } = useApp();
+  const { t } = useTranslation();
   const [filter, setFilter] = useState<FilterType>("all");
 
   const filteredIncomes = state.incomes.filter((income) => {
@@ -33,9 +35,9 @@ export default function IncomesScreen() {
         contentContainerStyle={{ paddingHorizontal: 16, paddingTop: 16, paddingBottom: 32 }}
       >
         <View className="mb-6">
-          <Text className="text-3xl font-bold text-foreground">Gelirler</Text>
+          <Text className="text-3xl font-bold text-foreground">{t("incomes.title")}</Text>
           <Text className="text-base text-muted mt-1">
-            Tüm gelirlerinizi görüntüleyin
+            {t("incomes.subtitle")}
           </Text>
         </View>
 
@@ -51,7 +53,7 @@ export default function IncomesScreen() {
                 filter === "all" ? "text-background" : "text-foreground"
               }`}
             >
-              Tümü
+              {t("common.all")}
             </Text>
           </TouchableOpacity>
 
@@ -66,7 +68,7 @@ export default function IncomesScreen() {
                 filter === IncomeType.REGULAR ? "text-background" : "text-foreground"
               }`}
             >
-              Düzenli
+              {t("incomes.regular")}
             </Text>
           </TouchableOpacity>
 
@@ -81,7 +83,7 @@ export default function IncomesScreen() {
                 filter === IncomeType.IRREGULAR ? "text-background" : "text-foreground"
               }`}
             >
-              Düzenli Olmayan
+              {t("incomes.irregular")}
             </Text>
           </TouchableOpacity>
         </View>
@@ -100,7 +102,7 @@ export default function IncomesScreen() {
         ) : (
           <View className="bg-surface rounded-2xl p-8 items-center justify-center border border-border">
             <Text className="text-muted text-center text-base">
-              {filter === "all" ? "Henüz gelir eklenmemiş" : "Bu kategoride gelir bulunmuyor"}
+              {filter === "all" ? t("incomes.noIncomes") : t("incomes.noIncomesInCategory")}
             </Text>
           </View>
         )}
@@ -110,7 +112,7 @@ export default function IncomesScreen() {
           onPress={() => router.push("/add-income" as any)}
         >
           <Text className="text-background font-semibold text-base">
-            Yeni Gelir Ekle
+            {t("incomes.addIncome")}
           </Text>
         </TouchableOpacity>
       </ScrollView>

@@ -20,6 +20,11 @@ const getDeviceLanguage = () => {
 // Kaydedilmiş dili al
 const getSavedLanguage = async () => {
   try {
+    // Web ortamında localStorage kullan, native'de AsyncStorage
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const savedLanguage = window.localStorage.getItem(LANGUAGE_KEY);
+      return savedLanguage || getDeviceLanguage();
+    }
     const savedLanguage = await AsyncStorage.getItem(LANGUAGE_KEY);
     return savedLanguage || getDeviceLanguage();
   } catch (error) {
@@ -31,7 +36,12 @@ const getSavedLanguage = async () => {
 // Dili kaydet
 export const saveLanguage = async (language: string) => {
   try {
-    await AsyncStorage.setItem(LANGUAGE_KEY, language);
+    // Web ortamında localStorage kullan, native'de AsyncStorage
+    if (typeof window !== 'undefined' && window.localStorage) {
+      window.localStorage.setItem(LANGUAGE_KEY, language);
+    } else {
+      await AsyncStorage.setItem(LANGUAGE_KEY, language);
+    }
   } catch (error) {
     console.error('Error saving language:', error);
   }
