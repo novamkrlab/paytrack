@@ -3,6 +3,7 @@
  */
 
 import { ScrollView, Text, View, Switch, TouchableOpacity, Alert, Platform, ActivityIndicator } from "react-native";
+import { router } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
 import { useApp } from "@/lib/app-context";
 import { useColorScheme } from "@/hooks/use-color-scheme";
@@ -325,6 +326,25 @@ export default function SettingsScreen() {
               </Text>
             </TouchableOpacity>
           </View>
+        </View>
+
+        {/* Gizlilik Politikası */}
+        <View className="mb-6">
+          <Text className="text-lg font-semibold text-foreground mb-3">
+            Yasal
+          </Text>
+
+          <TouchableOpacity
+            className="bg-surface rounded-2xl p-4 active:opacity-80"
+            onPress={() => router.push("/privacy-policy")}
+          >
+            <Text className="text-foreground font-semibold text-base">
+              Gizlilik Politikası
+            </Text>
+            <Text className="text-muted text-sm mt-1">
+              Veri toplama ve kullanım politikamız
+            </Text>
+          </TouchableOpacity>
         </View>
 
         {/* Uygulama Bilgisi */}

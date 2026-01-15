@@ -255,5 +255,16 @@
 - [x] Root layout'a onboarding yönlendirmesi ekle
 - [x] Modern, minimal tasarım uygula
 - [x] Test et (kod tamamlandı, kullanıcı testi gerekli)
-- [ ] Checkpoint oluştur (v3.2 - Onboarding ekranı)
-- [ ] Kullanıcıya teslim et (v3.2)
+- [x] Checkpoint oluştur (v3.2 - Onboarding ekranı)
+- [x] Kullanıcıya teslim et (v3.2)
+
+## Privacy Policy Sayfası (Google Play Hazırlık - Öncelik 3)
+- [x] Privacy policy sayfası oluştur (app/privacy-policy.tsx)
+- [x] Gizlilik politikası içeriği yaz (Türkçe)
+- [x] Veri toplama, saklama ve paylaşım politikalarını açıkla
+- [x] Ayarlar ekranına "Gizlilik Politikası" butonu ekle
+- [x] Modal veya yeni ekran olarak aç
+- [x] ScrollView ile okunabilir tasarım
+- [x] Test et (kod tamamlandı, kullanıcı testi gerekli)
+- [ ] Checkpoint oluştur (v3.3 - Privacy Policy)
+- [ ] Kullanıcıya teslim et (v3.3)
