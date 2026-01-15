@@ -367,5 +367,28 @@
 - [x] Takvim ekranında para birimi formatını güncelle - ₺ sembolü yok
 - [x] Bildirim servisinde para birimi formatını güncelle
 - [x] Test et (para birimi formatı İngilizce'de $ gösteriyor mu) - TypeScript hatası yok
-- [ ] Checkpoint oluştur (v4.4 - Para birimi formatı dinamik)
-- [ ] Kullanıcıya teslim et (v4.4)
+- [x] Checkpoint oluştur (v4.4 - Para birimi formatı dinamik)
+- [x] Kullanıcıya teslim et (v4.4)
+
+## Google Play İçin Privacy Policy (v4.5)
+- [x] Privacy Policy taslak metni hazırla (Türkçe ve İngilizce)
+- [x] Privacy Policy dosyasını oluştur (PRIVACY_POLICY.md)
+- [x] Kullanıcıya teslim et
+
+## Google Play Yükleme Rehberi (v4.5)
+- [x] Google Play Console hesabı oluşturma adımları
+- [x] Uygulama bilgileri hazırlama (açıklama, ekran görüntüleri, vb.)
+- [x] APK/AAB build alma ve yükleme adımları
+- [x] Store listing hazırlama
+- [x] Kapsamlı rehber belgesi oluşturma
+- [x] Kullanıcıya teslim et
+
+## Ana Sayfa Eksik Çevirileri (v4.6)
+- [x] "Bu Ay Özet" çevirisini ekle
+- [x] "Toplam Gelir" çevirisini ekle
+- [x] "Toplam Ödeme" çevirisini ekle
+- [x] "Kalan Bakiye" çevirisini ekle
+- [x] Dil dosyalarına eksik çevirileri ekle
+- [x] Test et - TypeScript hatası yok
+- [ ] Checkpoint oluştur
+- [ ] Kullanıcıya teslim et

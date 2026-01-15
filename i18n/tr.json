@@ -43,6 +43,10 @@
     "settings": "Ayarlar"
   },
   "home": {
+    "monthSummary": "Bu Ay Özet",
+    "totalIncome": "Toplam Gelir",
+    "totalPayment": "Toplam Ödeme",
+    "remainingBalance": "Kalan Bakiye",
     "title": "Ana Sayfa",
     "subtitle": "Finansal durumunuzu takip edin",
     "upcomingPayments": "Yaklaşan Ödemeler",

@@ -44,6 +44,10 @@
     "settings": "Settings"
   },
   "home": {
+    "monthSummary": "This Month Summary",
+    "totalIncome": "Total Income",
+    "totalPayment": "Total Payment",
+    "remainingBalance": "Remaining Balance",
     "title": "Payment Tracker",
     "subtitle": "Track all your payments and incomes in one place. For credit cards, loans, bills, and all other payments.",
     "upcomingPayments": "Upcoming Payments",
