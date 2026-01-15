@@ -390,5 +390,16 @@
 - [x] "Kalan Bakiye" çevirisini ekle
 - [x] Dil dosyalarına eksik çevirileri ekle
 - [x] Test et - TypeScript hatası yok
+- [x] Checkpoint oluştur
+- [x] Kullanıcıya teslim et
+
+## Tab Bar Çevirileri (v4.7)
+- [x] Tab bar dosyasını bul
+- [x] "Ana Sayfa" çevirisini ekle
+- [x] "Ödemeler" çevirisini ekle
+- [x] "Gelirler" çevirisini ekle
+- [x] "Takvim" çevirisini ekle
+- [x] "Ayarlar" çevirisini ekle
+- [x] Test et - TypeScript hatası yok
 - [ ] Checkpoint oluştur
 - [ ] Kullanıcıya teslim et
