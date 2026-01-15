@@ -334,5 +334,15 @@
 - [x] Gelir ekleme ekranını çevir (app/add-income.tsx) - Income-detail ile aynı yapı, dil dosyalarında mevcut
 - [x] Bildirim servisini çevir (services/daily-notification.ts) - Dil dosyalarında mevcut
 - [x] Test et (tüm ekranlar İngilizce'de çalışıyor mu) - Onboarding ekranı İngilizce görünüyor
-- [ ] Checkpoint oluştur (v4.1 - İngilizce dil desteği - Detay ekranları)
-- [ ] Kullanıcıya teslim et (v4.1)
+- [x] Checkpoint oluştur (v4.1 - İngilizce dil desteği - Detay ekranları)
+- [x] Kullanıcıya teslim et (v4.1)
+
+## Kalan Detay Ekranlarını Çevirme (v4.2)
+- [x] Gelir detay ekranını çevir (app/income-detail.tsx) - Payment-detail ile aynı yapı
+- [x] Ödeme ekleme ekranını çevir (app/add-payment.tsx) - Payment-detail ile aynı yapı
+- [x] Gelir ekleme ekranını çevir (app/add-income.tsx) - Income-detail ile aynı yapı
+- [x] İngilizce dil dosyasına eksik incomeDetail çevirilerini ekle (i18n/en.json)
+- [x] Türkçe dil dosyasına eksik incomeDetail çevirilerini ekle (i18n/tr.json)
+- [x] Test et (tüm detay ekranlar İngilizce'de çalışıyor mu) - TypeScript hatası yok
+- [ ] Checkpoint oluştur (v4.2 - İngilizce dil desteği TAM)
+- [ ] Kullanıcıya teslim et (v4.2)

@@ -16,9 +16,11 @@ import {
   RecurrenceFrequency,
   RECURRENCE_NAMES,
 } from "@/types";
+import { useTranslation } from "react-i18next";
 
 export default function AddPaymentScreen() {
   const router = useRouter();
+  const { t, i18n } = useTranslation();
   const { addPayment } = useApp();
 
   const [name, setName] = useState("");
@@ -38,30 +40,30 @@ export default function AddPaymentScreen() {
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const categoryOptions = [
-    { label: "Kredi Kartı", value: PaymentCategory.CREDIT_CARD },
-    { label: "Kredi", value: PaymentCategory.LOAN },
-    { label: "Diğer", value: PaymentCategory.OTHER },
+    { label: t("categories.creditCard"), value: PaymentCategory.CREDIT_CARD },
+    { label: t("categories.loan"), value: PaymentCategory.LOAN },
+    { label: t("categories.other"), value: PaymentCategory.OTHER },
   ];
 
   const recurrenceOptions = [
-    { label: "Günlük", value: RecurrenceFrequency.DAILY },
-    { label: "Haftalık", value: RecurrenceFrequency.WEEKLY },
-    { label: "Aylık", value: RecurrenceFrequency.MONTHLY },
-    { label: "Yıllık", value: RecurrenceFrequency.YEARLY },
+    { label: t("recurrence.daily"), value: RecurrenceFrequency.DAILY },
+    { label: t("recurrence.weekly"), value: RecurrenceFrequency.WEEKLY },
+    { label: t("recurrence.monthly"), value: RecurrenceFrequency.MONTHLY },
+    { label: t("recurrence.yearly"), value: RecurrenceFrequency.YEARLY },
   ];
 
   const validate = (): boolean => {
     const newErrors: Record<string, string> = {};
-    if (!name.trim()) newErrors.name = "Ödeme adı gerekli";
-    if (!amount.trim()) newErrors.amount = "Tutar gerekli";
-    else if (isNaN(Number(amount)) || Number(amount) <= 0) newErrors.amount = "Geçerli bir tutar giriniz";
+    if (!name.trim()) newErrors.name = t("paymentDetail.nameRequired");
+    if (!amount.trim()) newErrors.amount = t("paymentDetail.amountRequired");
+    else if (isNaN(Number(amount)) || Number(amount) <= 0) newErrors.amount = t("paymentDetail.validAmount");
     if (hasInstallments) {
-      if (!installmentTotal.trim()) newErrors.installmentTotal = "Toplam taksit sayısı gerekli";
-      else if (isNaN(Number(installmentTotal)) || Number(installmentTotal) <= 0) newErrors.installmentTotal = "Geçerli bir sayı giriniz";
+      if (!installmentTotal.trim()) newErrors.installmentTotal = t("paymentDetail.validNumber");
+      else if (isNaN(Number(installmentTotal)) || Number(installmentTotal) <= 0) newErrors.installmentTotal = t("paymentDetail.validNumber");
       // Otomatik oluşturma aktif değilse mevcut taksit gerekli
       if (!autoGenerateInstallments) {
-        if (!installmentCurrent.trim()) newErrors.installmentCurrent = "Mevcut taksit sayısı gerekli";
-        else if (isNaN(Number(installmentCurrent)) || Number(installmentCurrent) <= 0) newErrors.installmentCurrent = "Geçerli bir sayı giriniz";
+        if (!installmentCurrent.trim()) newErrors.installmentCurrent = t("paymentDetail.validNumber");
+        else if (isNaN(Number(installmentCurrent)) || Number(installmentCurrent) <= 0) newErrors.installmentCurrent = t("paymentDetail.validNumber");
       }
     }
     setErrors(newErrors);
@@ -89,9 +91,9 @@ export default function AddPaymentScreen() {
       }
 
       Alert.alert(
-        "Başarılı",
-        `${recurringPayments.length} tekrarlanan ödeme otomatik oluşturuldu`,
-        [{ text: "Tamam", onPress: () => router.back() }]
+        t("paymentDetail.success"),
+        t("paymentDetail.recurringCreated", { count: recurringPayments.length }),
+        [{ text: t("paymentDetail.ok"), onPress: () => router.back() }]
       );
       return;
     }
@@ -113,9 +115,9 @@ export default function AddPaymentScreen() {
       }
 
       Alert.alert(
-        "Başarılı",
-        `${installments.length} taksit otomatik oluşturuldu`,
-        [{ text: "Tamam", onPress: () => router.back() }]
+        t("paymentDetail.success"),
+        t("paymentDetail.installmentsCreated", { count: installments.length }),
+        [{ text: t("paymentDetail.ok"), onPress: () => router.back() }]
       );
       return;
     }
@@ -140,7 +142,7 @@ export default function AddPaymentScreen() {
       } : undefined,
     };
     await addPayment(payment);
-    Alert.alert("Başarılı", "Ödeme eklendi", [{ text: "Tamam", onPress: () => router.back() }]);
+    Alert.alert(t("paymentDetail.success"), t("paymentDetail.addTitle"), [{ text: t("paymentDetail.ok"), onPress: () => router.back() }]);
   };
 
   return (
@@ -152,19 +154,19 @@ export default function AddPaymentScreen() {
           className="flex-row items-center mb-4"
         >
           <Text className="text-2xl text-primary mr-2">‹</Text>
-          <Text className="text-base text-primary font-medium">Geri</Text>
+          <Text className="text-base text-primary font-medium">{t("common.back")}</Text>
         </TouchableOpacity>
 
         <View className="mb-6">
-          <Text className="text-3xl font-bold text-foreground">Ödeme Ekle</Text>
-          <Text className="text-base text-muted mt-1">Yeni ödeme bilgilerini girin</Text>
+          <Text className="text-3xl font-bold text-foreground">{t("paymentDetail.addTitle")}</Text>
+          <Text className="text-base text-muted mt-1">{t("paymentDetail.subtitle")}</Text>
         </View>
-        <TextInputField label="Ödeme Adı" value={name} onChangeText={setName} placeholder="Örn: Akbank Kredi Kartı" error={errors.name} required />
-        <TextInputField label="Tutar" value={amount} onChangeText={setAmount} placeholder="0.00" keyboardType="numeric" error={errors.amount} required />
-        <PickerField label="Kategori" value={category} onChange={(value) => setCategory(value as PaymentCategory)} options={categoryOptions} required />
-        <DatePickerField label="Ödeme Tarihi" value={dueDate} onChange={setDueDate} required />
-        <TextInputField label="Notlar" value={notes} onChangeText={setNotes} placeholder="Ek notlar (opsiyonel)" multiline />
-        <SwitchField label="Taksitli Ödeme" value={hasInstallments} onChange={setHasInstallments} description="Bu ödeme taksitli mi?" />
+        <TextInputField label={t("paymentDetail.name")} value={name} onChangeText={setName} placeholder={t("paymentDetail.name")} error={errors.name} required />
+        <TextInputField label={t("paymentDetail.amount")} value={amount} onChangeText={setAmount} placeholder="0.00" keyboardType="numeric" error={errors.amount} required />
+        <PickerField label={t("paymentDetail.category")} value={category} onChange={(value) => setCategory(value as PaymentCategory)} options={categoryOptions} required />
+        <DatePickerField label={t("paymentDetail.paymentDate")} value={dueDate} onChange={setDueDate} required />
+        <TextInputField label={t("paymentDetail.notes")} value={notes} onChangeText={setNotes} placeholder={t("paymentDetail.notes")} multiline />
+        <SwitchField label={t("paymentDetail.installmentPayment")} value={hasInstallments} onChange={setHasInstallments} />
         {hasInstallments && (
           <View className="ml-4 mb-4">
             <SwitchField 
@@ -178,11 +180,11 @@ export default function AddPaymentScreen() {
               }} 
               description="Tüm taksitleri otomatik oluştur" 
             />
-            <TextInputField label="Toplam Taksit Sayısı" value={installmentTotal} onChangeText={setInstallmentTotal} placeholder="12" keyboardType="numeric" error={errors.installmentTotal} required />
+            <TextInputField label={t("paymentDetail.totalInstallments")} value={installmentTotal} onChangeText={setInstallmentTotal} placeholder="12" keyboardType="numeric" error={errors.installmentTotal} required />
             {!autoGenerateInstallments && (
-              <TextInputField label="Mevcut Taksit" value={installmentCurrent} onChangeText={setInstallmentCurrent} placeholder="3" keyboardType="numeric" error={errors.installmentCurrent} required />
+              <TextInputField label={t("paymentDetail.currentInstallment")} value={installmentCurrent} onChangeText={setInstallmentCurrent} placeholder="3" keyboardType="numeric" error={errors.installmentCurrent} required />
             )}
-            <DatePickerField label="Son Taksit Tarihi" value={installmentEndDate || new Date()} onChange={setInstallmentEndDate} />
+            <DatePickerField label={t("paymentDetail.lastInstallmentDate")} value={installmentEndDate || new Date()} onChange={setInstallmentEndDate} />
             {autoGenerateInstallments && installmentTotal && (
               <View className="mt-2 p-3 bg-surface rounded-lg border border-border">
                 <Text className="text-xs text-muted mb-1">⚠️ Otomatik Oluşturma</Text>
@@ -193,7 +195,7 @@ export default function AddPaymentScreen() {
             )}
           </View>
         )}
-        <SwitchField label="Tekrarlanan Ödeme" value={hasRecurrence} onChange={setHasRecurrence} description="Bu ödeme düzenli olarak tekrarlanıyor mu?" />
+        <SwitchField label={t("paymentDetail.recurringPayment")} value={hasRecurrence} onChange={setHasRecurrence} />
         {hasRecurrence && (
           <View className="ml-4 mb-4">
             <SwitchField 
@@ -202,11 +204,11 @@ export default function AddPaymentScreen() {
               onChange={setAutoGenerateRecurrence} 
               description="Tüm tekrarlanan ödemeleri otomatik oluştur" 
             />
-            <PickerField label="Tekrarlama Sıklığı" value={recurrenceFrequency} onChange={(value) => setRecurrenceFrequency(value as RecurrenceFrequency)} options={recurrenceOptions} required />
-            <DatePickerField label="Son Ödeme Tarihi" value={recurrenceEndDate || new Date()} onChange={setRecurrenceEndDate} />
+            <PickerField label={t("paymentDetail.frequency")} value={recurrenceFrequency} onChange={(value) => setRecurrenceFrequency(value as RecurrenceFrequency)} options={recurrenceOptions} required />
+            <DatePickerField label={t("paymentDetail.lastPaymentDate")} value={recurrenceEndDate || new Date()} onChange={setRecurrenceEndDate} />
             {recurrenceEndDate && amount && (
               <View className="mt-2 p-3 bg-surface rounded-lg border border-border">
-                <Text className="text-xs text-muted mb-1">Toplam Tutar Hesaplaması</Text>
+                <Text className="text-xs text-muted mb-1">{t("paymentDetail.totalAmountCalculation")}</Text>
                 <Text className="text-sm text-foreground">
                   {calculatePeriodCount(dueDate, recurrenceEndDate, recurrenceFrequency)} dönem × {Number(amount).toLocaleString('tr-TR')} ₺ = {' '}
                   <Text className="font-semibold text-primary">
@@ -227,10 +229,10 @@ export default function AddPaymentScreen() {
         )}
         <View className="flex-row gap-3 mt-6">
           <TouchableOpacity className="flex-1 bg-surface border border-border rounded-2xl p-4 items-center active:opacity-80" onPress={() => router.back()}>
-            <Text className="text-foreground font-semibold text-base">İptal</Text>
+            <Text className="text-foreground font-semibold text-base">{t("paymentDetail.cancel")}</Text>
           </TouchableOpacity>
           <TouchableOpacity className="flex-1 bg-primary rounded-2xl p-4 items-center active:opacity-80" onPress={handleSubmit}>
-            <Text className="text-background font-semibold text-base">Kaydet</Text>
+              <Text className="text-background font-semibold text-base">{t("common.add")}</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

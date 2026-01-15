@@ -14,9 +14,11 @@ import {
 } from "@/components/form-input";
 import { useApp } from "@/lib/app-context";
 import { IncomeType, RecurrenceFrequency } from "@/types";
+import { useTranslation } from "react-i18next";
 
 export default function AddIncomeScreen() {
   const router = useRouter();
+  const { t, i18n } = useTranslation();
   const { addIncome } = useApp();
 
   const [name, setName] = useState("");
@@ -29,22 +31,22 @@ export default function AddIncomeScreen() {
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const typeOptions = [
-    { label: "Düzenli", value: IncomeType.REGULAR },
-    { label: "Düzenli Olmayan", value: IncomeType.IRREGULAR },
+    { label: t("incomes.regular"), value: IncomeType.REGULAR },
+    { label: t("incomes.irregular"), value: IncomeType.IRREGULAR },
   ];
 
   const recurrenceOptions = [
-    { label: "Günlük", value: RecurrenceFrequency.DAILY },
-    { label: "Haftalık", value: RecurrenceFrequency.WEEKLY },
-    { label: "Aylık", value: RecurrenceFrequency.MONTHLY },
-    { label: "Yıllık", value: RecurrenceFrequency.YEARLY },
+    { label: t("recurrence.daily"), value: RecurrenceFrequency.DAILY },
+    { label: t("recurrence.weekly"), value: RecurrenceFrequency.WEEKLY },
+    { label: t("recurrence.monthly"), value: RecurrenceFrequency.MONTHLY },
+    { label: t("recurrence.yearly"), value: RecurrenceFrequency.YEARLY },
   ];
 
   const validate = (): boolean => {
     const newErrors: Record<string, string> = {};
-    if (!name.trim()) newErrors.name = "Gelir adı gerekli";
-    if (!amount.trim()) newErrors.amount = "Tutar gerekli";
-    else if (isNaN(Number(amount)) || Number(amount) <= 0) newErrors.amount = "Geçerli bir tutar giriniz";
+    if (!name.trim()) newErrors.name = t("incomeDetail.nameRequired");
+    if (!amount.trim()) newErrors.amount = t("incomeDetail.amountRequired");
+    else if (isNaN(Number(amount)) || Number(amount) <= 0) newErrors.amount = t("incomeDetail.validAmount");
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -60,7 +62,7 @@ export default function AddIncomeScreen() {
       recurrence: hasRecurrence ? { frequency: recurrenceFrequency } : undefined,
     };
     await addIncome(income);
-    Alert.alert("Başarılı", "Gelir eklendi", [{ text: "Tamam", onPress: () => router.back() }]);
+    Alert.alert(t("incomeDetail.success"), t("incomeDetail.addTitle"), [{ text: t("incomeDetail.ok"), onPress: () => router.back() }]);
   };
 
   return (
@@ -72,30 +74,30 @@ export default function AddIncomeScreen() {
           className="flex-row items-center mb-4"
         >
           <Text className="text-2xl text-primary mr-2">‹</Text>
-          <Text className="text-base text-primary font-medium">Geri</Text>
+          <Text className="text-base text-primary font-medium">{t("common.back")}</Text>
         </TouchableOpacity>
 
         <View className="mb-6">
-          <Text className="text-3xl font-bold text-foreground">Gelir Ekle</Text>
-          <Text className="text-base text-muted mt-1">Yeni gelir bilgilerini girin</Text>
+          <Text className="text-3xl font-bold text-foreground">{t("incomeDetail.addTitle")}</Text>
+          <Text className="text-base text-muted mt-1">{t("incomeDetail.subtitle")}</Text>
         </View>
-        <TextInputField label="Gelir Adı" value={name} onChangeText={setName} placeholder="Örn: Maaş" error={errors.name} required />
-        <TextInputField label="Tutar" value={amount} onChangeText={setAmount} placeholder="0.00" keyboardType="numeric" error={errors.amount} required />
-        <PickerField label="Tip" value={type} onChange={(value) => setType(value as IncomeType)} options={typeOptions} required />
-        <DatePickerField label="Tarih" value={date} onChange={setDate} required />
-        <TextInputField label="Notlar" value={notes} onChangeText={setNotes} placeholder="Ek notlar (opsiyonel)" multiline />
-        <SwitchField label="Tekrarlanan Gelir" value={hasRecurrence} onChange={setHasRecurrence} description="Bu gelir düzenli olarak tekrarlanıyor mu?" />
+        <TextInputField label={t("incomeDetail.name")} value={name} onChangeText={setName} placeholder={t("incomeDetail.name")} error={errors.name} required />
+        <TextInputField label={t("incomeDetail.amount")} value={amount} onChangeText={setAmount} placeholder="0.00" keyboardType="numeric" error={errors.amount} required />
+        <PickerField label={t("incomeDetail.type")} value={type} onChange={(value) => setType(value as IncomeType)} options={typeOptions} required />
+        <DatePickerField label={t("incomeDetail.date")} value={date} onChange={setDate} required />
+        <TextInputField label={t("incomeDetail.notes")} value={notes} onChangeText={setNotes} placeholder={t("incomeDetail.notes")} multiline />
+        <SwitchField label={t("incomeDetail.recurringIncome")} value={hasRecurrence} onChange={setHasRecurrence} />
         {hasRecurrence && (
           <View className="ml-4 mb-4">
-            <PickerField label="Tekrarlama Sıklığı" value={recurrenceFrequency} onChange={(value) => setRecurrenceFrequency(value as RecurrenceFrequency)} options={recurrenceOptions} required />
+            <PickerField label={t("incomeDetail.frequency")} value={recurrenceFrequency} onChange={(value) => setRecurrenceFrequency(value as RecurrenceFrequency)} options={recurrenceOptions} required />
           </View>
         )}
         <View className="flex-row gap-3 mt-6">
           <TouchableOpacity className="flex-1 bg-surface border border-border rounded-2xl p-4 items-center active:opacity-80" onPress={() => router.back()}>
-            <Text className="text-foreground font-semibold text-base">İptal</Text>
+            <Text className="text-foreground font-semibold text-base">{t("incomeDetail.cancel")}</Text>
           </TouchableOpacity>
           <TouchableOpacity className="flex-1 bg-success rounded-2xl p-4 items-center active:opacity-80" onPress={handleSubmit}>
-            <Text className="text-background font-semibold text-base">Kaydet</Text>
+            <Text className="text-background font-semibold text-base">{t("common.add")}</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
