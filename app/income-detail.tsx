@@ -98,33 +98,72 @@ export default function IncomeDetailScreen() {
     );
 
     if (relatedIncomes.length > 0) {
+      // Tekrarlanan gelir mi kontrol et
+      const isRecurring = income.recurrence;
+      
+      // Eğer tekrarlanan gelir ise, bundan sonraki gelirleri bul (tarihe göre)
+      let futureIncomes: typeof state.incomes = [];
+      if (isRecurring) {
+        const currentDate = new Date(income.date);
+        const baseName = income.name.replace(/ \(\d+\)$/, ''); // "Maaş (2)" -> "Maaş"
+        
+        futureIncomes = state.incomes.filter((i) => {
+          if (i.id === income.id) return false;
+          const iBaseName = i.name.replace(/ \(\d+\)$/, '');
+          const iDate = new Date(i.date);
+          return iBaseName === baseName && iDate > currentDate;
+        });
+      }
+
+      // Seçenekleri hazırla
+      const buttons: any[] = [
+        { text: "İptal", style: "cancel" },
+        {
+          text: "Sadece bunu sil",
+          onPress: async () => {
+            await deleteIncome(income.id);
+            router.back();
+          },
+        },
+      ];
+
+      // Eğer tekrarlanan gelir ve gelecek gelirler varsa, "Bundan sonrakini sil" seçeneği ekle
+      if (isRecurring && futureIncomes.length > 0) {
+        buttons.push({
+          text: `Bundan sonrakini sil (${futureIncomes.length + 1})`,
+          style: "destructive",
+          onPress: async () => {
+            // Bu geliri ve gelecek gelirleri sil
+            await deleteIncome(income.id);
+            for (const futureIncome of futureIncomes) {
+              await deleteIncome(futureIncome.id);
+            }
+            Alert.alert("Başarılı", `${futureIncomes.length + 1} gelir silindi`);
+            router.back();
+          },
+        });
+      }
+
+      // "Tümünü sil" seçeneği
+      buttons.push({
+        text: `Tümünü sil (${relatedIncomes.length + 1})`,
+        style: "destructive",
+        onPress: async () => {
+          // Bu geliri ve tüm tekrarları sil
+          await deleteIncome(income.id);
+          for (const relatedIncome of relatedIncomes) {
+            await deleteIncome(relatedIncome.id);
+          }
+          Alert.alert("Başarılı", `${relatedIncomes.length + 1} gelir silindi`);
+          router.back();
+        },
+      });
+
       // Tekrarlar varsa, seçenek sun
       Alert.alert(
         "Geliri Sil",
         `Bu gelirle aynı isimde ${relatedIncomes.length} gelir daha var. Ne yapmak istersiniz?`,
-        [
-          { text: "İptal", style: "cancel" },
-          {
-            text: "Sadece bunu sil",
-            onPress: async () => {
-              await deleteIncome(income.id);
-              router.back();
-            },
-          },
-          {
-            text: `Tümünü sil (${relatedIncomes.length + 1})`,
-            style: "destructive",
-            onPress: async () => {
-              // Bu geliri ve tüm tekrarları sil
-              await deleteIncome(income.id);
-              for (const relatedIncome of relatedIncomes) {
-                await deleteIncome(relatedIncome.id);
-              }
-              Alert.alert("Başarılı", `${relatedIncomes.length + 1} gelir silindi`);
-              router.back();
-            },
-          },
-        ]
+        buttons
       );
     } else {
       // Tekrar yoksa, normal silme

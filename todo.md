@@ -181,5 +181,14 @@
 - [x] Düzenleme ekranında ID'nin doğru geçtiğini kontrol et
 - [x] Hatayı düzelt (otomatik oluşturma sırasında mevcut ödeme siliniyor)
 - [x] Test et
-- [ ] Checkpoint oluştur (v2.4 - Düzenleme hatası düzeltmesi)
-- [ ] Kullanıcıya teslim et (v2.4)
+- [x] Checkpoint oluştur (v2.4 - Düzenleme hatası düzeltmesi)
+- [x] Kullanıcıya teslim et (v2.4)
+
+## Bundan Sonrakini Sil Özelliği (Kullanıcı İsteği)
+- [x] Taksit numarasını tespit etme fonksiyonu yaz
+- [x] Mevcut taksit ve sonraki taksitleri bulma
+- [x] Silme dialoguna "Bundan sonrakini sil" seçeneği ekle
+- [x] Gelir için de aynı özelliği ekle
+- [x] Test et
+- [ ] Checkpoint oluştur (v2.5 - Bundan sonrakini sil)
+- [ ] Kullanıcıya teslim et (v2.5)

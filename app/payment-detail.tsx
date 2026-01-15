@@ -179,33 +179,71 @@ export default function PaymentDetailScreen() {
     );
 
     if (relatedPayments.length > 0) {
+      // Taksitli ödeme mi kontrol et
+      const isInstallment = payment.installments && payment.installments.current && payment.installments.total;
+      
+      // Eğer taksitli ödeme ise, bundan sonraki taksitleri bul
+      let futurePayments: typeof state.payments = [];
+      if (isInstallment) {
+        const currentInstallment = payment.installments!.current;
+        const baseName = payment.name.replace(/ \d+\/\d+$/, ''); // "Deneme 2/12" -> "Deneme"
+        
+        futurePayments = state.payments.filter((p) => {
+          if (!p.installments || p.id === payment.id) return false;
+          const pBaseName = p.name.replace(/ \d+\/\d+$/, '');
+          return pBaseName === baseName && p.installments.current > currentInstallment;
+        });
+      }
+
+      // Seçenekleri hazırla
+      const buttons: any[] = [
+        { text: "İptal", style: "cancel" },
+        {
+          text: "Sadece bunu sil",
+          onPress: async () => {
+            await deletePayment(payment.id);
+            router.back();
+          },
+        },
+      ];
+
+      // Eğer taksitli ödeme ve gelecek taksitler varsa, "Bundan sonrakini sil" seçeneği ekle
+      if (isInstallment && futurePayments.length > 0) {
+        buttons.push({
+          text: `Bundan sonrakini sil (${futurePayments.length + 1})`,
+          style: "destructive",
+          onPress: async () => {
+            // Bu ödemeyi ve gelecek taksitleri sil
+            await deletePayment(payment.id);
+            for (const futurePayment of futurePayments) {
+              await deletePayment(futurePayment.id);
+            }
+            Alert.alert("Başarılı", `${futurePayments.length + 1} ödeme silindi`);
+            router.back();
+          },
+        });
+      }
+
+      // "Tümünü sil" seçeneği
+      buttons.push({
+        text: `Tümünü sil (${relatedPayments.length + 1})`,
+        style: "destructive",
+        onPress: async () => {
+          // Bu ödemeyi ve tüm tekrarları sil
+          await deletePayment(payment.id);
+          for (const relatedPayment of relatedPayments) {
+            await deletePayment(relatedPayment.id);
+          }
+          Alert.alert("Başarılı", `${relatedPayments.length + 1} ödeme silindi`);
+          router.back();
+        },
+      });
+
       // Tekrarlar varsa, seçenek sun
       Alert.alert(
         "Ödemeyi Sil",
         `Bu ödemeyle aynı isimde ${relatedPayments.length} ödeme daha var. Ne yapmak istersiniz?`,
-        [
-          { text: "İptal", style: "cancel" },
-          {
-            text: "Sadece bunu sil",
-            onPress: async () => {
-              await deletePayment(payment.id);
-              router.back();
-            },
-          },
-          {
-            text: `Tümünü sil (${relatedPayments.length + 1})`,
-            style: "destructive",
-            onPress: async () => {
-              // Bu ödemeyi ve tüm tekrarları sil
-              await deletePayment(payment.id);
-              for (const relatedPayment of relatedPayments) {
-                await deletePayment(relatedPayment.id);
-              }
-              Alert.alert("Başarılı", `${relatedPayments.length + 1} ödeme silindi`);
-              router.back();
-            },
-          },
-        ]
+        buttons
       );
     } else {
       // Tekrar yoksa, normal silme
