@@ -418,5 +418,15 @@
 - [x] Dil dosyalarında common.months ve common.days yapısını kontrol et
 - [x] Eksik çevirileri ekle
 - [x] Test et - TypeScript hatası yok
+- [x] Checkpoint oluştur
+- [x] Kullanıcıya teslim et
+
+## Ayarlar Sayfası Çevirileri (v5.0)
+- [x] Ayarlar ekranını bul
+- [x] Başlık ve alt başlık çevirilerini ekle
+- [x] Bildirim ayarları çevirilerini ekle
+- [x] Para birimi ve tema çevirilerini ekle
+- [x] Dil dosyalarına eksik çevirileri ekle
+- [x] Test et - TypeScript hatası yok
 - [ ] Checkpoint oluştur
 - [ ] Kullanıcıya teslim et

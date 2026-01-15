@@ -264,16 +264,31 @@
   },
   "settings": {
     "title": "Ayarlar",
-    "theme": "Tema",
-    "themeLight": "Açık",
-    "themeDark": "Koyu",
-    "themeAuto": "Otomatik",
+    "subtitle": "Uygulama tercihlerinizi yönetin",
+    "theme": {
+      "title": "Tema"
+    },
+    "currency": {
+      "title": "Para Birimi"
+    },
     "language": "Dil",
     "languageTurkish": "Türkçe",
     "languageEnglish": "İngilizce",
-    "notifications": "Bildirimler",
-    "dailyNotification": "Günlük Ödeme Hatırlatıcısı",
-    "notificationTime": "Bildirim Saati",
+    "notifications": {
+      "title": "Bildirimler",
+      "enable": "Bildirimleri Aç",
+      "description": "Ödeme hatırlatmaları alın",
+      "time": "Bildirim Zamanı",
+      "daysBefore": "{{days}} gün önceden bildirim",
+      "dailyEnabled": "Her gün saat {{hour}}:00'da yakında gelecek ödemeler bildirilecek.",
+      "dailyDisabled": "Günlük bildirimler kapatıldı.",
+      "permissionRequired": "Bildirim İzni Gerekli",
+      "permissionMessage": "Günlük bildirimler için bildirim iznini ayarlardan açmanız gerekiyor.",
+      "hourTitle": "Bildirim Saati",
+      "hourMessage": "Günlük bildirimin gönderileceği saati girin (0-23):",
+      "hourSet": "Bildirim saati {{hour}}:00 olarak ayarlandı.",
+      "hourError": "Lütfen 0-23 arasında bir saat girin."
+    },
     "dataManagement": "Veri Yönetimi",
     "exportData": "Verileri Dışa Aktar",
     "importData": "Verileri İçe Aktar",

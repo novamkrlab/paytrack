@@ -224,16 +224,31 @@
   },
   "settings": {
     "title": "Settings",
-    "theme": "Theme",
-    "themeLight": "Light",
-    "themeDark": "Dark",
-    "themeAuto": "Auto",
+    "subtitle": "Manage your app preferences",
+    "theme": {
+      "title": "Theme"
+    },
+    "currency": {
+      "title": "Currency"
+    },
     "language": "Language",
     "languageTurkish": "Turkish",
     "languageEnglish": "English",
-    "notifications": "Notifications",
-    "dailyNotification": "Daily Payment Reminder",
-    "notificationTime": "Notification Time",
+    "notifications": {
+      "title": "Notifications",
+      "enable": "Enable Notifications",
+      "description": "Get payment reminders",
+      "time": "Notification Time",
+      "daysBefore": "{{days}} days before notification",
+      "dailyEnabled": "Upcoming payments will be notified every day at {{hour}}:00.",
+      "dailyDisabled": "Daily notifications disabled.",
+      "permissionRequired": "Notification Permission Required",
+      "permissionMessage": "You need to enable notification permission from settings for daily notifications.",
+      "hourTitle": "Notification Time",
+      "hourMessage": "Enter the hour to send daily notification (0-23):",
+      "hourSet": "Notification time set to {{hour}}:00.",
+      "hourError": "Please enter an hour between 0-23."
+    },
     "dataManagement": "Data Management",
     "exportData": "Export Data",
     "importData": "Import Data",

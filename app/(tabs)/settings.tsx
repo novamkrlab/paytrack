@@ -49,31 +49,31 @@ export default function SettingsScreen() {
       if (granted) {
         await scheduleDailyNotification(state.payments, dailyNotificationHour);
         Alert.alert(
-          "Başarılı",
-          `Her gün saat ${dailyNotificationHour}:00'da yakında gelecek ödemeler bildirilecek.`
+          t("common.success"),
+          t("settings.notifications.dailyEnabled", { hour: dailyNotificationHour })
         );
       } else {
         Alert.alert(
-          "Bildirim İzni Gerekli",
-          "Günlük bildirimler için bildirim iznini ayarlardan açmanız gerekiyor."
+          t("settings.notifications.permissionRequired"),
+          t("settings.notifications.permissionMessage")
         );
         setDailyNotificationEnabled(false);
         await saveDailyNotificationSettings(false, dailyNotificationHour);
       }
     } else {
       await cancelDailyNotification();
-      Alert.alert("Başarılı", "Günlük bildirimler kapatıldı.");
+      Alert.alert(t("common.success"), t("settings.notifications.dailyDisabled"));
     }
   };
 
   const handleChangeNotificationHour = () => {
     Alert.prompt(
-      "Bildirim Saati",
-      "Günlük bildirimin gönderileceği saati girin (0-23):",
+      t("settings.notifications.hourTitle"),
+      t("settings.notifications.hourMessage"),
       [
-        { text: "İptal", style: "cancel" },
+        { text: t("common.cancel"), style: "cancel" },
         {
-          text: "Kaydet",
+          text: t("common.save"),
           onPress: async (text?: string) => {
             const hour = parseInt(text || "8");
             if (hour >= 0 && hour <= 23) {
@@ -82,9 +82,9 @@ export default function SettingsScreen() {
               if (dailyNotificationEnabled) {
                 await scheduleDailyNotification(state.payments, hour);
               }
-              Alert.alert("Başarılı", `Bildirim saati ${hour}:00 olarak ayarlandı.`);
+              Alert.alert(t("common.success"), t("settings.notifications.hourSet", { hour }));
             } else {
-              Alert.alert("Hata", "Lütfen 0-23 arasında bir saat girin.");
+              Alert.alert(t("common.error"), t("settings.notifications.hourError"));
             }
           },
         },
@@ -160,26 +160,26 @@ export default function SettingsScreen() {
         contentContainerStyle={{ paddingHorizontal: 16, paddingTop: 16, paddingBottom: 32 }}
       >
         <View className="mb-6">
-          <Text className="text-3xl font-bold text-foreground">Ayarlar</Text>
+          <Text className="text-3xl font-bold text-foreground">{t("settings.title")}</Text>
           <Text className="text-base text-muted mt-1">
-            Uygulama tercihlerinizi yönetin
+            {t("settings.subtitle")}
           </Text>
         </View>
 
         {/* Bildirim Ayarları */}
         <View className="mb-6">
           <Text className="text-lg font-semibold text-foreground mb-3">
-            Bildirimler
+            {t("settings.notifications.title")}
           </Text>
 
           <View className="bg-surface rounded-2xl p-4 border border-border">
             <View className="flex-row items-center justify-between mb-4">
               <View className="flex-1">
                 <Text className="text-base font-medium text-foreground">
-                  Bildirimleri Aç
+                  {t("settings.notifications.enable")}
                 </Text>
                 <Text className="text-sm text-muted mt-1">
-                  Ödeme hatırlatmaları alın
+                  {t("settings.notifications.description")}
                 </Text>
               </View>
               <Switch
@@ -192,10 +192,10 @@ export default function SettingsScreen() {
 
             <View className="border-t border-border pt-4 mb-4">
               <Text className="text-base font-medium text-foreground mb-2">
-                Bildirim Zamanı
+                {t("settings.notifications.time")}
               </Text>
               <Text className="text-sm text-muted">
-                {state.settings.notificationDaysBefore} gün önceden bildirim
+                {t("settings.notifications.daysBefore", { days: state.settings.notificationDaysBefore })}
               </Text>
             </View>
 
@@ -265,7 +265,7 @@ export default function SettingsScreen() {
         {/* Para Birimi */}
         <View className="mb-6">
           <Text className="text-lg font-semibold text-foreground mb-3">
-            Para Birimi
+            {t("settings.currency.title")}
           </Text>
 
           <View className="bg-surface rounded-2xl p-4 border border-border">
@@ -278,7 +278,7 @@ export default function SettingsScreen() {
         {/* Tema */}
         <View className="mb-6">
           <Text className="text-lg font-semibold text-foreground mb-3">
-            Tema
+            {t("settings.theme.title")}
           </Text>
 
           <View className="bg-surface rounded-2xl p-4 border border-border">
