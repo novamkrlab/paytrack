@@ -189,6 +189,7 @@ interface SwitchFieldProps {
   value: boolean;
   onChange: (value: boolean) => void;
   description?: string;
+  disabled?: boolean;
 }
 
 export function SwitchField({
@@ -196,12 +197,17 @@ export function SwitchField({
   value,
   onChange,
   description,
+  disabled = false,
 }: SwitchFieldProps) {
   return (
     <View className="mb-4">
       <TouchableOpacity
-        onPress={() => onChange(!value)}
-        className="flex-row items-center justify-between bg-surface border border-border rounded-xl px-4 py-3"
+        onPress={() => !disabled && onChange(!value)}
+        className={cn(
+          "flex-row items-center justify-between bg-surface border border-border rounded-xl px-4 py-3",
+          disabled && "opacity-50"
+        )}
+        disabled={disabled}
       >
         <View className="flex-1">
           <Text className="text-base font-medium text-foreground">{label}</Text>
