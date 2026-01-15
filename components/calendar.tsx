@@ -8,6 +8,7 @@ import { useState } from "react";
 import * as Haptics from "expo-haptics";
 import { Payment, Income } from "@/types";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 
 interface CalendarProps {
   payments: Payment[];
@@ -16,6 +17,7 @@ interface CalendarProps {
 }
 
 export function Calendar({ payments, incomes, onDatePress }: CalendarProps) {
+  const { t } = useTranslation();
   const [currentDate, setCurrentDate] = useState(new Date());
 
   const year = currentDate.getFullYear();
@@ -161,22 +163,30 @@ export function Calendar({ payments, incomes, onDatePress }: CalendarProps) {
 
   // Ay adları
   const monthNames = [
-    "Ocak",
-    "Şubat",
-    "Mart",
-    "Nisan",
-    "Mayıs",
-    "Haziran",
-    "Temmuz",
-    "Ağustos",
-    "Eylül",
-    "Ekim",
-    "Kasım",
-    "Aralık",
+    t("common.months.january"),
+    t("common.months.february"),
+    t("common.months.march"),
+    t("common.months.april"),
+    t("common.months.may"),
+    t("common.months.june"),
+    t("common.months.july"),
+    t("common.months.august"),
+    t("common.months.september"),
+    t("common.months.october"),
+    t("common.months.november"),
+    t("common.months.december"),
   ];
 
   // Gün adları
-  const dayNames = ["Paz", "Pzt", "Sal", "Çar", "Per", "Cum", "Cmt"];
+  const dayNames = [
+    t("common.days.sun"),
+    t("common.days.mon"),
+    t("common.days.tue"),
+    t("common.days.wed"),
+    t("common.days.thu"),
+    t("common.days.fri"),
+    t("common.days.sat"),
+  ];
 
   return (
     <View className="bg-surface rounded-2xl p-4 border border-border">

@@ -401,5 +401,15 @@
 - [x] "Takvim" çevirisini ekle
 - [x] "Ayarlar" çevirisini ekle
 - [x] Test et - TypeScript hatası yok
+- [x] Checkpoint oluştur
+- [x] Kullanıcıya teslim et
+
+## Takvim Ay ve Gün İsimleri Çevirileri (v4.8)
+- [x] Takvim ekranını bul
+- [x] Ay isimlerini çevir (Ocak → January)
+- [x] Gün isimlerini çevir (Paz, Pzt, Sal... → Sun, Mon, Tue...)
+- [x] "Ödeme" ve "Gelir" çevirilerini kontrol et - Dil dosyalarında mevcut
+- [x] Dil dosyalarına eksik çevirileri ekle - Zaten mevcut
+- [x] Test et - TypeScript hatası yok
 - [ ] Checkpoint oluştur
 - [ ] Kullanıcıya teslim et
