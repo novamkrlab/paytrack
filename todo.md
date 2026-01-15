@@ -411,5 +411,12 @@
 - [x] "Ödeme" ve "Gelir" çevirilerini kontrol et - Dil dosyalarında mevcut
 - [x] Dil dosyalarına eksik çevirileri ekle - Zaten mevcut
 - [x] Test et - TypeScript hatası yok
+- [x] Checkpoint oluştur
+- [x] Kullanıcıya teslim et
+
+## Takvim Çeviri Hatası Düzeltme (v4.9)
+- [x] Dil dosyalarında common.months ve common.days yapısını kontrol et
+- [x] Eksik çevirileri ekle
+- [x] Test et - TypeScript hatası yok
 - [ ] Checkpoint oluştur
 - [ ] Kullanıcıya teslim et
