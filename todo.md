@@ -207,5 +207,13 @@
 - [x] Parantez içinde numara olup olmadığını kontrol et
 - [x] Koşulları basitleştir ve daha robust hale getir (parantez varmı kontrolü yeterli)
 - [x] Test et
-- [ ] Checkpoint oluştur (v2.7 - Bundan sonrakini sil debug)
-- [ ] Kullanıcıya teslim et (v2.7)
+- [x] Checkpoint oluştur (v2.7 - Bundan sonrakini sil debug)
+- [x] Kullanıcıya teslim et (v2.7)
+
+## relatedPayments Kontrolü Düzeltmesi (Kullanıcı Bildirimi - Hala Çalışmıyor)
+- [x] relatedPayments filtresini düzelt (tam eşleşme yerine base name eşleşmesi)
+- [x] "Deneme1 (1)" için "Deneme1 (2)", "Deneme1 (3)" bulmasını sağla
+- [x] Hem taksitli hem tekrarlanan ödemeler için base name çıkar (getBaseName fonksiyonu)
+- [x] Test et
+- [ ] Checkpoint oluştur (v2.8 - relatedPayments düzeltmesi)
+- [ ] Kullanıcıya teslim et (v2.8)

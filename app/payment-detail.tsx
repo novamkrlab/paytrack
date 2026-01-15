@@ -173,9 +173,17 @@ export default function PaymentDetailScreen() {
   };
 
   const handleDelete = () => {
-    // Aynı isme sahip diğer ödemeleri bul (tekrarlar)
+    // Base name'ı çıkar (parantez içindeki numara veya taksit bilgisini kaldır)
+    const getBaseName = (name: string) => {
+      // "Deneme1 (2)" -> "Deneme1" veya "Deneme 2/12" -> "Deneme"
+      return name.replace(/ \(\d+\)$/, '').replace(/ \d+\/\d+$/, '');
+    };
+    
+    const baseName = getBaseName(payment.name);
+    
+    // Aynı base name'e sahip diğer ödemeleri bul (tekrarlar)
     const relatedPayments = state.payments.filter(
-      (p) => p.name === payment.name && p.id !== payment.id
+      (p) => getBaseName(p.name) === baseName && p.id !== payment.id
     );
 
     if (relatedPayments.length > 0) {
