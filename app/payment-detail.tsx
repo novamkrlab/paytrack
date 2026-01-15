@@ -6,12 +6,8 @@ import { ScrollView, Text, View, TouchableOpacity, Alert } from "react-native";
 import { useState } from "react";
 import { useRouter, useLocalSearchParams } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
-import {
-  TextInputField,
-  DatePickerField,
-  PickerField,
-  SwitchField,
-} from "@/components/form-input";
+import { TextInputField, DatePickerField, PickerField, SwitchField } from "@/components/form-input";
+import { calculatePeriodCount, calculateTotalAmount } from "@/utils/date-helpers";
 import { useApp } from "@/lib/app-context";
 import {
   PaymentCategory,
@@ -42,6 +38,9 @@ export default function PaymentDetailScreen() {
   const [hasRecurrence, setHasRecurrence] = useState(!!payment?.recurrence);
   const [recurrenceFrequency, setRecurrenceFrequency] = useState<RecurrenceFrequency>(
     payment?.recurrence?.frequency || RecurrenceFrequency.MONTHLY
+  );
+  const [recurrenceEndDate, setRecurrenceEndDate] = useState<Date | null>(
+    payment?.recurrence?.endDate ? new Date(payment.recurrence.endDate) : null
   );
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -103,7 +102,10 @@ export default function PaymentDetailScreen() {
         current: Number(installmentCurrent),
         endDate: installmentEndDate ? installmentEndDate.toISOString() : undefined
       } : undefined,
-      recurrence: hasRecurrence ? { frequency: recurrenceFrequency } : undefined,
+      recurrence: hasRecurrence ? { 
+        frequency: recurrenceFrequency,
+        endDate: recurrenceEndDate ? recurrenceEndDate.toISOString() : undefined
+      } : undefined,
     };
     await updatePayment(updatedPayment);
     setIsEditing(false);
@@ -217,6 +219,18 @@ export default function PaymentDetailScreen() {
             {hasRecurrence && (
               <View className="ml-4 mb-4">
                 <PickerField label="Sıklık" value={recurrenceFrequency} onChange={(value) => setRecurrenceFrequency(value as RecurrenceFrequency)} options={recurrenceOptions} required />
+                <DatePickerField label="Son Ödeme Tarihi" value={recurrenceEndDate || new Date()} onChange={setRecurrenceEndDate} />
+                {recurrenceEndDate && amount && (
+                  <View className="mt-2 p-3 bg-surface rounded-lg border border-border">
+                    <Text className="text-xs text-muted mb-1">Toplam Tutar Hesaplaması</Text>
+                    <Text className="text-sm text-foreground">
+                      {calculatePeriodCount(dueDate, recurrenceEndDate, recurrenceFrequency)} dönem × {Number(amount).toLocaleString('tr-TR')} ₺ = {' '}
+                      <Text className="font-semibold text-primary">
+                        {calculateTotalAmount(Number(amount), dueDate, recurrenceEndDate, recurrenceFrequency).toLocaleString('tr-TR')} ₺
+                      </Text>
+                    </Text>
+                  </View>
+                )}
               </View>
             )}
             <View className="flex-row gap-3 mt-6">

@@ -68,8 +68,10 @@
 - [x] Kullanıcıya teslim et (v1.5)
 - [x] Checkpoint oluştur (v1.6 - Takvim düzeltmesi)
 - [x] Kullanıcıya teslim et (v1.6)
-- [ ] Checkpoint oluştur (v1.7 - Tarih karşılaştırma düzeltmesi)
-- [ ] Kullanıcıya teslim et (v1.7)
+- [x] Checkpoint oluştur (v1.7 - Tarih karşılaştırma düzeltmesi)
+- [x] Kullanıcıya teslim et (v1.7)
+- [ ] Checkpoint oluştur (v1.8 - Tekrarlanan ödemeler iyileştirmesi)
+- [ ] Kullanıcıya teslim et (v1.8)
 
 ## Yeni Özellikler (Kullanıcı İsteği)
 - [x] Ödeme ekleme formu ekranı
@@ -119,3 +121,11 @@
 - [x] Ödeme ve gelir noktaları yanlış güne yerleşiyor
 - [x] Tarih karşılaştırma mantığını düzelt
 - [x] UTC/timezone sorununu çöz
+
+## Tekrarlanan Ödemeler İyileştirmesi (Kullanıcı İsteği)
+- [x] Tekrarlanan ödeme aktifken son ödeme tarihi alanı göster
+- [x] İlk ve son tarih arasındaki dönem sayısını hesapla
+- [x] Toplam ödenecek tutarı otomatik hesapla ve göster
+- [x] Ödeme ekleme formunu güncelle
+- [x] Ödeme düzenleme formunu güncelle
+- [x] Detay ekranında toplam tutar bilgisini göster
