@@ -190,5 +190,13 @@
 - [x] Silme dialoguna "Bundan sonrakini sil" seçeneği ekle
 - [x] Gelir için de aynı özelliği ekle
 - [x] Test et
-- [ ] Checkpoint oluştur (v2.5 - Bundan sonrakini sil)
-- [ ] Kullanıcıya teslim et (v2.5)
+- [x] Checkpoint oluştur (v2.5 - Bundan sonrakini sil)
+- [x] Kullanıcıya teslim et (v2.5)
+
+## Tekrarlanan Ödemeler İçin Bundan Sonrakini Sil Düzeltmesi (Kullanıcı Bildirimi)
+- [x] Tekrarlanan ödemelerin numaralandırma formatını kontrol et ("Deneme (1)", "Deneme (2)")
+- [x] Tekrarlanan ödemeler için de "bundan sonrakini sil" seçeneğini ekle
+- [x] Numaraya göre sıralama yap
+- [x] Test et
+- [ ] Checkpoint oluştur (v2.6 - Tekrarlanan ödemeler bundan sonrakini sil)
+- [ ] Kullanıcıya teslim et (v2.6)
