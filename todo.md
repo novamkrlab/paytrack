@@ -279,5 +279,20 @@
 - [x] İkonu assets/images/android-icon-foreground.png'ye kopyala
 - [x] app.config.ts'de logoUrl'i güncelle (logoUrl opsiyonel, yerel ikon kullanılıyor)
 - [x] Test et (görsel kontrol tamamlandı, kullanıcı onayı bekleniyor)
-- [ ] Checkpoint oluştur (v3.4 - Özel uygulama ikonu)
-- [ ] Kullanıcıya teslim et (v3.4)
+- [x] Checkpoint oluştur (v3.4 - Özel uygulama ikonu)
+- [x] Kullanıcıya teslim et (v3.4)
+
+## Google Play Console Hazırlık (Yayınlama - Öncelik 5)
+- [x] Kısa uygulama açıklaması yaz (80 karakter max)
+- [x] Uzun uygulama açıklaması yaz (4000 karakter max)
+- [x] Özellikler listesi hazırla
+- [x] Ekran görüntüleri için rehber hazırla (gerçek cihazda alınmalı)
+  - [x] Ana sayfa
+  - [x] Ödeme listesi
+  - [x] Ödeme ekleme
+  - [x] Ayarlar
+  - [x] Onboarding
+- [x] Feature graphic oluştur (1024x500px)
+- [x] Kategori ve yaş sınırı belirle (Finans, 3+)
+- [x] Tüm materyalleri bir klasörde topla (google-play-assets/)
+- [x] Kullanıcıya teslim et
