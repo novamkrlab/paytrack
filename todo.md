@@ -266,5 +266,18 @@
 - [x] Modal veya yeni ekran olarak aç
 - [x] ScrollView ile okunabilir tasarım
 - [x] Test et (kod tamamlandı, kullanıcı testi gerekli)
-- [ ] Checkpoint oluştur (v3.3 - Privacy Policy)
-- [ ] Kullanıcıya teslim et (v3.3)
+- [x] Checkpoint oluştur (v3.3 - Privacy Policy)
+- [x] Kullanıcıya teslim et (v3.3)
+
+## Özel Uygulama İkonu (Google Play Hazırlık - Öncelik 4)
+- [x] İkon tasarımı oluştur (para + takvim konsepti, 1024x1024px)
+- [x] Modern, minimal, flat design uygula
+- [x] Mavi-turkuaz gradient kullan (uygulamananın temasına uygun)
+- [x] İkonu assets/images/icon.png'ye kaydet
+- [x] İkonu assets/images/splash-icon.png'ye kopyala
+- [x] İkonu assets/images/favicon.png'ye kopyala
+- [x] İkonu assets/images/android-icon-foreground.png'ye kopyala
+- [x] app.config.ts'de logoUrl'i güncelle (logoUrl opsiyonel, yerel ikon kullanılıyor)
+- [x] Test et (görsel kontrol tamamlandı, kullanıcı onayı bekleniyor)
+- [ ] Checkpoint oluştur (v3.4 - Özel uygulama ikonu)
+- [ ] Kullanıcıya teslim et (v3.4)
