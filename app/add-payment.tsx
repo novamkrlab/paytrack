@@ -22,7 +22,7 @@ import { formatCurrency } from "@/utils/currency-helpers";
 export default function AddPaymentScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
-  const { addPayment } = useApp();
+  const { state, addPayment } = useApp();
 
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
@@ -211,9 +211,9 @@ export default function AddPaymentScreen() {
               <View className="mt-2 p-3 bg-surface rounded-lg border border-border">
                 <Text className="text-xs text-muted mb-1">{t("paymentDetail.totalAmountCalculation")}</Text>
                 <Text className="text-sm text-foreground">
-                  {calculatePeriodCount(dueDate, recurrenceEndDate, recurrenceFrequency)} dönem × {formatCurrency(Number(amount))} = {' '}
+                  {calculatePeriodCount(dueDate, recurrenceEndDate, recurrenceFrequency)} dönem × {formatCurrency(Number(amount), state.settings.currency)} = {' '}
                   <Text className="font-semibold text-primary">
-                    {formatCurrency(calculateTotalAmount(Number(amount), dueDate, recurrenceEndDate, recurrenceFrequency))}
+                    {formatCurrency(calculateTotalAmount(Number(amount), dueDate, recurrenceEndDate, recurrenceFrequency), state.settings.currency)}
                   </Text>
                 </Text>
               </View>

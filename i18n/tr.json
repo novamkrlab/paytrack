@@ -269,7 +269,9 @@
       "title": "Tema"
     },
     "currency": {
-      "title": "Para Birimi"
+      "title": "Para Birimi",
+      "selectMessage": "Tercih ettiğiniz para birimini seçin:",
+      "changed": "Para birimi {{currency}} olarak değiştirildi"
     },
     "language": "Dil",
     "languageTurkish": "Türkçe",

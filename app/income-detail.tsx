@@ -209,7 +209,7 @@ export default function IncomeDetailScreen() {
           <View className="gap-4">
             <View className="bg-surface rounded-2xl p-4 border border-border">
               <Text className="text-sm text-muted mb-1">{t("incomeDetail.amount")}</Text>
-              <Text className="text-2xl font-bold text-success">{formatCurrency(income.amount)}</Text>
+              <Text className="text-2xl font-bold text-success">{formatCurrency(income.amount, state.settings.currency)}</Text>
             </View>
             <View className="bg-surface rounded-2xl p-4 border border-border">
               <Text className="text-sm text-muted mb-1">{t("incomeDetail.type")}</Text>

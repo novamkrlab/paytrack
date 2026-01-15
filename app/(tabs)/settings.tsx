@@ -7,6 +7,7 @@ import { router } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
 import { useApp } from "@/lib/app-context";
 import { useColorScheme } from "@/hooks/use-color-scheme";
+import { CURRENCIES, getCurrencyName, type CurrencyCode } from "@/constants/currencies";
 import { sendTestNotification } from "@/lib/notifications";
 import { useEffect, useState } from "react";
 import {
@@ -268,10 +269,36 @@ export default function SettingsScreen() {
             {t("settings.currency.title")}
           </Text>
 
-          <View className="bg-surface rounded-2xl p-4 border border-border">
-            <Text className="text-base font-medium text-foreground">
-              {state.settings.currency}
-            </Text>
+          <View className="bg-surface rounded-2xl border border-border overflow-hidden">
+            <TouchableOpacity
+              className="p-4 flex-row items-center justify-between active:opacity-80"
+              onPress={() => {
+                Alert.alert(
+                  t("settings.currency.title"),
+                  t("settings.currency.selectMessage"),
+                  [
+                    ...CURRENCIES.map((currency) => ({
+                      text: `${currency.symbol} ${getCurrencyName(currency.code, i18n.language as 'en' | 'tr')}`,
+                      onPress: () => {
+                        updateSettings({ currency: currency.code });
+                        Alert.alert(
+                          t("common.success"),
+                          t("settings.currency.changed", { currency: currency.code })
+                        );
+                      },
+                    })),
+                    { text: t("common.cancel"), style: "cancel" },
+                  ]
+                );
+              }}
+            >
+              <Text className="text-base font-medium text-foreground">
+                {state.settings.currency}
+              </Text>
+              <Text className="text-sm text-muted">
+                {t("common.change")}
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
 

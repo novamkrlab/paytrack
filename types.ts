@@ -90,6 +90,8 @@ export interface Income {
 /**
  * Uygulama Ayarları
  */
+import type { CurrencyCode } from "@/constants/currencies";
+
 export interface AppSettings {
   // Bildirim ayarları
   notificationsEnabled: boolean;
@@ -97,7 +99,7 @@ export interface AppSettings {
   // Tema ayarları
   theme: "light" | "dark" | "system";
   // Para birimi
-  currency: string; // TRY, USD, EUR vb.
+  currency: CurrencyCode; // TRY, USD, EUR vb.
 }
 
 /**

@@ -428,5 +428,16 @@
 - [x] Para birimi ve tema çevirilerini ekle
 - [x] Dil dosyalarına eksik çevirileri ekle
 - [x] Test et - TypeScript hatası yok
+- [x] Checkpoint oluştur
+- [x] Kullanıcıya teslim et
+
+## Farklı Para Birimleri Ekleme (v5.1)
+- [x] Para birimi listesi oluştur (USD, EUR, GBP, JPY, CNY, CHF, CAD, AUD, vb.) - 30 para birimi eklendi
+- [x] Para birimi seçim menüsü (picker) oluştur - Alert ile seçim menüsü eklendi
+- [x] Seçilen para birimini AsyncStorage'a kaydet - setCurrency() fonksiyonu eklendi
+- [x] currency-helpers.ts dosyasını güncelle (seçilen para birimine göre format) - Async olarak güncellendi
+- [x] Ayarlar ekranına para birimi seçim menüsünü ekle - TouchableOpacity ile eklendi
+- [x] Dil dosyalarına para birimi çevirilerini ekle - selectMessage ve changed eklendi
+- [x] Test et (para birimi değiştiğinde tüm ekranlarda güncelleniyor mu) - Tüm ekranlarda güncellendi, TypeScript hatası yok
 - [ ] Checkpoint oluştur
 - [ ] Kullanıcıya teslim et

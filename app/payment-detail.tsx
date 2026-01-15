@@ -319,7 +319,7 @@ export default function PaymentDetailScreen() {
           <View className="gap-4">
             <View className="bg-surface rounded-2xl p-4 border border-border">
               <Text className="text-sm text-muted mb-1">{t("paymentDetail.amount")}</Text>
-              <Text className="text-2xl font-bold text-foreground">{formatCurrency(payment.amount)}</Text>
+              <Text className="text-2xl font-bold text-foreground">{formatCurrency(payment.amount, state.settings.currency)}</Text>
             </View>
             <View className="bg-surface rounded-2xl p-4 border border-border">
               <Text className="text-sm text-muted mb-1">{t("paymentDetail.category")}</Text>
@@ -410,9 +410,9 @@ export default function PaymentDetailScreen() {
                   <View className="mt-2 p-3 bg-surface rounded-lg border border-border">
                     <Text className="text-xs text-muted mb-1">{t("paymentDetail.totalAmountCalculation")}</Text>
                     <Text className="text-sm text-foreground">
-                      {calculatePeriodCount(dueDate, recurrenceEndDate, recurrenceFrequency)} {t("paymentDetail.periods")} × {formatCurrency(Number(amount))} = {' '}
-                      <Text className="font-semibold text-primary">
-                        {formatCurrency(calculateTotalAmount(Number(amount), dueDate, recurrenceEndDate, recurrenceFrequency))}
+                      {calculatePeriodCount(dueDate, recurrenceEndDate, recurrenceFrequency)} {t("paymentDetail.periods")} × {formatCurrency(Number(amount), state.settings.currency)} = {' '}
+                      <Text className="font-semibold">
+                        {formatCurrency(calculateTotalAmount(Number(amount), dueDate, recurrenceEndDate, recurrenceFrequency), state.settings.currency)}
                       </Text>
                     </Text>
                   </View>

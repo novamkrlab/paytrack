@@ -229,7 +229,9 @@
       "title": "Theme"
     },
     "currency": {
-      "title": "Currency"
+      "title": "Currency",
+      "selectMessage": "Select your preferred currency:",
+      "changed": "Currency changed to {{currency}}"
     },
     "language": "Language",
     "languageTurkish": "Turkish",
