@@ -487,5 +487,45 @@
     "budgetSaved": "Budget settings saved",
     "budgetLoadError": "Error loading budgets",
     "budgetSaveError": "Error saving budgets"
+  },
+  "expenseCategories": {
+    "rent": "Rent",
+    "electricity": "Electricity",
+    "water": "Water",
+    "gas": "Gas",
+    "phone_internet": "Phone/Internet",
+    "transportation": "Transportation",
+    "groceries": "Groceries",
+    "entertainment": "Entertainment",
+    "clothing": "Clothing",
+    "dining_out": "Dining Out",
+    "gifts": "Gifts",
+    "hobbies": "Hobbies",
+    "travel": "Travel",
+    "healthcare": "Healthcare",
+    "education": "Education",
+    "maintenance": "Maintenance",
+    "other": "Other"
+  },
+  "expenseTypes": {
+    "essential": "Essential Expenses",
+    "discretionary": "Discretionary Expenses",
+    "other": "Other"
+  },
+  "expenses": {
+    "title": "Expenses",
+    "addExpense": "Add Expense",
+    "editExpense": "Edit Expense",
+    "deleteExpense": "Delete Expense",
+    "expenseName": "Expense Name",
+    "amount": "Amount",
+    "category": "Category",
+    "date": "Date",
+    "notes": "Notes",
+    "selectCategory": "Select Category",
+    "essentialExpenses": "Essential Expenses",
+    "discretionaryExpenses": "Discretionary Expenses",
+    "noExpenses": "No expenses yet",
+    "totalExpenses": "Total Expenses"
   }
 }

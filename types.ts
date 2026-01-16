@@ -108,6 +108,7 @@ export interface AppSettings {
 export interface AppState {
   payments: Payment[];
   incomes: Income[];
+  expenses: import("@/types/expense").Expense[]; // Günlük harcamalar (borçlardan ayrı)
   settings: AppSettings;
 }
 

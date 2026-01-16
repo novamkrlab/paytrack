@@ -21,10 +21,13 @@ import {
 const STORAGE_KEYS = {
   PAYMENTS: "@odeme_takibi:payments",
   INCOMES: "@odeme_takibi:incomes",
+  EXPENSES: "@odeme_takibi:expenses",
   SETTINGS: "@odeme_takibi:settings",
 };
 
 // Action tipleri
+import type { Expense } from "@/types/expense";
+
 type AppAction =
   | { type: "SET_PAYMENTS"; payload: Payment[] }
   | { type: "ADD_PAYMENT"; payload: Payment }
@@ -34,6 +37,10 @@ type AppAction =
   | { type: "ADD_INCOME"; payload: Income }
   | { type: "UPDATE_INCOME"; payload: Income }
   | { type: "DELETE_INCOME"; payload: string }
+  | { type: "SET_EXPENSES"; payload: Expense[] }
+  | { type: "ADD_EXPENSE"; payload: Expense }
+  | { type: "UPDATE_EXPENSE"; payload: Expense }
+  | { type: "DELETE_EXPENSE"; payload: string }
   | { type: "UPDATE_SETTINGS"; payload: Partial<AppSettings> }
   | { type: "RESET_ALL" };
 
@@ -41,6 +48,7 @@ type AppAction =
 const initialState: AppState = {
   payments: [],
   incomes: [],
+  expenses: [],
   settings: DEFAULT_SETTINGS,
 };
 
@@ -87,6 +95,26 @@ function appReducer(state: AppState, action: AppAction): AppState {
         incomes: state.incomes.filter((i) => i.id !== action.payload),
       };
 
+    case "SET_EXPENSES":
+      return { ...state, expenses: action.payload };
+
+    case "ADD_EXPENSE":
+      return { ...state, expenses: [...state.expenses, action.payload] };
+
+    case "UPDATE_EXPENSE":
+      return {
+        ...state,
+        expenses: state.expenses.map((e) =>
+          e.id === action.payload.id ? action.payload : e
+        ),
+      };
+
+    case "DELETE_EXPENSE":
+      return {
+        ...state,
+        expenses: state.expenses.filter((e) => e.id !== action.payload),
+      };
+
     case "UPDATE_SETTINGS":
       return {
         ...state,
@@ -114,6 +142,9 @@ interface AppContextType {
   addIncome: (income: Omit<Income, "id" | "createdAt" | "updatedAt">) => Promise<void>;
   updateIncome: (income: Income) => Promise<void>;
   deleteIncome: (id: string) => Promise<void>;
+  addExpense: (expense: Omit<Expense, "id" | "createdAt" | "updatedAt" | "type">) => Promise<void>;
+  updateExpense: (expense: Expense) => Promise<void>;
+  deleteExpense: (id: string) => Promise<void>;
   updateSettings: (settings: Partial<AppSettings>) => Promise<void>;
   resetAllData: () => Promise<void>;
   // Veri yedekleme/geri yükleme
@@ -148,9 +179,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
   // Verileri AsyncStorage'dan yükle
   const loadData = async () => {
     try {
-      const [paymentsJson, incomesJson, settingsJson] = await Promise.all([
+      const [paymentsJson, incomesJson, expensesJson, settingsJson] = await Promise.all([
         AsyncStorage.getItem(STORAGE_KEYS.PAYMENTS),
         AsyncStorage.getItem(STORAGE_KEYS.INCOMES),
+        AsyncStorage.getItem(STORAGE_KEYS.EXPENSES),
         AsyncStorage.getItem(STORAGE_KEYS.SETTINGS),
       ]);
 
@@ -164,6 +196,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
       if (incomesJson) {
         const incomes: Income[] = JSON.parse(incomesJson);
         dispatch({ type: "SET_INCOMES", payload: incomes });
+      }
+
+      if (expensesJson) {
+        const expenses: Expense[] = JSON.parse(expensesJson);
+        dispatch({ type: "SET_EXPENSES", payload: expenses });
       }
 
       if (settingsJson) {
@@ -190,6 +227,15 @@ export function AppProvider({ children }: { children: ReactNode }) {
       await AsyncStorage.setItem(STORAGE_KEYS.INCOMES, JSON.stringify(incomes));
     } catch (error) {
       console.error("Gelir kaydetme hatası:", error);
+    }
+  };
+
+  // Harcamaları kaydet
+  const saveExpenses = async (expenses: Expense[]) => {
+    try {
+      await AsyncStorage.setItem(STORAGE_KEYS.EXPENSES, JSON.stringify(expenses));
+    } catch (error) {
+      console.error("Harcama kaydetme hatası:", error);
     }
   };
 
@@ -308,6 +354,43 @@ export function AppProvider({ children }: { children: ReactNode }) {
     await saveIncomes(updatedIncomes);
   };
 
+  // Harcama ekleme
+  const addExpense = async (
+    expenseData: Omit<Expense, "id" | "createdAt" | "updatedAt" | "type">
+  ) => {
+    const now = new Date().toISOString();
+    const { getExpenseType } = await import("@/types/expense");
+    const newExpense: Expense = {
+      ...expenseData,
+      id: `expense_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+      type: getExpenseType(expenseData.category),
+      createdAt: now,
+      updatedAt: now,
+    };
+    dispatch({ type: "ADD_EXPENSE", payload: newExpense });
+    await saveExpenses([...state.expenses, newExpense]);
+  };
+
+  // Harcama güncelleme
+  const updateExpense = async (expense: Expense) => {
+    const updatedExpense = {
+      ...expense,
+      updatedAt: new Date().toISOString(),
+    };
+    dispatch({ type: "UPDATE_EXPENSE", payload: updatedExpense });
+    const updatedExpenses = state.expenses.map((e) =>
+      e.id === updatedExpense.id ? updatedExpense : e
+    );
+    await saveExpenses(updatedExpenses);
+  };
+
+  // Harcama silme
+  const deleteExpense = async (id: string) => {
+    dispatch({ type: "DELETE_EXPENSE", payload: id });
+    const updatedExpenses = state.expenses.filter((e) => e.id !== id);
+    await saveExpenses(updatedExpenses);
+  };
+
   // Ayarları güncelleme
   const updateSettings = async (settingsUpdate: Partial<AppSettings>) => {
     const newSettings = { ...state.settings, ...settingsUpdate };
@@ -416,6 +499,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
     addIncome,
     updateIncome,
     deleteIncome,
+    addExpense,
+    updateExpense,
+    deleteExpense,
     updateSettings,
     resetAllData,
     exportData,

@@ -524,5 +524,45 @@
     "budgetSaved": "Bütçe ayarları kaydedildi",
     "budgetLoadError": "Bütçe yüklenirken hata oluştu",
     "budgetSaveError": "Bütçe kaydedilirken hata oluştu"
+  },
+  "expenseCategories": {
+    "rent": "Kira",
+    "electricity": "Elektrik",
+    "water": "Su",
+    "gas": "Doğalgaz",
+    "phone_internet": "Telefon/İnternet",
+    "transportation": "Ulaşım",
+    "groceries": "Market/Gıda",
+    "entertainment": "Eğlence",
+    "clothing": "Giyim",
+    "dining_out": "Dışarıda Yemek",
+    "gifts": "Hediye",
+    "hobbies": "Hobi",
+    "travel": "Seyahat",
+    "healthcare": "Sağlık",
+    "education": "Eğitim",
+    "maintenance": "Bakım/Onarım",
+    "other": "Diğer"
+  },
+  "expenseTypes": {
+    "essential": "Zorunlu Giderler",
+    "discretionary": "İstek Harcamaları",
+    "other": "Diğer"
+  },
+  "expenses": {
+    "title": "Harcamalar",
+    "addExpense": "Harcama Ekle",
+    "editExpense": "Harcama Düzenle",
+    "deleteExpense": "Harcama Sil",
+    "expenseName": "Harcama Adı",
+    "amount": "Tutar",
+    "category": "Kategori",
+    "date": "Tarih",
+    "notes": "Notlar",
+    "selectCategory": "Kategori Seçin",
+    "essentialExpenses": "Zorunlu Giderler",
+    "discretionaryExpenses": "İstek Harcamaları",
+    "noExpenses": "Henüz harcama yok",
+    "totalExpenses": "Toplam Harcama"
   }
 }
