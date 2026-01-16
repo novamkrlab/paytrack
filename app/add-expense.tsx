@@ -16,7 +16,7 @@ import { router } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
 import { useApp } from "@/lib/app-context";
 import { useColors } from "@/hooks/use-colors";
-import { ExpenseCategory, getExpenseType } from "@/types/expense";
+import { ExpenseCategory } from "@/types/expense";
 import { useTranslation } from "react-i18next";
 import * as Haptics from "expo-haptics";
 
@@ -32,7 +32,6 @@ export default function AddExpenseScreen() {
   const [notes, setNotes] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Kategorileri tipe göre grupla
   const essentialCategories: ExpenseCategory[] = [
     ExpenseCategory.RENT,
     ExpenseCategory.ELECTRICITY,
@@ -60,7 +59,6 @@ export default function AddExpenseScreen() {
   ];
 
   const handleSubmit = async () => {
-    // Validasyon
     if (!name.trim()) {
       Alert.alert(t("common.error"), t("expenses.expenseName") + " gerekli");
       return;
@@ -128,14 +126,12 @@ export default function AddExpenseScreen() {
     <ScreenContainer>
       <ScrollView className="flex-1 p-4" showsVerticalScrollIndicator={false}>
         <View className="gap-6">
-          {/* Başlık */}
           <View>
             <Text className="text-2xl font-bold text-foreground">
               {t("expenses.addExpense")}
             </Text>
           </View>
 
-          {/* Harcama Adı */}
           <View className="gap-2">
             <Text className="text-sm font-medium text-foreground">
               {t("expenses.expenseName")}
@@ -149,7 +145,6 @@ export default function AddExpenseScreen() {
             />
           </View>
 
-          {/* Tutar */}
           <View className="gap-2">
             <Text className="text-sm font-medium text-foreground">
               {t("expenses.amount")}
@@ -164,7 +159,6 @@ export default function AddExpenseScreen() {
             />
           </View>
 
-          {/* Tarih */}
           <View className="gap-2">
             <Text className="text-sm font-medium text-foreground">
               {t("expenses.date")}
@@ -178,13 +172,11 @@ export default function AddExpenseScreen() {
             />
           </View>
 
-          {/* Kategori Seçimi */}
           <View className="gap-3">
             <Text className="text-sm font-medium text-foreground">
               {t("expenses.category")}
             </Text>
 
-            {/* Zorunlu Giderler */}
             <View className="gap-2">
               <Text className="text-xs font-semibold text-muted uppercase">
                 {t("expenseTypes.essential")}
@@ -194,7 +186,6 @@ export default function AddExpenseScreen() {
               </View>
             </View>
 
-            {/* İstek Harcamaları */}
             <View className="gap-2">
               <Text className="text-xs font-semibold text-muted uppercase">
                 {t("expenseTypes.discretionary")}
@@ -204,7 +195,6 @@ export default function AddExpenseScreen() {
               </View>
             </View>
 
-            {/* Diğer */}
             <View className="gap-2">
               <Text className="text-xs font-semibold text-muted uppercase">
                 {t("expenseTypes.other")}
@@ -215,7 +205,6 @@ export default function AddExpenseScreen() {
             </View>
           </View>
 
-          {/* Notlar */}
           <View className="gap-2">
             <Text className="text-sm font-medium text-foreground">
               {t("expenses.notes")} ({t("common.optional")})
@@ -232,7 +221,6 @@ export default function AddExpenseScreen() {
             />
           </View>
 
-          {/* Butonlar */}
           <View className="flex-row gap-3 pb-8">
             <TouchableOpacity
               onPress={() => router.back()}

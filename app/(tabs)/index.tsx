@@ -13,7 +13,7 @@ import { PaymentCard } from "@/components/payment-card";
 import { FireOverviewCard } from "@/components/fire-overview-card";
 import { DebtOverviewCard } from "@/components/debt-overview-card";
 import { HealthScoreCard } from "@/components/health-score-card";
-import { ExpenseSummaryCard } from "@/components/expense-summary-card";
+import { ExpenseSummaryCardNew } from "@/components/expense-summary-card-new";
 import { useApp } from "@/lib/app-context";
 import {
   getUpcomingPayments,
@@ -171,15 +171,10 @@ export default function HomeScreen() {
           </View>
         )}
 
-        {/* Harcama Özeti Kartı */}
-        {expenseSummary && (
-          <View className="mt-4">
-            <ExpenseSummaryCard
-              summary={expenseSummary}
-              currency={state.settings.currency}
-            />
-          </View>
-        )}
+        {/* Harcama Özeti Kartı (Yeni) */}
+        <View className="mt-4">
+          <ExpenseSummaryCardNew />
+        </View>
 
         {/* Finansal Sağlık Skoru Kartı */}
         {healthScore && (

@@ -580,20 +580,20 @@
 - [x] Kullanıcıya teslim et (v5.3)
 
 ## Harcama Takibi Yeniden Yapılandırma (Kullanıcı İsteği - v5.4)
-- [ ] Expense (Harcama) veri tipi oluştur (Payment'tan ayrı)
-- [ ] ExpenseCategory enum tanımla (Zorunlu/İstek kategorileri)
-- [ ] Harcama depolama fonksiyonları ekle (AsyncStorage)
-- [ ] App context'e expense state ekle (add/update/delete)
-- [ ] "Harcama Ekle" ekranı oluştur
-- [ ] Kategori seçici bileşeni yap (zorunlu/istek ayrımı ile)
-- [ ] Harcama listesi ekranı oluştur
+- [x] Expense (Harcama) veri tipi oluştur (Payment'tan ayrı)
+- [x] ExpenseCategory enum tanımla (Zorunlu/İstek kategorileri)
+- [x] Harcama depolama fonksiyonları ekle (AsyncStorage)
+- [x] App context'e expense state ekle (add/update/delete)
+- [x] "Harcama Ekle" ekranı oluştur
+- [x] Kategori seçici bileşeni yap (zorunlu/istek ayrımı ile)
+- [x] Harcama listesi ekranı oluştur
 - [ ] Harcama detay ve düzenleme ekranı ekle
-- [ ] Ana sayfadaki harcama kartını güncelle (zorunlu vs. istek ayrımı)
+- [x] Ana sayfadaki harcama kartını güncelle (zorunlu vs. istek ayrımı)
 - [ ] Ödemeler sekmesindeki grafiği güncelle (yeni kategoriler)
 - [ ] Bütçe sistemini yeni kategorilerle entegre et
-- [ ] Borç takibi ile harcama takibini ayır
-- [ ] Türkçe ve İngilizce çeviriler ekle
-- [ ] Unit testler yaz
-- [ ] Test et
+- [x] Borç takibi ile harcama takibini ayır
+- [x] Türkçe ve İngilizce çeviriler ekle
+- [x] Unit testler yaz
+- [x] Test et
 - [ ] Checkpoint oluştur (v5.4 - Harcama takibi yeniden yapılandırma)
 - [ ] Kullanıcıya teslim et (v5.4)
