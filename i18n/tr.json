@@ -56,12 +56,18 @@
       "thu": "Per",
       "fri": "Cum",
       "sat": "Cmt"
-    }
+    },
+    "year": "yıl",
+    "month": "ay",
+    "day": "gün",
+    "perMonth": "/ ay",
+    "perYear": "/ yıl"
   },
   "tabs": {
     "home": "Ana Sayfa",
     "payments": "Ödemeler",
     "incomes": "Gelirler",
+    "goals": "Hedefler",
     "calendar": "Takvim",
     "settings": "Ayarlar"
   },
@@ -329,6 +335,36 @@
     "importConfirm": "Mevcut verileri silmek istiyor musunuz?",
     "importMerge": "Birleştir",
     "importReplace": "Değiştir"
+  },
+  "fire": {
+    "title": "Finansal Özgürlük",
+    "subtitle": "FIRE (Financial Independence, Retire Early) hedeflerinizi planlayın",
+    "fireNumber": "FIRE Sayısı",
+    "currentSavings": "Mevcut Birikim",
+    "timeRemaining": "Kalan Süre",
+    "yearsToRetirement": "Emekliliğe Kalan Yıl",
+    "monthlyTarget": "Aylık Hedef Tasarruf",
+    "progress": "İlerleme",
+    "settings": "Ayarlar",
+    "currentAge": "Mevcut Yaşınız",
+    "targetRetirementAge": "Hedef Emeklilik Yaşı",
+    "monthlyIncome": "Aylık Gelir",
+    "monthlyExpenses": "Aylık Harcama",
+    "targetMonthlyExpenses": "Hedef Aylık Harcama (Emeklilik Sonrası)",
+    "expectedAnnualReturn": "Beklenen Yıllık Getiri (%)",
+    "notConfigured": "Henüz ayarlanmadı",
+    "tapToSetup": "Ayarlamak için dokunun",
+    "settingsSaved": "Ayarlar kaydedildi",
+    "settingsSaveError": "Ayarlar kaydedilemedi"
+  },
+  "debt": {
+    "title": "Borç Yönetimi",
+    "totalDebt": "Toplam Borç",
+    "monthlyPayment": "Aylık Ödeme",
+    "activeDebts": "Aktif Borç",
+    "paymentProgress": "Ödeme İlerlemesi",
+    "noDebts": "Borç bulunmuyor",
+    "debtFree": "Borçsuz yaşamın tadını çıkarın!"
   },
   "errors": {
     "requiredField": "Bu alan zorunludur",

@@ -454,3 +454,38 @@
 - [x] app.config.ts dosyasında appName'i "PayTrack" olarak güncelle
 - [x] Test et (onboarding ekranında "Payment Tracker" görünüyor)
 - [x] Checkpoint oluştur
+
+## Finansal Özgürlük (FIRE) ve Borç Yönetimi Modülü
+- [ ] Veri modelleri ve tip tanımları oluştur (types/fire.ts, types/debt.ts)
+- [ ] FIRE hesaplama fonksiyonları yaz (lib/fire-calculator.ts)
+- [ ] Borç yönetimi hesaplama fonksiyonları yaz (lib/debt-calculator.ts)
+- [ ] AsyncStorage için FIRE ayarları yönetimi (lib/fire-storage.ts)
+- [ ] Hedefler tab'ı oluştur (app/(tabs)/goals.tsx)
+- [ ] FIRE hesaplama ekranı (app/fire-calculator.tsx)
+- [ ] Borç yönetimi ekranı (app/debt-management.tsx)
+- [ ] Ana sayfaya FIRE özet kartı ekle (components/fire-overview-card.tsx)
+- [ ] Ana sayfaya Borç özet kartı ekle (components/debt-overview-card.tsx)
+- [ ] Birikim projeksiyonu grafiği bileşeni (components/projection-chart.tsx)
+- [ ] İlerleme halkası bileşeni (components/progress-ring.tsx)
+- [ ] Metrik kartı bileşeni (components/metric-card.tsx)
+- [ ] Tab ikonunu icon-symbol.tsx'e ekle (target veya chart.line.uptrend.xyaxis)
+- [ ] Türkçe çevirileri ekle (i18n/tr.json)
+- [ ] İngilizce çevirileri ekle (i18n/en.json)
+- [ ] Hedefler tab'ını tab bar'a ekle (app/(tabs)/_layout.tsx)
+- [ ] Ana sayfaya özet kartlarını ekle (app/(tabs)/index.tsx)
+- [ ] Test et (tüm hesaplamalar doğru çalışıyor mu)
+- [ ] Checkpoint oluştur
+
+## Finansal Özgürlük (FIRE) ve Borç Yönetimi Modülü (v4.7)
+- [x] Veri modelleri ve tip tanımları (types/fire.ts, types/debt.ts)
+- [x] FIRE hesaplama fonksiyonları (lib/fire-calculator.ts)
+- [x] Borç yönetimi hesaplama fonksiyonları (lib/debt-calculator.ts)
+- [x] UI bileşenleri (ProgressRing, MetricCard, ProjectionChart, FireOverviewCard, DebtOverviewCard)
+- [x] Hedefler tab'ı (app/(tabs)/goals.tsx)
+- [x] Ana sayfaya FIRE ve Borç özet kartları (app/(tabs)/index.tsx)
+- [x] Dil dosyalarına çeviriler (TR + EN)
+- [x] Tab layout'a Hedefler sekmesi ekle
+- [x] İkon mappings ekle (target, checkmark.circle.fill, arrow.up.circle.fill)
+- [ ] Test et (kullanıcı testi gerekli)
+- [ ] Checkpoint oluştur (v4.7 - FIRE ve Borç Yönetimi)
+- [ ] Kullanıcıya teslim et (v4.7)

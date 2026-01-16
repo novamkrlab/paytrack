@@ -10,6 +10,8 @@ import { seedData } from "@/scripts/seed-data";
 import { ScreenContainer } from "@/components/screen-container";
 import { SummaryCard } from "@/components/summary-card";
 import { PaymentCard } from "@/components/payment-card";
+import { FireOverviewCard } from "@/components/fire-overview-card";
+import { DebtOverviewCard } from "@/components/debt-overview-card";
 import { useApp } from "@/lib/app-context";
 import {
   getUpcomingPayments,
@@ -17,12 +19,21 @@ import {
   calculateMonthlyIncomeTotal,
 } from "@/utils/helpers";
 import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
+import { loadFireSettings } from "@/lib/fire-storage";
+import { getFireSummary } from "@/lib/fire-calculator";
+import { calculateDebtSummary } from "@/lib/debt-calculator";
+import type { FireSummary } from "@/types/fire";
+import type { DebtSummary } from "@/types/debt";
+import { PaymentCategory } from "@/types";
 
 export default function HomeScreen() {
   const router = useRouter();
   const { state } = useApp();
   const { t } = useTranslation();
   const [refreshing, setRefreshing] = useState(false);
+  const [fireSummary, setFireSummary] = useState<FireSummary | null>(null);
+  const [debtSummary, setDebtSummary] = useState<DebtSummary | null>(null);
 
   // Mevcut ay bilgileri
   const now = new Date();
@@ -35,6 +46,40 @@ export default function HomeScreen() {
 
   // Yaklaşan ödemeler (önümüzdeki 7 gün)
   const upcomingPayments = getUpcomingPayments(state.payments);
+
+  // FIRE ve Borç özetlerini yükle
+  useEffect(() => {
+    loadSummaries();
+  }, [state.payments]);
+
+  const loadSummaries = async () => {
+    // FIRE özeti
+    const fireSettings = await loadFireSettings();
+    const fire = getFireSummary(fireSettings);
+    setFireSummary(fire);
+
+    // Borç özeti (kredi ve kredi kartı ödemelerinden)
+    const debtPayments = state.payments.filter(
+      p => p.category === PaymentCategory.LOAN || p.category === PaymentCategory.CREDIT_CARD
+    );
+    const debts = debtPayments.map(p => {
+      const installmentCount = typeof p.installments === 'number' ? p.installments : (p.installments?.total || 1);
+      return {
+        id: p.id,
+        name: p.name,
+        totalAmount: p.amount * installmentCount,
+        remainingAmount: p.amount,
+        monthlyPayment: p.amount,
+        interestRate: 0, // Basitleştirilmiş
+        remainingMonths: installmentCount,
+        category: p.category.toString(),
+        currency: state.settings.currency,
+        createdAt: p.createdAt,
+      };
+    });
+    const debt = calculateDebtSummary(debts);
+    setDebtSummary(debt);
+  };
 
   // Yenileme fonksiyonu
   const onRefresh = async () => {
@@ -66,6 +111,26 @@ export default function HomeScreen() {
           totalIncome={totalIncome}
           currency={state.settings.currency}
         />
+
+        {/* FIRE Özet Kartı */}
+        {fireSummary && (
+          <View className="mt-4">
+            <FireOverviewCard
+              summary={fireSummary}
+              currency={state.settings.currency}
+            />
+          </View>
+        )}
+
+        {/* Borç Özet Kartı */}
+        {debtSummary && (
+          <View className="mt-4">
+            <DebtOverviewCard
+              summary={debtSummary}
+              currency={state.settings.currency}
+            />
+          </View>
+        )}
 
         {/* Yaklaşan Ödemeler Başlığı */}
         <View className="flex-row items-center justify-between mb-4">

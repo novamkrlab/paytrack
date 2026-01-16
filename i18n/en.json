@@ -57,12 +57,18 @@
       "thu": "Thu",
       "fri": "Fri",
       "sat": "Sat"
-    }
+    },
+    "year": "year",
+    "month": "month",
+    "day": "day",
+    "perMonth": "/ month",
+    "perYear": "/ year"
   },
   "tabs": {
     "home": "Home",
     "payments": "Payments",
     "incomes": "Incomes",
+    "goals": "Goals",
     "calendar": "Calendar",
     "settings": "Settings"
   },
@@ -289,6 +295,36 @@
     "importConfirm": "Do you want to delete existing data?",
     "importMerge": "Merge",
     "importReplace": "Replace"
+  },
+  "fire": {
+    "title": "Financial Freedom",
+    "subtitle": "Plan your FIRE (Financial Independence, Retire Early) goals",
+    "fireNumber": "FIRE Number",
+    "currentSavings": "Current Savings",
+    "timeRemaining": "Time Remaining",
+    "yearsToRetirement": "Years to Retirement",
+    "monthlyTarget": "Monthly Target Savings",
+    "progress": "Progress",
+    "settings": "Settings",
+    "currentAge": "Current Age",
+    "targetRetirementAge": "Target Retirement Age",
+    "monthlyIncome": "Monthly Income",
+    "monthlyExpenses": "Monthly Expenses",
+    "targetMonthlyExpenses": "Target Monthly Expenses (After Retirement)",
+    "expectedAnnualReturn": "Expected Annual Return (%)",
+    "notConfigured": "Not configured yet",
+    "tapToSetup": "Tap to setup",
+    "settingsSaved": "Settings saved",
+    "settingsSaveError": "Failed to save settings"
+  },
+  "debt": {
+    "title": "Debt Management",
+    "totalDebt": "Total Debt",
+    "monthlyPayment": "Monthly Payment",
+    "activeDebts": "Active Debts",
+    "paymentProgress": "Payment Progress",
+    "noDebts": "No debts",
+    "debtFree": "Enjoy your debt-free life!"
   },
   "errors": {
     "requiredField": "This field is required",

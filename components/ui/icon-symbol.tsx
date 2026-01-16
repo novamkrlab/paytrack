@@ -22,6 +22,9 @@ const MAPPING = {
   "dollarsign.circle.fill": "attach-money",
   "calendar": "calendar-today",
   "gearshape.fill": "settings",
+  "target": "track-changes",
+  "checkmark.circle.fill": "check-circle",
+  "arrow.up.circle.fill": "arrow-circle-up",
 } as IconMapping;
 
 /**
