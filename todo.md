@@ -600,5 +600,15 @@
 
 ## Bug Fixes (v5.4.1)
 - [x] Harcama ekleme ekranına geri dönüş butonu ekle
-- [ ] Checkpoint oluştur (v5.4.1)
-- [ ] Kullanıcıya teslim et (v5.4.1)
+- [x] Checkpoint oluştur (v5.4.1)
+- [x] Kullanıcıya teslim et (v5.4.1)
+
+## Bug Fixes (v5.4.2)
+- [ ] Harcama ekle butonunu düzelt (çalışmıyor)
+- [ ] Checkpoint oluştur (v5.4.2)
+- [ ] Kullanıcıya teslim et (v5.4.2)
+
+## Bug Fixes (v5.4.2)
+- [x] Ana sayfadaki harcama kartının "+ Harcama Ekle" butonunu düzelt
+- [ ] Checkpoint oluştur (v5.4.2)
+- [ ] Kullanıcıya teslim et (v5.4.2)

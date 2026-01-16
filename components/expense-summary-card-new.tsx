@@ -3,12 +3,13 @@
  * Günlük harcamaları gösterir (borçlardan ayrı)
  */
 
-import { View, Text, Pressable } from "react-native";
+import { View, Text, Pressable, TouchableOpacity, Platform } from "react-native";
 import { useRouter } from "expo-router";
 import { IconSymbol } from "./ui/icon-symbol";
 import { useColors } from "@/hooks/use-colors";
 import { useTranslation } from "react-i18next";
 import { formatCurrency } from "@/utils/currency-helpers";
+import * as Haptics from "expo-haptics";
 import { useApp } from "@/lib/app-context";
 import { getCurrentMonthExpenseSummary } from "@/utils/expense-helpers";
 
@@ -98,11 +99,21 @@ export function ExpenseSummaryCardNew() {
       </View>
 
       {/* Harcama Ekle Butonu */}
-      <View className="mt-4 pt-4 border-t border-border">
+      <TouchableOpacity
+        onPress={(e) => {
+          e.stopPropagation();
+          if (Platform.OS !== "web") {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+          }
+          router.push("/add-expense" as any);
+        }}
+        className="mt-4 pt-4 border-t border-border"
+        activeOpacity={0.7}
+      >
         <Text className="text-xs text-primary font-medium text-center">
           + {t("expenses.addExpense")}
         </Text>
-      </View>
+      </TouchableOpacity>
     </Pressable>
   );
 }
