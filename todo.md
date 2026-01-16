@@ -595,5 +595,10 @@
 - [x] Türkçe ve İngilizce çeviriler ekle
 - [x] Unit testler yaz
 - [x] Test et
-- [ ] Checkpoint oluştur (v5.4 - Harcama takibi yeniden yapılandırma)
-- [ ] Kullanıcıya teslim et (v5.4)
+- [x] Checkpoint oluştur (v5.4 - Harcama takibi yeniden yapılandırma)
+- [x] Kullanıcıya teslim et (v5.4)
+
+## Bug Fixes (v5.4.1)
+- [x] Harcama ekleme ekranına geri dönüş butonu ekle
+- [ ] Checkpoint oluştur (v5.4.1)
+- [ ] Kullanıcıya teslim et (v5.4.1)

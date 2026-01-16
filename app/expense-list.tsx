@@ -2,7 +2,7 @@
  * Harcama Listesi Ekranı
  */
 
-import { View, Text, FlatList, TouchableOpacity, Alert } from "react-native";
+import { View, Text, FlatList, TouchableOpacity, Alert, Pressable } from "react-native";
 import { ScreenContainer } from "@/components/screen-container";
 import { useApp } from "@/lib/app-context";
 import { useColors } from "@/hooks/use-colors";
@@ -11,6 +11,7 @@ import { formatCurrency } from "@/utils/currency-helpers";
 import { getCurrentMonthExpenses } from "@/utils/expense-helpers";
 import type { Expense } from "@/types/expense";
 import { router } from "expo-router";
+import { IconSymbol } from "@/components/ui/icon-symbol";
 
 export default function ExpenseListScreen() {
   const { t } = useTranslation();
@@ -78,13 +79,23 @@ export default function ExpenseListScreen() {
   return (
     <ScreenContainer>
       <View className="flex-1 p-4">
-        <View className="mb-6">
-          <Text className="text-2xl font-bold text-foreground">
-            {t("expenses.title")}
-          </Text>
-          <Text className="text-sm text-muted mt-1">
-            Bu ay {expenses.length} harcama
-          </Text>
+        {/* Header with Back Button */}
+        <View className="flex-row items-center mb-6">
+          <Pressable
+            onPress={() => router.back()}
+            className="mr-3"
+            style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1 })}
+          >
+            <IconSymbol name="chevron.left" size={24} color={colors.foreground} />
+          </Pressable>
+          <View className="flex-1">
+            <Text className="text-2xl font-bold text-foreground">
+              {t("expenses.title")}
+            </Text>
+            <Text className="text-sm text-muted mt-1">
+              Bu ay {expenses.length} harcama
+            </Text>
+          </View>
         </View>
 
         {expenses.length === 0 ? (

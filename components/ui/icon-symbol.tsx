@@ -18,6 +18,7 @@ const MAPPING = {
   "paperplane.fill": "send",
   "chevron.left.forwardslash.chevron.right": "code",
   "chevron.right": "chevron-right",
+  "chevron.left": "chevron-left",
   "creditcard.fill": "credit-card",
   "dollarsign.circle.fill": "attach-money",
   "calendar": "calendar-today",

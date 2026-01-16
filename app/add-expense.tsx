@@ -11,6 +11,7 @@ import {
   ScrollView,
   Platform,
   Alert,
+  Pressable,
 } from "react-native";
 import { router } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
@@ -19,6 +20,7 @@ import { useColors } from "@/hooks/use-colors";
 import { ExpenseCategory } from "@/types/expense";
 import { useTranslation } from "react-i18next";
 import * as Haptics from "expo-haptics";
+import { IconSymbol } from "@/components/ui/icon-symbol";
 
 export default function AddExpenseScreen() {
   const { t } = useTranslation();
@@ -124,13 +126,22 @@ export default function AddExpenseScreen() {
 
   return (
     <ScreenContainer>
+      {/* Header with Back Button */}
+      <View className="flex-row items-center px-4 pt-4 pb-2">
+        <Pressable
+          onPress={() => router.back()}
+          className="mr-3"
+          style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1 })}
+        >
+          <IconSymbol name="chevron.left" size={24} color={colors.foreground} />
+        </Pressable>
+        <Text className="text-2xl font-bold text-foreground">
+          {t("expenses.addExpense")}
+        </Text>
+      </View>
+
       <ScrollView className="flex-1 p-4" showsVerticalScrollIndicator={false}>
         <View className="gap-6">
-          <View>
-            <Text className="text-2xl font-bold text-foreground">
-              {t("expenses.addExpense")}
-            </Text>
-          </View>
 
           <View className="gap-2">
             <Text className="text-sm font-medium text-foreground">
