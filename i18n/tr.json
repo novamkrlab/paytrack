@@ -223,6 +223,7 @@
   "categories": {
     "all": "Tümü",
     "creditCard": "Kredi Kartı",
+    "loan": "Kredi",
     "credit": "Kredi",
     "bill": "Fatura",
     "other": "Diğer",

@@ -439,5 +439,18 @@
 - [x] Ayarlar ekranına para birimi seçim menüsünü ekle - TouchableOpacity ile eklendi
 - [x] Dil dosyalarına para birimi çevirilerini ekle - selectMessage ve changed eklendi
 - [x] Test et (para birimi değiştiğinde tüm ekranlarda güncelleniyor mu) - Tüm ekranlarda güncellendi, TypeScript hatası yok
-- [ ] Checkpoint oluştur
-- [ ] Kullanıcıya teslim et
+- [x] Checkpoint oluştur
+- [x] Kullanıcıya teslim et
+
+## Kategori Çeviri Hatası Düzeltme
+- [x] add-payment.tsx dosyasında kategori seçicisini kontrol et
+- [x] Kategori çevirilerinin doğru kullanıldığından emin ol (t("categories.loan") yerine çevrilmiş metin görünmeli)
+- [x] Türkçe dil dosyasına "loan": "Kredi" çevirisini ekle
+- [x] İngilizce dil dosyasına "loan": "Loan" çevirisini ekle
+- [x] Test et
+- [x] Checkpoint oluştur
+
+## Uygulama Adını Güncelleme
+- [x] app.config.ts dosyasında appName'i "PayTrack" olarak güncelle
+- [x] Test et (onboarding ekranında "Payment Tracker" görünüyor)
+- [x] Checkpoint oluştur

@@ -183,6 +183,7 @@
   "categories": {
     "all": "All",
     "creditCard": "Credit Card",
+    "loan": "Loan",
     "credit": "Loan",
     "bill": "Bill",
     "other": "Other",
