@@ -532,3 +532,15 @@
 - [ ] Test et (kullanıcı testi gerekli)
 - [ ] Checkpoint oluştur (v5.2 - Chatbot hazır cevaplar + Sağlık Skoru geçmişi)
 - [ ] Kullanıcıya teslim et (v5.2)
+
+## Borç Detay Ekranı
+
+- [x] Borç detay veri modeli oluştur
+- [x] Ödeme planı hesaplama fonksiyonu
+- [x] Erken ödeme simülasyonu fonksiyonu
+- [x] Borç detay ekranı UI (app/debt-detail.tsx)
+- [x] Ödeme planı listesi bileşeni
+- [x] Erken ödeme simülatörü bileşeni
+- [x] Strateji önerileri bileşeni
+- [x] Borç kartına tıklama olayı ekle (ana sayfa)
+- [x] Dil dosyalarına çeviriler (TR + EN)

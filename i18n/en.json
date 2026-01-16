@@ -96,6 +96,30 @@
       "keepGoing": "Great job! Keep it up and you'll reach your goals."
     }
   },
+  "debtDetail": {
+    "title": "Debt Detail",
+    "totalDebt": "Total Debt",
+    "summary": "Summary",
+    "monthlyPayment": "Monthly Payment",
+    "remainingMonths": "Remaining Months",
+    "months": "months",
+    "totalInterest": "Total Interest",
+    "interestRate": "Interest Rate",
+    "earlyPaymentSimulator": "Early Payment Simulator",
+    "earlyPaymentDescription": "See how much you can save by making extra monthly payments.",
+    "extraMonthlyPayment": "Extra Monthly Payment",
+    "newDuration": "New Duration",
+    "savedMonths": "Months Saved",
+    "savedInterest": "Interest Saved",
+    "paymentPlan": "Payment Plan",
+    "month": "Month",
+    "remaining": "Remaining",
+    "morePayments": "more payments",
+    "strategies": "Strategy Recommendations",
+    "recommended": "Recommended",
+    "pros": "Pros",
+    "cons": "Cons"
+  },
   "chatbot": {
     "title": "Financial Assistant",
     "welcome": "Hello! I'm your financial assistant. I can answer questions about savings, investments, and debt management. How can I help you?",

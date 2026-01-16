@@ -95,6 +95,30 @@
       "keepGoing": "Harika gidiyorsunuz! Bu şekilde devam edin ve hedeflerinize ulaşacaksınız."
     }
   },
+  "debtDetail": {
+    "title": "Borç Detayı",
+    "totalDebt": "Toplam Borç",
+    "summary": "Özet",
+    "monthlyPayment": "Aylık Ödeme",
+    "remainingMonths": "Kalan Ay",
+    "months": "ay",
+    "totalInterest": "Toplam Faiz",
+    "interestRate": "Faiz Oranı",
+    "earlyPaymentSimulator": "Erken Ödeme Simülatörü",
+    "earlyPaymentDescription": "Ekstra aylık ödeme yaparak ne kadar tasarruf edebileceğinizi görün.",
+    "extraMonthlyPayment": "Ekstra Aylık Ödeme",
+    "newDuration": "Yeni Süre",
+    "savedMonths": "Kazandığınız Ay",
+    "savedInterest": "Tasarruf Edilen Faiz",
+    "paymentPlan": "Ödeme Planı",
+    "month": "Ay",
+    "remaining": "Kalan",
+    "morePayments": "daha fazla ödeme",
+    "strategies": "Strateji Önerileri",
+    "recommended": "Önerilen",
+    "pros": "Artılar",
+    "cons": "Eksiler"
+  },
   "chatbot": {
     "title": "Finansal Asistan",
     "welcome": "Merhaba! Ben sizin finansal asistanınızım. Birikim, yatırım ve borç yönetimi hakkında sorularınızı cevaplayabilirim. Size nasıl yardımcı olabilirim?",

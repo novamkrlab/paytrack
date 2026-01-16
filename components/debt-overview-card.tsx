@@ -52,9 +52,18 @@ export function DebtOverviewCard({ summary, currency }: DebtOverviewCardProps) {
     ? (summary.totalPaid / (summary.totalDebt + summary.totalPaid)) * 100
     : 0;
 
+  // İlk borcu bul (detay ekranı için)
+  const firstDebtId = summary.debts && summary.debts.length > 0 ? summary.debts[0].id : null;
+
   return (
     <Pressable
-      onPress={() => router.push('/goals' as any)}
+      onPress={() => {
+        if (firstDebtId) {
+          router.push(`/debt-detail?id=${firstDebtId}` as any);
+        } else {
+          router.push('/goals' as any);
+        }
+      }}
       className="bg-surface rounded-2xl p-6 border border-border"
     >
       <View className="flex-row items-center justify-between mb-6">
