@@ -74,6 +74,7 @@
   },
   "healthScore": {
     "title": "Financial Health Score",
+    "history": "History",
     "breakdown": "Category Breakdown",
     "recommendationsTitle": "Recommendations",
     "messages": {
@@ -99,8 +100,35 @@
     "title": "Financial Assistant",
     "welcome": "Hello! I'm your financial assistant. I can answer questions about savings, investments, and debt management. How can I help you?",
     "placeholder": "Type your question...",
+    "quickRepliesTitle": "Frequently Asked Questions",
     "sampleQuestions": "Sample questions:",
-    "error": "Sorry, an error occurred. Please try again."
+    "error": "Sorry, an error occurred. Please try again.",
+    "quickReplies": {
+      "debtVsInvestment": {
+        "question": "I have debt, should I invest?",
+        "answer": "No, I recommend paying off your debts first. Because debt interest rates (typically 15-30%) are much higher than investment returns (8-12%). By paying off high-interest debts first, you can achieve a 'guaranteed return'. Then start investing."
+      },
+      "emergencyFund": {
+        "question": "How much should my emergency fund be?",
+        "answer": "Your emergency fund should cover 3-6 months of expenses. For example, if your monthly expenses are $1,000, you should have $3,000-6,000 in emergency savings. Keep this money in an easily accessible account (savings account or money market fund)."
+      },
+      "savingsRate": {
+        "question": "How much should I save?",
+        "answer": "You should save at least 20% of your income. If you're aiming for early retirement (FIRE), you may need to save 50% or more. Start small: Save 10% first, then increase by 5% annually."
+      },
+      "fireBasics": {
+        "question": "What is FIRE, how do I start?",
+        "answer": "FIRE (Financial Independence, Retire Early) is the early retirement movement. Basic rule: Save 25 times your annual expenses. For example, if you spend $40,000 per year, you need to save $1,000,000. If you invest this at 4% return, you'll earn $40,000 per year."
+      },
+      "investmentStart": {
+        "question": "How should I make my first investment?",
+        "answer": "1) First, build an emergency fund (3-6 months of expenses). 2) Pay off high-interest debts. 3) Then start investing: You can begin with index funds or stock funds. Start with small amounts, invest regularly monthly."
+      },
+      "debtPayoff": {
+        "question": "How should I pay off my debts?",
+        "answer": "There are 2 strategies: 1) Snowball: Pay off your smallest debt first, provides motivation. 2) Avalanche: Pay off the highest interest debt first, saves more money. I recommend the Avalanche method because it's more logical."
+      }
+    }
   },
   "goals": {
     "title": "Goals",

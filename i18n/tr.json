@@ -73,6 +73,7 @@
   },
   "healthScore": {
     "title": "Finansal Sağlık Skoru",
+    "history": "Geçmiş",
     "breakdown": "Kategori Detayları",
     "recommendationsTitle": "Öneriler",
     "messages": {
@@ -98,8 +99,35 @@
     "title": "Finansal Asistan",
     "welcome": "Merhaba! Ben sizin finansal asistanınızım. Birikim, yatırım ve borç yönetimi hakkında sorularınızı cevaplayabilirim. Size nasıl yardımcı olabilirim?",
     "placeholder": "Sorunuzu yazın...",
+    "quickRepliesTitle": "Sık Sorulan Sorular",
     "sampleQuestions": "Örnek sorular:",
-    "error": "Üzgünüm, bir hata oluştu. Lütfen tekrar deneyin."
+    "error": "Üzgünüm, bir hata oluştu. Lütfen tekrar deneyin.",
+    "quickReplies": {
+      "debtVsInvestment": {
+        "question": "Borcum var, yatırım yapmalı mıyım?",
+        "answer": "Hayır, önce borçlarınızı kapatmanızı öneririm. Çünkü borç faizleri (genellikle %15-30) yatırım getirilerinden (%8-12) çok daha yüksek. Önce yüksek faizli borçları kapatarak 'garantili getiri' elde edebilirsiniz. Sonra yatırıma başlayın."
+      },
+      "emergencyFund": {
+        "question": "Acil fon ne kadar olmalı?",
+        "answer": "Acil fonunuz 3-6 aylık harcamanızı karşılayacak kadar olmalı. Örneğin, aylık harcamanız 10.000 TL ise, 30.000-60.000 TL acil fon bulundurmalısınız. Bu parayı kolay erişilebilir bir hesapta (vadesiz mevduat veya para fonu) tutun."
+      },
+      "savingsRate": {
+        "question": "Ne kadar tasarruf etmeliyim?",
+        "answer": "Gelirinizin en az %20'sini tasarruf etmelisiniz. Eğer erken emeklilik (FIRE) hedefliyorsanız, %50 veya daha fazlasını tasarruf etmeniz gerekebilir. Küçük başlayın: Önce %10 tasarruf edin, sonra yılda %5 artırın."
+      },
+      "fireBasics": {
+        "question": "FIRE nedir, nasıl başlarım?",
+        "answer": "FIRE (Financial Independence, Retire Early) erken emeklilik hareketi. Temel kural: Yıllık harcamanızın 25 katını biriktirin. Örneğin, yılda 120.000 TL harcamanız varsa, 3.000.000 TL biriktirmeniz gerekir. Bu parayı %4 getiri ile yatırırsanız, yılda 120.000 TL gelir elde edersiniz."
+      },
+      "investmentStart": {
+        "question": "İlk yatırımımı nasıl yapmalıyım?",
+        "answer": "1) Önce acil fon oluşturun (3-6 aylık harcama). 2) Yüksek faizli borçları kapatın. 3) Sonra yatırıma başlayın: Endeks fonları veya hisse senedi fonları ile başlayabilirsiniz. Küçük miktarlarla başlayın, aylık düzenli yatırım yapın."
+      },
+      "debtPayoff": {
+        "question": "Borçlarımı nasıl ödemeliyim?",
+        "answer": "2 strateji var: 1) Kar topu (Snowball): En küçük borcunuzu önce ödeyin, motivasyon sağlar. 2) Çığ (Avalanche): En yüksek faizli borcu önce ödeyin, daha fazla para tasarruf edersiniz. Ben Avalanche yöntemini öneririm çünkü daha mantıklı."
+      }
+    }
   },
   "goals": {
     "title": "Hedefler",

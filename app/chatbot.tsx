@@ -20,6 +20,7 @@ import { ChatMessage } from '@/components/chat-message';
 import { useColors } from '@/hooks/use-colors';
 import { useApp } from '@/lib/app-context';
 import { useChatMutation, getSampleQuestions } from '@/lib/chatbot-api';
+import { getAllQuickReplies, type QuickReply } from '@/lib/chatbot-quick-replies';
 import { calculateFinancialHealthScore } from '@/lib/financial-health';
 import type { ChatMessage as ChatMessageType } from '@/types/chatbot';
 import { PaymentCategory, type Payment, type Income } from '@/types';
@@ -153,6 +154,33 @@ export default function ChatbotScreen() {
   };
 
   const sampleQuestions = getSampleQuestions(i18n.language as 'tr' | 'en');
+  const quickReplies = getAllQuickReplies();
+
+  // Hazır cevap butonuna tıklandığında
+  const handleQuickReply = (reply: QuickReply) => {
+    const question = t(reply.question);
+    const answer = t(reply.answer);
+
+    // Kullanıcı mesajını ekle
+    const userMessage: ChatMessageType = {
+      id: Date.now().toString(),
+      role: 'user',
+      content: question,
+      timestamp: new Date().toISOString(),
+    };
+    setMessages((prev) => [...prev, userMessage]);
+
+    // Asistan cevabını ekle
+    setTimeout(() => {
+      const assistantMessage: ChatMessageType = {
+        id: (Date.now() + 1).toString(),
+        role: 'assistant',
+        content: answer,
+        timestamp: new Date().toISOString(),
+      };
+      setMessages((prev) => [...prev, assistantMessage]);
+    }, 500);
+  };
 
   return (
     <ScreenContainer edges={['top', 'left', 'right']}>
@@ -207,6 +235,36 @@ export default function ChatbotScreen() {
                 }}
               >
                 <ActivityIndicator size="small" color={colors.tint} />
+              </View>
+            </View>
+          )}
+
+          {/* Hazır Cevaplar (Quick Replies) */}
+          {messages.length === 1 && (
+            <View style={{ paddingHorizontal: 16, marginTop: 16 }}>
+              <Text style={{ fontSize: 16, fontWeight: '600', color: colors.foreground, marginBottom: 12 }}>
+                {t('chatbot.quickRepliesTitle')}
+              </Text>
+              <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+                {quickReplies.map((reply) => (
+                  <Pressable
+                    key={reply.id}
+                    onPress={() => handleQuickReply(reply)}
+                    style={({ pressed }) => ({
+                      backgroundColor: colors.tint + '20',
+                      borderRadius: 20,
+                      paddingHorizontal: 16,
+                      paddingVertical: 8,
+                      borderWidth: 1,
+                      borderColor: colors.tint,
+                      opacity: pressed ? 0.7 : 1,
+                    })}
+                  >
+                    <Text style={{ fontSize: 13, color: colors.tint, fontWeight: '500' }}>
+                      {t(reply.question)}
+                    </Text>
+                  </Pressable>
+                ))}
               </View>
             </View>
           )}

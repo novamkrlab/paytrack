@@ -518,3 +518,17 @@
 - [ ] Test et (kullanıcı testi gerekli)
 - [ ] Checkpoint oluştur (v5.1 - Finansal Sağlık Skoru ve Chatbot)
 - [ ] Kullanıcıya teslim et (v5.1)
+
+## Chatbot Hazır Cevaplar ve Sağlık Skoru Geçmişi (v5.2)
+- [ ] Sağlık Skoru geçmişi veri modeli (HealthScoreHistory)
+- [ ] Sağlık Skoru geçmişi depolama fonksiyonları (AsyncStorage)
+- [ ] Aylık sağlık skoru kaydetme sistemi
+- [ ] Sağlık Skoru geçmişi grafik bileşeni (line chart)
+- [ ] Sağlık Skoru detay ekranına grafik ekle
+- [ ] Chatbot hazır cevaplar sistemi (QuickReply)
+- [ ] Sık sorulan sorular listesi (FAQ)
+- [ ] Chatbot ekranına hazır cevap butonları ekle
+- [ ] Dil dosyalarına çeviriler (TR + EN)
+- [ ] Test et (kullanıcı testi gerekli)
+- [ ] Checkpoint oluştur (v5.2 - Chatbot hazır cevaplar + Sağlık Skoru geçmişi)
+- [ ] Kullanıcıya teslim et (v5.2)

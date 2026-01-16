@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { ScreenContainer } from '@/components/screen-container';
 import { useColors } from '@/hooks/use-colors';
 import { useApp } from '@/lib/app-context';
+import { HealthScoreChart } from '@/components/health-score-chart';
 import {
   calculateFinancialHealthScore,
   getHealthScoreBreakdown,
@@ -16,7 +17,9 @@ import {
 } from '@/lib/financial-health';
 import type { FinancialHealthInput } from '@/types/financial-health';
 import { PaymentCategory, type Payment, type Income } from '@/types';
-import { useMemo } from 'react';
+import { useMemo, useEffect, useState } from 'react';
+import { saveCurrentMonthScore, getRecentHealthScores } from '@/lib/health-score-storage';
+import type { HealthScoreHistoryEntry } from '@/types/health-score-history';
 
 export default function HealthScoreScreen() {
   const { t } = useTranslation();
@@ -74,6 +77,17 @@ export default function HealthScoreScreen() {
   const scoreColor = getScoreColor(healthScore.category);
   const scoreMessage = getScoreMessage(healthScore.category);
 
+  // Geçmiş verileri yükle
+  const [historyData, setHistoryData] = useState<HealthScoreHistoryEntry[]>([]);
+
+  useEffect(() => {
+    // Mevcut ayın skorunu kaydet
+    saveCurrentMonthScore(healthScore).catch(console.error);
+
+    // Geçmiş verileri yükle
+    getRecentHealthScores(6).then(setHistoryData).catch(console.error);
+  }, [healthScore]);
+
   return (
     <ScreenContainer>
       <ScrollView contentContainerStyle={{ padding: 16 }}>
@@ -126,6 +140,26 @@ export default function HealthScoreScreen() {
             {t(scoreMessage)}
           </Text>
         </View>
+
+        {/* Geçmiş Grafik */}
+        {historyData.length > 0 && (
+          <View style={{ marginBottom: 24 }}>
+            <Text style={{ fontSize: 18, fontWeight: '600', color: colors.foreground, marginBottom: 16 }}>
+              {t('healthScore.history')}
+            </Text>
+            <View
+              style={{
+                backgroundColor: colors.surface,
+                borderRadius: 16,
+                padding: 16,
+                borderWidth: 1,
+                borderColor: colors.border,
+              }}
+            >
+              <HealthScoreChart data={historyData} />
+            </View>
+          </View>
+        )}
 
         {/* Kategori Detayları */}
         <Text style={{ fontSize: 18, fontWeight: '600', color: colors.foreground, marginBottom: 16 }}>
