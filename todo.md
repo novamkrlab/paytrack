@@ -553,3 +553,12 @@
 - [x] Dil dosyalarına çeviriler (TR + EN)
 - [x] Test et
 - [ ] Checkpoint oluştur
+
+## Borç Listesi Gruplama Düzeltmesi
+
+- [ ] Tekrarlayan ödemeleri gruplama fonksiyonu yaz
+- [ ] Borç listesi ekranını güncelle (gruplu borçları göster)
+- [ ] Borç detay ekranını güncelle (grup bilgisi ile)
+- [ ] İlerleme çubuğu ekle (kaç taksit ödendi)
+- [ ] Test et
+- [ ] Checkpoint oluştur
