@@ -544,3 +544,12 @@
 - [x] Strateji önerileri bileşeni
 - [x] Borç kartına tıklama olayı ekle (ana sayfa)
 - [x] Dil dosyalarına çeviriler (TR + EN)
+
+## Borç Listesi Ekranı
+
+- [x] Borç listesi ekranı UI oluştur (app/debt-list.tsx)
+- [x] Borç kartı bileşeni oluştur (her borç için)
+- [x] Ana sayfadaki borç kartı yönlendirmesini güncelle (debt-list'e gitsin)
+- [x] Dil dosyalarına çeviriler (TR + EN)
+- [x] Test et
+- [ ] Checkpoint oluştur

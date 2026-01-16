@@ -96,6 +96,17 @@
       "keepGoing": "Great job! Keep it up and you'll reach your goals."
     }
   },
+  "debtList": {
+    "title": "My Debts",
+    "activeDebts": "active debts",
+    "noDebts": "No Debts",
+    "noDebtsDescription": "Great! You don't have any debt records at the moment.",
+    "amount": "Amount",
+    "dueDate": "Due Date",
+    "installment": "installment",
+    "overdue": "Overdue",
+    "pending": "Pending"
+  },
   "debtDetail": {
     "title": "Debt Detail",
     "totalDebt": "Total Debt",

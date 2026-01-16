@@ -95,6 +95,17 @@
       "keepGoing": "Harika gidiyorsunuz! Bu şekilde devam edin ve hedeflerinize ulaşacaksınız."
     }
   },
+  "debtList": {
+    "title": "Borçlarım",
+    "activeDebts": "aktif borç",
+    "noDebts": "Borç Yok",
+    "noDebtsDescription": "Harika! Şu anda hiçbir borç kaydınız yok.",
+    "amount": "Tutar",
+    "dueDate": "Vade Tarihi",
+    "installment": "taksit",
+    "overdue": "Vadesi Geçmiş",
+    "pending": "Bekliyor"
+  },
   "debtDetail": {
     "title": "Borç Detayı",
     "totalDebt": "Toplam Borç",
