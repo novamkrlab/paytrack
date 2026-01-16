@@ -5,6 +5,7 @@
 
 import { useState, useEffect } from 'react';
 import { ScrollView, Text, View, TextInput, Pressable, Alert } from 'react-native';
+import { router } from 'expo-router';
 import { ScreenContainer } from '@/components/screen-container';
 import { MetricCard } from '@/components/metric-card';
 import { ProgressRing } from '@/components/progress-ring';
@@ -68,9 +69,25 @@ export default function GoalsScreen() {
         <View className="gap-6">
           {/* Başlık */}
           <View>
-            <Text className="text-3xl font-bold text-foreground mb-2">
-              {t('fire.title')}
-            </Text>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+              <Text className="text-3xl font-bold text-foreground">
+                {t('fire.title')}
+              </Text>
+              <Pressable
+                onPress={() => router.push('/chatbot')}
+                style={({ pressed }) => ({
+                  backgroundColor: colors.tint,
+                  paddingHorizontal: 16,
+                  paddingVertical: 8,
+                  borderRadius: 20,
+                  opacity: pressed ? 0.7 : 1,
+                })}
+              >
+                <Text style={{ color: '#FFFFFF', fontSize: 14, fontWeight: '600' }}>
+                  🤖 {t('chatbot.title')}
+                </Text>
+              </Pressable>
+            </View>
             <Text className="text-sm text-muted">
               {t('fire.subtitle')}
             </Text>

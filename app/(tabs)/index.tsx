@@ -12,6 +12,7 @@ import { SummaryCard } from "@/components/summary-card";
 import { PaymentCard } from "@/components/payment-card";
 import { FireOverviewCard } from "@/components/fire-overview-card";
 import { DebtOverviewCard } from "@/components/debt-overview-card";
+import { HealthScoreCard } from "@/components/health-score-card";
 import { useApp } from "@/lib/app-context";
 import {
   getUpcomingPayments,
@@ -25,7 +26,9 @@ import { getFireSummary } from "@/lib/fire-calculator";
 import { calculateDebtSummary } from "@/lib/debt-calculator";
 import type { FireSummary } from "@/types/fire";
 import type { DebtSummary } from "@/types/debt";
-import { PaymentCategory } from "@/types";
+import { PaymentCategory, type Payment, type Income } from "@/types";
+import { calculateFinancialHealthScore } from "@/lib/financial-health";
+import type { FinancialHealthScore } from "@/types/financial-health";
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -34,6 +37,7 @@ export default function HomeScreen() {
   const [refreshing, setRefreshing] = useState(false);
   const [fireSummary, setFireSummary] = useState<FireSummary | null>(null);
   const [debtSummary, setDebtSummary] = useState<DebtSummary | null>(null);
+  const [healthScore, setHealthScore] = useState<FinancialHealthScore | null>(null);
 
   // Mevcut ay bilgileri
   const now = new Date();
@@ -79,6 +83,30 @@ export default function HomeScreen() {
     });
     const debt = calculateDebtSummary(debts);
     setDebtSummary(debt);
+
+    // Finansal Sağlık Skoru
+    const monthlyIncome = state.incomes.reduce(
+      (sum: number, income: Income) => sum + income.amount,
+      0
+    );
+    const monthlyExpenses = state.payments
+      .filter((payment: Payment) => !payment.isPaid)
+      .reduce((sum: number, payment: Payment) => sum + payment.amount, 0);
+    const totalDebt = debtPayments.reduce((sum: number, p: Payment) => sum + p.amount, 0);
+    const currentSavings = Math.max(
+      0,
+      state.incomes.reduce((sum: number, income: Income) => sum + income.amount, 0) -
+        state.payments
+          .filter((payment: Payment) => payment.isPaid)
+          .reduce((sum: number, payment: Payment) => sum + payment.amount, 0)
+    );
+    const health = calculateFinancialHealthScore({
+      monthlyIncome,
+      monthlyExpenses,
+      totalDebt,
+      currentSavings,
+    });
+    setHealthScore(health);
   };
 
   // Yenileme fonksiyonu
@@ -129,6 +157,13 @@ export default function HomeScreen() {
               summary={debtSummary}
               currency={state.settings.currency}
             />
+          </View>
+        )}
+
+        {/* Finansal Sağlık Skoru Kartı */}
+        {healthScore && (
+          <View className="mt-4">
+            <HealthScoreCard score={healthScore} />
           </View>
         )}
 

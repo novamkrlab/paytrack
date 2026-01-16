@@ -489,3 +489,32 @@
 - [ ] Test et (kullanıcı testi gerekli)
 - [ ] Checkpoint oluştur (v4.7 - FIRE ve Borç Yönetimi)
 - [ ] Kullanıcıya teslim et (v4.7)
+
+## Finansal Sağlık Skoru ve AI Chatbot Asistan (v4.8)
+- [ ] Finansal sağlık skoru hesaplama fonksiyonu (lib/financial-health.ts)
+- [ ] Sağlık skoru veri modeli (types/financial-health.ts)
+- [ ] Sağlık skoru kartı bileşeni (components/health-score-card.tsx)
+- [ ] Sağlık skoru detay ekranı (app/health-score.tsx)
+- [ ] Chatbot backend API entegrasyonu (lib/chatbot-api.ts)
+- [ ] Chatbot UI ekranı (app/chatbot.tsx)
+- [ ] Chatbot mesaj bileşeni (components/chat-message.tsx)
+- [ ] Ana sayfaya sağlık skoru kartı ekle
+- [ ] Hedefler sekmesine chatbot butonu ekle
+- [ ] Dil dosyalarına çeviriler (TR + EN)
+- [ ] Test et (kullanıcı testi gerekli)
+- [ ] Checkpoint oluştur (v4.8 - Finansal Sağlık Skoru ve Chatbot)
+- [ ] Kullanıcıya teslim et (v4.8)
+
+## Finansal Sağlık Skoru ve Chatbot Asistan Modülü (v5.1)
+- [x] Tasarım dokümanı oluştur
+- [x] Veri modelleri (FinancialHealthScore, ChatMessage)
+- [x] Finansal sağlık skoru hesaplama fonksiyonları
+- [x] Sağlık skoru UI bileşenleri (HealthScoreCard, detay ekranı)
+- [x] Chatbot backend entegrasyonu (tRPC + Manus AI)
+- [x] Chatbot UI (ChatMessage, Chatbot ekranı)
+- [x] Dil dosyalarına çeviriler (TR + EN)
+- [x] Ana sayfaya Sağlık Skoru kartı ekle
+- [x] Hedefler tab'ına Chatbot butonu ekle
+- [ ] Test et (kullanıcı testi gerekli)
+- [ ] Checkpoint oluştur (v5.1 - Finansal Sağlık Skoru ve Chatbot)
+- [ ] Kullanıcıya teslim et (v5.1)

@@ -23,6 +23,7 @@
     "all": "All",
     "change": "Change",
     "viewAll": "View All",
+    "viewDetails": "View Details",
     "january": "January",
     "february": "February",
     "march": "March",
@@ -69,8 +70,42 @@
     "payments": "Payments",
     "incomes": "Incomes",
     "goals": "Goals",
-    "calendar": "Calendar",
     "settings": "Settings"
+  },
+  "healthScore": {
+    "title": "Financial Health Score",
+    "breakdown": "Category Breakdown",
+    "recommendationsTitle": "Recommendations",
+    "messages": {
+      "good": "Excellent! Your financial health is great",
+      "moderate": "Good progress! Room for improvement",
+      "critical": "Attention! Your financial health needs improvement"
+    },
+    "categories": {
+      "debtManagement": "Debt Management",
+      "emergencyFund": "Emergency Fund",
+      "savingsRate": "Savings Rate",
+      "fireProgress": "FIRE Progress"
+    },
+    "recommendations": {
+      "reduceDebt": "Prioritize reducing your debt. Pay off high-interest debts first.",
+      "buildEmergencyFund": "Build an emergency fund. Goal: 3-6 months of expenses.",
+      "increaseSavings": "Increase your savings rate. Try to save at least 10% of your income.",
+      "setFireGoal": "Set your financial independence goal and track it regularly.",
+      "keepGoing": "Great job! Keep it up and you'll reach your goals."
+    }
+  },
+  "chatbot": {
+    "title": "Financial Assistant",
+    "welcome": "Hello! I'm your financial assistant. I can answer questions about savings, investments, and debt management. How can I help you?",
+    "placeholder": "Type your question...",
+    "sampleQuestions": "Sample questions:",
+    "error": "Sorry, an error occurred. Please try again."
+  },
+  "goals": {
+    "title": "Goals",
+    "fireTitle": "Financial Independence (FIRE)",
+    "debtTitle": "Debt Management"
   },
   "home": {
     "monthSummary": "This Month Summary",

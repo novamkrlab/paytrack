@@ -1,0 +1,207 @@
+/**
+ * Finansal Sağlık Skoru - Detay Ekranı
+ */
+
+import { ScrollView, View, Text, Pressable } from 'react-native';
+import { router } from 'expo-router';
+import { useTranslation } from 'react-i18next';
+import { ScreenContainer } from '@/components/screen-container';
+import { useColors } from '@/hooks/use-colors';
+import { useApp } from '@/lib/app-context';
+import {
+  calculateFinancialHealthScore,
+  getHealthScoreBreakdown,
+  getScoreColor,
+  getScoreMessage,
+} from '@/lib/financial-health';
+import type { FinancialHealthInput } from '@/types/financial-health';
+import { PaymentCategory, type Payment, type Income } from '@/types';
+import { useMemo } from 'react';
+
+export default function HealthScoreScreen() {
+  const { t } = useTranslation();
+  const colors = useColors();
+  const { state } = useApp();
+
+  // Finansal verileri hesapla
+  const healthInput: FinancialHealthInput = useMemo(() => {
+    // Aylık gelir toplamı
+    // Gelirler isPaid alanına sahip değil, tüm gelirleri topla
+    const monthlyIncome = state.incomes
+      .reduce((sum: number, income: Income) => sum + income.amount, 0);
+
+    // Aylık harcama toplamı (ödenecek ödemeler)
+    const monthlyExpenses = state.payments
+      .filter((payment: Payment) => !payment.isPaid)
+      .reduce((sum: number, payment: Payment) => sum + payment.amount, 0);
+
+    // Toplam borç (kredi ve kredi kartı)
+    const totalDebt = state.payments
+      .filter(
+        (payment: Payment) =>
+          !payment.isPaid &&
+          (payment.category === PaymentCategory.LOAN || payment.category === PaymentCategory.CREDIT_CARD)
+      )
+      .reduce((sum: number, payment: Payment) => sum + payment.amount, 0);
+
+    // Mevcut birikim (ödenen gelirler - ödenen ödemeler)
+    // Gelirler isPaid alanına sahip değil, tüm gelirleri topla
+    const paidIncome = state.incomes
+      .reduce((sum: number, income: Income) => sum + income.amount, 0);
+    const paidExpenses = state.payments
+      .filter((payment: Payment) => payment.isPaid)
+      .reduce((sum: number, payment: Payment) => sum + payment.amount, 0);
+    const currentSavings = Math.max(0, paidIncome - paidExpenses);
+
+    return {
+      monthlyIncome,
+      monthlyExpenses,
+      totalDebt,
+      currentSavings,
+    };
+  }, [state.payments, state.incomes]);
+
+  const healthScore = useMemo(
+    () => calculateFinancialHealthScore(healthInput),
+    [healthInput]
+  );
+
+  const breakdown = useMemo(
+    () => getHealthScoreBreakdown(healthScore),
+    [healthScore]
+  );
+
+  const scoreColor = getScoreColor(healthScore.category);
+  const scoreMessage = getScoreMessage(healthScore.category);
+
+  return (
+    <ScreenContainer>
+      <ScrollView contentContainerStyle={{ padding: 16 }}>
+        {/* Header */}
+        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 24 }}>
+          <Pressable
+            onPress={() => router.back()}
+            style={({ pressed }) => ({
+              opacity: pressed ? 0.6 : 1,
+              marginRight: 12,
+            })}
+          >
+            <Text style={{ fontSize: 24, color: colors.tint }}>←</Text>
+          </Pressable>
+          <Text style={{ fontSize: 24, fontWeight: 'bold', color: colors.foreground }}>
+            {t('healthScore.title')}
+          </Text>
+        </View>
+
+        {/* Skor Göstergesi */}
+        <View
+          style={{
+            backgroundColor: colors.surface,
+            borderRadius: 16,
+            padding: 24,
+            alignItems: 'center',
+            marginBottom: 24,
+            borderWidth: 1,
+            borderColor: colors.border,
+          }}
+        >
+          <View
+            style={{
+              width: 140,
+              height: 140,
+              borderRadius: 70,
+              backgroundColor: scoreColor + '20',
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderWidth: 10,
+              borderColor: scoreColor,
+              marginBottom: 16,
+            }}
+          >
+            <Text style={{ fontSize: 48, fontWeight: 'bold', color: scoreColor }}>
+              {healthScore.totalScore}
+            </Text>
+          </View>
+          <Text style={{ fontSize: 18, fontWeight: '600', color: colors.foreground }}>
+            {t(scoreMessage)}
+          </Text>
+        </View>
+
+        {/* Kategori Detayları */}
+        <Text style={{ fontSize: 18, fontWeight: '600', color: colors.foreground, marginBottom: 16 }}>
+          {t('healthScore.breakdown')}
+        </Text>
+
+        {breakdown.map((item, index) => (
+          <View
+            key={index}
+            style={{
+              backgroundColor: colors.surface,
+              borderRadius: 12,
+              padding: 16,
+              marginBottom: 12,
+              borderWidth: 1,
+              borderColor: colors.border,
+            }}
+          >
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 8 }}>
+              <Text style={{ fontSize: 16, fontWeight: '600', color: colors.foreground }}>
+                {t(item.category)}
+              </Text>
+              <Text style={{ fontSize: 16, fontWeight: '600', color: colors.foreground }}>
+                {item.score}/{item.maxScore}
+              </Text>
+            </View>
+            <View
+              style={{
+                height: 8,
+                backgroundColor: colors.border,
+                borderRadius: 4,
+                overflow: 'hidden',
+              }}
+            >
+              <View
+                style={{
+                  height: '100%',
+                  width: `${item.percentage}%`,
+                  backgroundColor:
+                    item.status === 'excellent' || item.status === 'good'
+                      ? '#22C55E'
+                      : item.status === 'fair'
+                      ? '#F59E0B'
+                      : '#EF4444',
+                }}
+              />
+            </View>
+          </View>
+        ))}
+
+        {/* Öneriler */}
+        <Text style={{ fontSize: 18, fontWeight: '600', color: colors.foreground, marginTop: 8, marginBottom: 16 }}>
+          💡 {t('healthScore.recommendationsTitle')}
+        </Text>
+
+        {healthScore.recommendations.map((rec, index) => (
+          <View
+            key={index}
+            style={{
+              backgroundColor: colors.surface,
+              borderRadius: 12,
+              padding: 16,
+              marginBottom: 12,
+              borderWidth: 1,
+              borderColor: colors.border,
+              flexDirection: 'row',
+              alignItems: 'flex-start',
+            }}
+          >
+            <Text style={{ fontSize: 16, marginRight: 8 }}>•</Text>
+            <Text style={{ fontSize: 15, color: colors.foreground, flex: 1 }}>
+              {t(rec)}
+            </Text>
+          </View>
+        ))}
+      </ScrollView>
+    </ScreenContainer>
+  );
+}

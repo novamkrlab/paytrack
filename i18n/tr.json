@@ -22,6 +22,7 @@
     "all": "Tümü",
     "change": "Değiştir",
     "viewAll": "Tümünü Gör",
+    "viewDetails": "Detayları Gör",
     "january": "Ocak",
     "february": "Şubat",
     "march": "Mart",
@@ -68,8 +69,42 @@
     "payments": "Ödemeler",
     "incomes": "Gelirler",
     "goals": "Hedefler",
-    "calendar": "Takvim",
     "settings": "Ayarlar"
+  },
+  "healthScore": {
+    "title": "Finansal Sağlık Skoru",
+    "breakdown": "Kategori Detayları",
+    "recommendationsTitle": "Öneriler",
+    "messages": {
+      "good": "Mükemmel! Finansal sağlığınız çok iyi",
+      "moderate": "İyi gidiyorsunuz! Biraz daha gelişebilir",
+      "critical": "Dikkat! Finansal sağlığınızı iyileştirmeniz gerekiyor"
+    },
+    "categories": {
+      "debtManagement": "Borç Yönetimi",
+      "emergencyFund": "Acil Fon",
+      "savingsRate": "Tasarruf Oranı",
+      "fireProgress": "FIRE İlerlemesi"
+    },
+    "recommendations": {
+      "reduceDebt": "Borçlarınızı azaltmaya öncelik verin. Yüksek faizli borçları önce kapatın.",
+      "buildEmergencyFund": "Acil fon oluşturun. Hedef: 3-6 aylık harcamanız kadar birikim.",
+      "increaseSavings": "Tasarruf oranınızı artırın. Gelirin en az %10'unu biriktirmeye çalışın.",
+      "setFireGoal": "Finansal özgürlük hedefinizi belirleyin ve düzenli olarak takip edin.",
+      "keepGoing": "Harika gidiyorsunuz! Bu şekilde devam edin ve hedeflerinize ulaşacaksınız."
+    }
+  },
+  "chatbot": {
+    "title": "Finansal Asistan",
+    "welcome": "Merhaba! Ben sizin finansal asistanınızım. Birikim, yatırım ve borç yönetimi hakkında sorularınızı cevaplayabilirim. Size nasıl yardımcı olabilirim?",
+    "placeholder": "Sorunuzu yazın...",
+    "sampleQuestions": "Örnek sorular:",
+    "error": "Üzgünüm, bir hata oluştu. Lütfen tekrar deneyin."
+  },
+  "goals": {
+    "title": "Hedefler",
+    "fireTitle": "Finansal Özgürlük (FIRE)",
+    "debtTitle": "Borç Yönetimi"
   },
   "home": {
     "monthSummary": "Bu Ay Özet",
