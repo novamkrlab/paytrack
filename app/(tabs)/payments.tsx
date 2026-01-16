@@ -8,8 +8,10 @@ import { useState } from "react";
 import { useRouter } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
 import { PaymentCard } from "@/components/payment-card";
+import { CategoryExpenseChart } from "@/components/category-expense-chart";
 import { useApp } from "@/lib/app-context";
 import { PaymentCategory } from "@/types";
+import { getCurrentMonthPayments, calculateCategoryExpenses } from "@/utils/expense-calculations";
 import { useTranslation } from "react-i18next";
 
 type FilterType = "all" | PaymentCategory;
@@ -19,6 +21,10 @@ export default function PaymentsScreen() {
   const { state } = useApp();
   const { t } = useTranslation();
   const [filter, setFilter] = useState<FilterType>("all");
+
+  // Mevcut ay harcamaları
+  const currentMonthPayments = getCurrentMonthPayments(state.payments);
+  const categoryExpenses = calculateCategoryExpenses(currentMonthPayments);
 
   // Filtrelenmiş ödemeler
   const filteredPayments = state.payments.filter((payment) => {
@@ -38,7 +44,7 @@ export default function PaymentsScreen() {
         contentContainerStyle={{ paddingHorizontal: 16, paddingTop: 16, paddingBottom: 32 }}
       >
         {/* Başlık */}
-        <View className="mb-6">
+        <View className="mb-4">
           <Text className="text-3xl font-bold text-foreground">{t("payments.title")}</Text>
           <Text className="text-base text-muted mt-1">
             {t("payments.subtitle")}
@@ -111,6 +117,14 @@ export default function PaymentsScreen() {
             </TouchableOpacity>
           </View>
         </ScrollView>
+
+        {/* Harcama Grafiği */}
+        <View className="mb-6">
+          <CategoryExpenseChart
+            expenses={categoryExpenses}
+            currency={state.settings.currency}
+          />
+        </View>
 
         {/* Ödemeler Listesi */}
         {sortedPayments.length > 0 ? (

@@ -25,6 +25,7 @@ const MAPPING = {
   "target": "track-changes",
   "checkmark.circle.fill": "check-circle",
   "arrow.up.circle.fill": "arrow-circle-up",
+  "chart.pie.fill": "pie-chart",
 } as IconMapping;
 
 /**

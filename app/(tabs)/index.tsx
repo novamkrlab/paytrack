@@ -13,6 +13,7 @@ import { PaymentCard } from "@/components/payment-card";
 import { FireOverviewCard } from "@/components/fire-overview-card";
 import { DebtOverviewCard } from "@/components/debt-overview-card";
 import { HealthScoreCard } from "@/components/health-score-card";
+import { ExpenseSummaryCard } from "@/components/expense-summary-card";
 import { useApp } from "@/lib/app-context";
 import {
   getUpcomingPayments,
@@ -29,6 +30,9 @@ import type { DebtSummary } from "@/types/debt";
 import { PaymentCategory, type Payment, type Income } from "@/types";
 import { calculateFinancialHealthScore } from "@/lib/financial-health";
 import type { FinancialHealthScore } from "@/types/financial-health";
+import { getCurrentMonthExpenseSummary } from "@/utils/expense-calculations";
+import { loadBudgets, getBudgetMap } from "@/utils/budget-storage";
+import type { MonthlyExpenseSummary } from "@/types/budget";
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -38,6 +42,7 @@ export default function HomeScreen() {
   const [fireSummary, setFireSummary] = useState<FireSummary | null>(null);
   const [debtSummary, setDebtSummary] = useState<DebtSummary | null>(null);
   const [healthScore, setHealthScore] = useState<FinancialHealthScore | null>(null);
+  const [expenseSummary, setExpenseSummary] = useState<MonthlyExpenseSummary | null>(null);
 
   // Mevcut ay bilgileri
   const now = new Date();
@@ -107,6 +112,12 @@ export default function HomeScreen() {
       currentSavings,
     });
     setHealthScore(health);
+
+    // Harcama özeti
+    const budgets = await loadBudgets();
+    const budgetMap = getBudgetMap(budgets);
+    const expense = getCurrentMonthExpenseSummary(state.payments, budgetMap);
+    setExpenseSummary(expense);
   };
 
   // Yenileme fonksiyonu
@@ -155,6 +166,16 @@ export default function HomeScreen() {
           <View className="mt-4">
             <DebtOverviewCard
               summary={debtSummary}
+              currency={state.settings.currency}
+            />
+          </View>
+        )}
+
+        {/* Harcama Özeti Kartı */}
+        {expenseSummary && (
+          <View className="mt-4">
+            <ExpenseSummaryCard
+              summary={expenseSummary}
               currency={state.settings.currency}
             />
           </View>

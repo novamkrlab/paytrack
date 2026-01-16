@@ -265,32 +265,21 @@
   "incomeDetail": {
     "title": "Gelir Detayı",
     "addTitle": "Yeni Gelir",
-    "editTitle": "Gelir Düzenle",
-    "subtitle": "Bilgileri güncelleyin",
+    "editTitle": "Geliri Düzenle",
     "name": "Gelir Adı",
     "amount": "Tutar",
-    "type": "Tür",
+    "category": "Kategori",
     "date": "Tarih",
-    "incomeDate": "Gelir Tarihi",
     "notes": "Notlar",
-    "recurringIncome": "Tekrarlanan Gelir",
-    "frequency": "Sıklık",
-    "notFound": "Gelir bulunamadı",
-    "goBack": "Geri Dön",
-    "edit": "Düzenle",
-    "delete": "Sil",
-    "save": "Kaydet",
-    "cancel": "İptal",
-    "required": "gerekli",
-    "nameRequired": "Gelir adı gerekli",
-    "amountRequired": "Tutar gerekli",
-    "validAmount": "Geçerli bir tutar giriniz",
-    "success": "Başarılı",
-    "updated": "Gelir güncellendi",
-    "ok": "Tamam",
-    "deleteTitle": "Geliri Sil",
-    "deleteMessage": "Bu geliri silmek istediğinizden emin misiniz?",
-    "deleted": "{count} gelir silindi"
+    "recurrence": "Tekrar",
+    "autoGenerate": "Otomatik Oluştur",
+    "generateRecurring": "Tekrarlanan Gelirleri Oluştur",
+    "deleteConfirm": "Bu geliri silmek istediğinizden emin misiniz?",
+    "deleteOptions": {
+      "single": "Sadece bunu sil",
+      "fromThis": "Bundan sonrakini sil",
+      "all": "Tümünü sil"
+    }
   },
   "oldPaymentDetail": {
     "title": "Ödeme Detayı",
@@ -308,25 +297,6 @@
     "generateInstallments": "Taksitleri Oluştur",
     "generateRecurring": "Tekrarlanan Ödemeler Oluştur",
     "deleteConfirm": "Bu ödemeyi silmek istediğinizden emin misiniz?",
-    "deleteOptions": {
-      "single": "Sadece bunu sil",
-      "fromThis": "Bundan sonrakini sil",
-      "all": "Tümünü sil"
-    }
-  },
-  "incomeDetail": {
-    "title": "Gelir Detayı",
-    "addTitle": "Yeni Gelir",
-    "editTitle": "Geliri Düzenle",
-    "name": "Gelir Adı",
-    "amount": "Tutar",
-    "category": "Kategori",
-    "date": "Tarih",
-    "notes": "Notlar",
-    "recurrence": "Tekrar",
-    "autoGenerate": "Otomatik Oluştur",
-    "generateRecurring": "Tekrarlanan Gelirleri Oluştur",
-    "deleteConfirm": "Bu geliri silmek istediğinizden emin misiniz?",
     "deleteOptions": {
       "single": "Sadece bunu sil",
       "fromThis": "Bundan sonrakini sil",
@@ -364,17 +334,12 @@
     "incomes": "Gelirler"
   },
   "notifications": {
-    "noUpcoming": "Yaklaşan Ödeme Yok",
-    "noUpcomingBody": "Önümüzdeki 7 gün içinde ödenecek ödeme bulunmuyor.",
-    "todayCount": "Bugün {{count}} Ödeme Var",
-    "tomorrowCount": "Yarın {{count}} Ödeme Var",
-    "thisWeekCount": "Bu Hafta {{count}} Ödeme Var",
-    "total": "Toplam",
+    "title": "Yaklaşan Ödemeler",
+    "today": "Bugün",
     "tomorrow": "Yarın",
-    "thisWeek": "Bu hafta",
-    "morePayments": "{{count}} ödeme daha",
-    "firstPayment": "İlk ödeme",
-    "daysLater": "{{count}} gün sonra"
+    "thisWeek": "Bu Hafta",
+    "noPayments": "Yaklaşan ödeme yok",
+    "totalAmount": "Toplam Tutar"
   },
   "settings": {
     "title": "Ayarlar",
@@ -425,14 +390,6 @@
       "title": "Akıllı Bildirimler",
       "description": "Ödeme tarihlerinizi asla kaçırmayın. Her gün belirlediğiniz saatte yaklaşan ödemelerinizi size hatırlatalım."
     }
-  },
-  "notifications": {
-    "title": "Yaklaşan Ödemeler",
-    "today": "Bugün",
-    "tomorrow": "Yarın",
-    "thisWeek": "Bu Hafta",
-    "noPayments": "Yaklaşan ödeme yok",
-    "totalAmount": "Toplam Tutar"
   },
   "dataManagement": {
     "exportSuccess": "Veriler başarıyla dışa aktarıldı",
@@ -491,7 +448,7 @@
     },
     "dataStorage": {
       "title": "Veri Saklama",
-      "content": "\u2022 Tüm veriler cihazınızın yerel depolama alanında (AsyncStorage) saklanır\n\u2022 Verileriniz yalnızca sizin erişiminize açıktır\n\u2022 Uygulama silindiginde tüm veriler otomatik olarak silinir\n\u2022 Veri yedekleme özelliği ile verilerinizi dışa aktarabilirsiniz"
+      "content": "• Tüm veriler cihazınızın yerel depolama alanında (AsyncStorage) saklanır\n• Verileriniz yalnızca sizin erişiminize açıktır\n• Uygulama silindiginde tüm veriler otomatik olarak silinir\n• Veri yedekleme özelliği ile verilerinizi dışa aktarabilirsiniz"
     },
     "dataSharing": {
       "title": "Üçüncü Taraf Paylaşım",
@@ -503,7 +460,7 @@
     },
     "permissions": {
       "title": "Uygulama İzinleri",
-      "content": "Ödeme Takibi uygulaması aşağıdaki izinleri kullanır:\n\n\u2022 Bildirimler: Ödeme hatırlatıcıları göndermek için\n\u2022 Depolama: Veri yedekleme dosyalarını kaydetmek için"
+      "content": "Ödeme Takibi uygulaması aşağıdaki izinleri kullanır:\n\n• Bildirimler: Ödeme hatırlatıcıları göndermek için\n• Depolama: Veri yedekleme dosyalarını kaydetmek için"
     },
     "security": {
       "title": "Veri Güvenliği",
@@ -547,5 +504,25 @@
       "title": "İletişim",
       "content": "Gizlilik politikamız hakkında sorularınız varsa, lütfen bizimle iletişime geçin:"
     }
+  },
+  "expense": {
+    "title": "Harcama Özeti",
+    "totalExpense": "Toplam Harcama",
+    "byCategory": "Kategorilere Göre",
+    "noExpenses": "Bu ay henüz harcama yok",
+    "budgetExceeded": "Bütçe aşıldı!",
+    "budget": "Bütçe",
+    "spent": "Harcanan",
+    "remaining": "Kalan",
+    "overBudget": "Bütçe Aşımı",
+    "budgetSettings": "Bütçe Ayarları",
+    "budgetSettingsDescription": "Kategori bazlı aylık bütçe limitleri belirleyin",
+    "manageBudgets": "Bütçeleri Yönet",
+    "manageBudgetsDescription": "Harcama limitlerini ayarlayın",
+    "monthlyLimit": "Aylık Limit",
+    "progress": "İlerleme",
+    "budgetSaved": "Bütçe ayarları kaydedildi",
+    "budgetLoadError": "Bütçe yüklenirken hata oluştu",
+    "budgetSaveError": "Bütçe kaydedilirken hata oluştu"
   }
 }

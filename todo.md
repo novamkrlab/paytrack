@@ -562,3 +562,19 @@
 - [ ] İlerleme çubuğu ekle (kaç taksit ödendi)
 - [ ] Test et
 - [ ] Checkpoint oluştur
+
+## Harcama Takibi ve Bütçe Modülü (Kullanıcı İsteği)
+- [x] Harcama hesaplama fonksiyonları oluştur (kategori bazlı, aylık toplam)
+- [x] Bütçe veri tipi tanımla (kategori, limit, dönem)
+- [x] Bütçe depolama fonksiyonları ekle (AsyncStorage)
+- [x] Harcama özeti kartı bileşeni oluştur (ana sayfada)
+- [x] Kategori bazlı harcama grafiği bileşeni oluştur (pasta grafiği)
+- [x] Ödemeler sekmesine harcama analizi ekle
+- [x] Bütçe ayarları ekranı oluştur (Ayarlar sekmesinde)
+- [x] Kategori bazlı bütçe belirleme formu ekle
+- [x] Bütçe aşım kontrolü fonksiyonu yaz
+- [x] Bütçe aşım bildirimi sistemi ekle
+- [x] Türkçe ve İngilizce çeviriler ekle
+- [x] Test et
+- [ ] Checkpoint oluştur (v5.3 - Harcama takibi ve bütçe modülü)
+- [ ] Kullanıcıya teslim et (v5.3)

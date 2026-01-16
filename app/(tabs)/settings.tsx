@@ -234,6 +234,30 @@ export default function SettingsScreen() {
           </View>
         </View>
 
+        {/* Bütçe Ayarları */}
+        <View className="mb-6">
+          <Text className="text-lg font-semibold text-foreground mb-3">
+            {t("expense.budgetSettings")}
+          </Text>
+
+          <View className="bg-surface rounded-2xl border border-border overflow-hidden">
+            <TouchableOpacity
+              className="p-4 flex-row items-center justify-between active:opacity-80"
+              onPress={() => router.push("/budget-settings" as any)}
+            >
+              <View className="flex-1">
+                <Text className="text-base font-medium text-foreground">
+                  {t("expense.manageBudgets")}
+                </Text>
+                <Text className="text-sm text-muted mt-1">
+                  {t("expense.manageBudgetsDescription")}
+                </Text>
+              </View>
+              <Text className="text-primary font-medium">›</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
         {/* Dil */}
         <View className="mb-6">
           <Text className="text-lg font-semibold text-foreground mb-3">

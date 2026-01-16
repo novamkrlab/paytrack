@@ -5,10 +5,8 @@
     "cancel": "Cancel",
     "delete": "Delete",
     "edit": "Edit",
-    "add": "Add",
     "close": "Close",
     "confirm": "Confirm",
-    "back": "Back",
     "next": "Next",
     "skip": "Skip",
     "start": "Start",
@@ -324,17 +322,12 @@
     "incomes": "Incomes"
   },
   "notifications": {
-    "noUpcoming": "No Upcoming Payments",
-    "noUpcomingBody": "No payments due in the next 7 days.",
-    "todayCount": "{{count}} Payment(s) Today",
-    "tomorrowCount": "{{count}} Payment(s) Tomorrow",
-    "thisWeekCount": "{{count}} Payment(s) This Week",
-    "total": "Total",
+    "title": "Upcoming Payments",
+    "today": "Today",
     "tomorrow": "Tomorrow",
-    "thisWeek": "This week",
-    "morePayments": "{{count}} more payment(s)",
-    "firstPayment": "First payment",
-    "daysLater": "{{count}} day(s) later"
+    "thisWeek": "This Week",
+    "noPayments": "No upcoming payments",
+    "totalAmount": "Total Amount"
   },
   "settings": {
     "title": "Settings",
@@ -385,14 +378,6 @@
       "title": "Smart Notifications",
       "description": "Never miss a payment date. We'll remind you of upcoming payments every day at your chosen time."
     }
-  },
-  "notifications": {
-    "title": "Upcoming Payments",
-    "today": "Today",
-    "tomorrow": "Tomorrow",
-    "thisWeek": "This Week",
-    "noPayments": "No upcoming payments",
-    "totalAmount": "Total Amount"
   },
   "dataManagement": {
     "exportSuccess": "Data exported successfully",
@@ -451,7 +436,7 @@
     },
     "dataStorage": {
       "title": "Data Storage",
-      "content": "\u2022 All data is stored in your device's local storage (AsyncStorage)\n\u2022 Your data is only accessible to you\n\u2022 All data is automatically deleted when the app is uninstalled\n\u2022 You can export your data using the backup feature"
+      "content": "• All data is stored in your device's local storage (AsyncStorage)\n• Your data is only accessible to you\n• All data is automatically deleted when the app is uninstalled\n• You can export your data using the backup feature"
     },
     "dataSharing": {
       "title": "Third-Party Sharing",
@@ -463,7 +448,7 @@
     },
     "permissions": {
       "title": "App Permissions",
-      "content": "Payment Tracker app uses the following permissions:\n\n\u2022 Notifications: To send payment reminders\n\u2022 Storage: To save backup files"
+      "content": "Payment Tracker app uses the following permissions:\n\n• Notifications: To send payment reminders\n• Storage: To save backup files"
     },
     "security": {
       "title": "Data Security",
@@ -482,5 +467,25 @@
       "content": "If you have any questions about our privacy policy, please contact us:\n\nEmail: destek@odemetakibi.com"
     },
     "footer": "By using the Payment Tracker app, you agree to this privacy policy."
+  },
+  "expense": {
+    "title": "Expense Summary",
+    "totalExpense": "Total Expense",
+    "byCategory": "By Category",
+    "noExpenses": "No expenses this month",
+    "budgetExceeded": "Budget exceeded!",
+    "budget": "Budget",
+    "spent": "Spent",
+    "remaining": "Remaining",
+    "overBudget": "Over Budget",
+    "budgetSettings": "Budget Settings",
+    "budgetSettingsDescription": "Set monthly budget limits by category",
+    "manageBudgets": "Manage Budgets",
+    "manageBudgetsDescription": "Set spending limits",
+    "monthlyLimit": "Monthly Limit",
+    "progress": "Progress",
+    "budgetSaved": "Budget settings saved",
+    "budgetLoadError": "Error loading budgets",
+    "budgetSaveError": "Error saving budgets"
   }
 }

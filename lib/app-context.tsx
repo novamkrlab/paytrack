@@ -6,6 +6,8 @@
 import React, { createContext, useContext, useReducer, useEffect, ReactNode } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { scheduleAllPaymentNotifications, cancelAllNotifications } from "@/lib/notifications";
+import { onPaymentChanged } from "@/services/budget-notification";
+import i18n from "@/i18n";
 import {
   AppState,
   Payment,
@@ -226,7 +228,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
     };
     const updatedPayment = updatePaymentStatus(newPayment);
     dispatch({ type: "ADD_PAYMENT", payload: updatedPayment });
-    await savePayments([...state.payments, updatedPayment]);
+    const newPayments = [...state.payments, updatedPayment];
+    await savePayments(newPayments);
+    // Bütçe kontrolü
+    await onPaymentChanged(newPayments, i18n.language);
   };
 
   // Ödeme güncelleme
@@ -241,6 +246,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
       p.id === finalPayment.id ? finalPayment : p
     );
     await savePayments(updatedPayments);
+    // Bütçe kontrolü
+    await onPaymentChanged(updatedPayments, i18n.language);
   };
 
   // Ödeme silme
@@ -323,6 +330,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
       p.id === finalPayment.id ? finalPayment : p
     );
     await savePayments(updatedPayments);
+    // Bütçe kontrolü
+    await onPaymentChanged(updatedPayments, i18n.language);
   };
 
   // Tüm verileri sıfırlama
