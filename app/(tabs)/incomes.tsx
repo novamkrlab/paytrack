@@ -99,9 +99,9 @@ export default function IncomesScreen() {
 
         {sortedIncomes.length > 0 ? (
           <View>
-            {sortedIncomes.map((income) => (
+            {sortedIncomes.map((income, index) => (
               <IncomeCard
-                key={income.id}
+                key={`${income.id}-${index}`}
                 income={income}
                 onPress={() => router.push(`/income-detail?id=${income.id}` as any)}
                 currency={state.settings.currency}

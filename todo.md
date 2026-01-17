@@ -759,5 +759,12 @@
 ## Bug Fix (v5.9.1)
 - [x] Gelir detay ekranındaki "incomeDetail.edit" çevirisini ekle ("Düzenle")
 - [x] Gelir detay ekranındaki "incomeDetail.delete" çevirisini ekle ("Sil")
-- [ ] Checkpoint oluştur (v5.9.1)
-- [ ] Kullanıcıya teslim et (v5.9.1)
+- [x] Checkpoint oluştur (v5.9.1)
+- [x] Kullanıcıya teslim et (v5.9.1)
+
+
+## Bug Fix (v5.9.2)
+- [x] Gelirler listesindeki "duplicate key" hatasını düzelt
+- [x] Her gelir için benzersiz key oluştur (income.id yerine index veya kombinasyon kullan)
+- [ ] Checkpoint oluştur (v5.9.2)
+- [ ] Kullanıcıya teslim et (v5.9.2)
