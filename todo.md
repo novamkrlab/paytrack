@@ -642,5 +642,14 @@
 - [x] Türkçe ve İngilizce çeviriler ekle
 - [x] Unit testler yaz
 - [x] Test et
-- [ ] Checkpoint oluştur (v5.7)
-- [ ] Kullanıcıya teslim et (v5.7)
+- [x] Checkpoint oluştur (v5.7)
+- [x] Kullanıcıya teslim et (v5.7)
+
+## Tekrarlayan Gelir İyileştirme (v5.7.1)
+- [x] Gelir ekleme formuna "Belirli Tarihe Kadar" seçeneği ekle
+- [x] Tekrar tipi seçimi ekle (Belirli Sayıda, Belirli Tarihe Kadar, Süresiz)
+- [x] endDate kontrolü zaten mevcut (shouldGenerateRecurringIncome fonksiyonunda)
+- [x] Türkçe ve İngilizce çeviriler ekle
+- [x] Test et
+- [ ] Checkpoint oluştur (v5.7.1)
+- [ ] Kullanıcıya teslim et (v5.7.1)

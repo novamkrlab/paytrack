@@ -28,8 +28,9 @@ export default function AddIncomeScreen() {
   const [notes, setNotes] = useState("");
   const [hasRecurrence, setHasRecurrence] = useState(false);
   const [recurrenceFrequency, setRecurrenceFrequency] = useState<RecurrenceFrequency>(RecurrenceFrequency.MONTHLY);
-  const [isInfinite, setIsInfinite] = useState(true); // Süresiz tekrar
+  const [repeatType, setRepeatType] = useState<"infinite" | "count" | "date">("infinite"); // Tekrar tipi
   const [repeatCount, setRepeatCount] = useState(""); // Kaç kez tekrarlanacak
+  const [endDate, setEndDate] = useState(new Date()); // Bitiş tarihi
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const typeOptions = [
@@ -65,7 +66,8 @@ export default function AddIncomeScreen() {
         ? {
             frequency: recurrenceFrequency,
             nextDate: date.toISOString().split("T")[0], // İlk tekrar tarihi
-            repeatCount: isInfinite ? undefined : Number(repeatCount) || undefined,
+            repeatCount: repeatType === "count" ? Number(repeatCount) || undefined : undefined,
+            endDate: repeatType === "date" ? endDate.toISOString().split("T")[0] : undefined,
           }
         : undefined,
     };
@@ -104,18 +106,32 @@ export default function AddIncomeScreen() {
               options={recurrenceOptions}
               required
             />
-            <SwitchField
-              label={t("incomeDetail.infiniteRepeat")}
-              value={isInfinite}
-              onChange={setIsInfinite}
+            <PickerField
+              label={t("incomeDetail.repeatType")}
+              value={repeatType}
+              onChange={(value) => setRepeatType(value as "infinite" | "count" | "date")}
+              options={[
+                { label: t("incomeDetail.infinite"), value: "infinite" },
+                { label: t("incomeDetail.count"), value: "count" },
+                { label: t("incomeDetail.untilDate"), value: "date" },
+              ]}
+              required
             />
-            {!isInfinite && (
+            {repeatType === "count" && (
               <TextInputField
                 label={t("incomeDetail.repeatCount")}
                 value={repeatCount}
                 onChangeText={setRepeatCount}
                 placeholder="12"
                 keyboardType="numeric"
+              />
+            )}
+            {repeatType === "date" && (
+              <DatePickerField
+                label={t("incomeDetail.endDate")}
+                value={endDate}
+                onChange={setEndDate}
+                required
               />
             )}
           </View>

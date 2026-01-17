@@ -281,7 +281,12 @@
       "all": "Tümünü sil"
     },
     "infiniteRepeat": "Süresiz Tekrarla",
-    "repeatCount": "Tekrar Sayısı"
+    "repeatCount": "Tekrar Sayısı",
+    "repeatType": "Tekrar Tipi",
+    "infinite": "Süresiz",
+    "count": "Belirli Sayıda",
+    "untilDate": "Belirli Tarihe Kadar",
+    "endDate": "Bitiş Tarihi"
   },
   "oldPaymentDetail": {
     "title": "Ödeme Detayı",
