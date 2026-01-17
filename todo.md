@@ -808,3 +808,35 @@
 - [ ] Dil dosyalarına kategori çevirileri ekle (TR/EN)
 - [x] Checkpoint oluştur (v6.1.0)
 - [x] Kullanıcıya teslim et (v6.1.0)
+
+
+## Feature: Harcama Ekleme Kategori Entegrasyonu (v6.1.1)
+- [ ] Harcama veri yapısını güncelle (category: PaymentCategory → categoryId: string)
+- [ ] Harcama ekleme sayfasında kategori seçiciyi güncelle (yeni kategorilerden seçim)
+- [ ] Harcama düzenleme sayfasında kategori seçiciyi güncelle
+- [ ] Harcama listesinde kategori gösterimini güncelle (ikon + ad + renk)
+- [ ] Mevcut harcamaları yeni kategori sistemine migrate et
+- [ ] Checkpoint oluştur (v6.1.1)
+- [ ] Kullanıcıya teslim et (v6.1.1)
+
+
+## Feature: Kategori Bazlı Bütçe Yönetimi (v6.2.0)
+- [x] Kategori bütçe veri yapısı oluştur (categoryId, monthlyLimit, spent, remaining)
+- [x] Kategori bütçe servisi oluştur (save/load/calculate)
+- [x] Bütçe ayarları sayfasını güncelle (her kategori için aylık limit belirleme)
+- [x] Ana sayfaya bütçe durumu kartları ekle (kategori bazlı progress bar)
+- [x] Bütçe aşım uyarıları ekle (%80, %100)
+- [x] Bütçe bildirimleri entegre et
+
+## Feature: Kategori İstatistik Grafikleri (v6.2.0)
+- [x] Pasta grafik komponenti oluştur (kategori bazlı harcama dağılımı)
+- [x] Bar chart komponenti oluştur (aylık kategori karşılaştırması)
+- [x] Yeni "İstatistikler" tab'i oluştur
+- [x] Grafik verilerini hesaplayan servis oluştur
+- [ ] Grafiklere tıklama interaksiyonu ekle (kategori detayına git)
+
+## Testing & Delivery (v6.2.0)
+- [x] Bütçe sistemi testleri yaz
+- [x] Grafik render testleri yaz
+- [ ] Checkpoint oluştur (v6.2.0)
+- [ ] Kullanıcıya teslim et (v6.2.0)

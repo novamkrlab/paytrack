@@ -27,6 +27,7 @@ const MAPPING = {
   "checkmark.circle.fill": "check-circle",
   "arrow.up.circle.fill": "arrow-circle-up",
   "chart.pie.fill": "pie-chart",
+  "chart.bar.fill": "bar-chart",
   "plus": "add",
 } as IconMapping;
 

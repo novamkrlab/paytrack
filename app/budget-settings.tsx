@@ -1,9 +1,9 @@
 /**
  * Bütçe Ayarları Ekranı
- * Kategori bazlı bütçe limitleri belirleme
+ * Kategori bazlı bütçe limitleri belirleme (Yeni Kategori Sistemi)
  */
 
-import { View, Text, ScrollView, Pressable, TextInput, Alert, Switch } from "react-native";
+import { View, Text, ScrollView, Pressable, TextInput, Alert, Switch, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -11,12 +11,16 @@ import { useTranslation } from "react-i18next";
 import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
 import { IconSymbol } from "@/components/ui/icon-symbol";
-import { PaymentCategory } from "@/types";
-import { loadBudgets, saveBudgets, calculateBudgetStatus } from "@/utils/budget-storage";
-import { getCurrentMonthPayments, calculateCategoryExpenses } from "@/utils/expense-calculations";
+import { loadCategories } from "@/services/category-service";
+import {
+  loadBudgetSettings,
+  saveBudgetSettings,
+  updateCategoryBudget,
+  getCurrentMonthBudgets,
+} from "@/services/category-budget-service";
 import { useApp } from "@/lib/app-context";
-import { formatCurrency } from "@/utils/currency-helpers";
-import type { Budget, BudgetStatus } from "@/types/budget";
+import type { Category } from "@/types/category";
+import type { CategoryBudgetSettings } from "@/types/category-budget";
 
 export default function BudgetSettingsScreen() {
   const router = useRouter();
@@ -24,8 +28,10 @@ export default function BudgetSettingsScreen() {
   const { t } = useTranslation();
   const { state } = useApp();
 
-  const [budgets, setBudgets] = useState<Budget[]>([]);
-  const [budgetStatuses, setBudgetStatuses] = useState<BudgetStatus[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [budgetSettings, setBudgetSettings] = useState<CategoryBudgetSettings[]>([]);
+  const [editingCategoryId, setEditingCategoryId] = useState<string | null>(null);
+  const [editingLimit, setEditingLimit] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -34,60 +40,67 @@ export default function BudgetSettingsScreen() {
 
   const loadData = async () => {
     try {
-      // Bütçeleri yükle
-      const loadedBudgets = await loadBudgets();
-      setBudgets(loadedBudgets);
-
-      // Mevcut ay harcamalarını hesapla
-      const currentMonthPayments = getCurrentMonthPayments(state.payments);
-      const categoryExpenses = calculateCategoryExpenses(currentMonthPayments);
-
-      // Her kategori için bütçe durumunu hesapla
-      const statuses: BudgetStatus[] = [];
-      for (const budget of loadedBudgets) {
-        const expense = categoryExpenses.find((e) => e.category === budget.category);
-        const spent = expense ? expense.amount : 0;
-        const status = calculateBudgetStatus(budget, spent);
-        statuses.push(status);
-      }
-      setBudgetStatuses(statuses);
+      const [loadedCategories, loadedSettings] = await Promise.all([
+        loadCategories(),
+        loadBudgetSettings(),
+      ]);
+      
+      setCategories(loadedCategories);
+      setBudgetSettings(loadedSettings);
     } catch (error) {
       console.error("Bütçe yükleme hatası:", error);
-      Alert.alert(t("common.error"), t("expense.budgetLoadError"));
+      Alert.alert(t("common.error"), "Bütçe ayarları yüklenirken bir hata oluştu");
     } finally {
       setLoading(false);
     }
   };
 
-  const handleSave = async () => {
+  const getBudgetSetting = (categoryId: string): CategoryBudgetSettings | undefined => {
+    return budgetSettings.find((s) => s.categoryId === categoryId);
+  };
+
+  const handleToggleBudget = async (categoryId: string, enabled: boolean) => {
     try {
-      await saveBudgets(budgets);
-      Alert.alert(t("common.success"), t("expense.budgetSaved"));
-      router.back();
+      const setting = getBudgetSetting(categoryId);
+      const monthlyLimit = setting?.monthlyLimit || 0;
+
+      await updateCategoryBudget(categoryId, monthlyLimit, enabled);
+      await loadData();
     } catch (error) {
-      console.error("Bütçe kaydetme hatası:", error);
-      Alert.alert(t("common.error"), t("expense.budgetSaveError"));
+      console.error("Bütçe toggle hatası:", error);
+      Alert.alert(t("common.error"), "Bütçe ayarı güncellenirken bir hata oluştu");
     }
   };
 
-  const updateBudget = (category: PaymentCategory, field: "monthlyLimit" | "isActive", value: number | boolean) => {
-    setBudgets((prev) =>
-      prev.map((b) =>
-        b.category === category ? { ...b, [field]: value } : b
-      )
-    );
+  const handleStartEdit = (categoryId: string) => {
+    const setting = getBudgetSetting(categoryId);
+    setEditingCategoryId(categoryId);
+    setEditingLimit(setting?.monthlyLimit?.toString() || "");
   };
 
-  const getCategoryLabel = (category: PaymentCategory) => {
-    if (category === PaymentCategory.CREDIT_CARD) return t("categories.creditCard");
-    if (category === PaymentCategory.LOAN) return t("categories.loan");
-    return t("categories.other");
+  const handleSaveEdit = async () => {
+    if (!editingCategoryId) return;
+
+    const limit = parseFloat(editingLimit);
+    if (isNaN(limit) || limit < 0) {
+      Alert.alert(t("common.error"), "Geçerli bir tutar girin");
+      return;
+    }
+
+    try {
+      await updateCategoryBudget(editingCategoryId, limit, true);
+      await loadData();
+      setEditingCategoryId(null);
+      setEditingLimit("");
+    } catch (error) {
+      console.error("Bütçe kaydetme hatası:", error);
+      Alert.alert(t("common.error"), "Bütçe kaydedilirken bir hata oluştu");
+    }
   };
 
-  const getCategoryColor = (category: PaymentCategory) => {
-    if (category === PaymentCategory.CREDIT_CARD) return "#3B82F6"; // Blue
-    if (category === PaymentCategory.LOAN) return "#EF4444"; // Red
-    return "#8B5CF6"; // Purple
+  const handleCancelEdit = () => {
+    setEditingCategoryId(null);
+    setEditingLimit("");
   };
 
   if (loading) {
@@ -102,148 +115,108 @@ export default function BudgetSettingsScreen() {
 
   return (
     <ScreenContainer>
-      <ScrollView className="flex-1 p-4">
-        {/* Header */}
-        <View className="mb-6">
-          <Pressable
-            onPress={() => router.back()}
-            style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1 })}
-          >
-            <Text className="text-primary text-base mb-2">← {t("common.back")}</Text>
-          </Pressable>
-          <Text className="text-3xl font-bold text-foreground mb-2">
-            {t("expense.budgetSettings")}
-          </Text>
-          <Text className="text-muted text-base">
-            {t("expense.budgetSettingsDescription")}
-          </Text>
-        </View>
+      {/* Header */}
+      <View className="flex-row items-center px-4 pt-4 pb-2">
+        <Pressable
+          onPress={() => router.back()}
+          className="mr-3"
+          style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1 })}
+        >
+          <IconSymbol name="chevron.left" size={24} color={colors.foreground} />
+        </Pressable>
+        <Text className="text-2xl font-bold text-foreground">Bütçe Ayarları</Text>
+      </View>
 
-        {/* Bütçe Listesi */}
-        <View className="gap-4">
-          {budgets.map((budget, index) => {
-            const status = budgetStatuses.find((s) => s.category === budget.category);
-            const percentage = status ? status.percentage : 0;
-            const isOverBudget = status ? status.isOverBudget : false;
+      <ScrollView className="flex-1 px-4" showsVerticalScrollIndicator={false}>
+        <View className="py-4 gap-4">
+          <Text className="text-sm text-muted">
+            Her kategori için aylık bütçe limiti belirleyin. Bütçenizin %80'ine ve %100'üne ulaştığınızda bildirim alacaksınız.
+          </Text>
+
+          {categories.map((category) => {
+            const setting = getBudgetSetting(category.id);
+            const isEnabled = setting?.enabled || false;
+            const isEditing = editingCategoryId === category.id;
 
             return (
               <View
-                key={budget.category}
-                className="bg-surface rounded-2xl p-4 border border-border"
+                key={category.id}
+                className="bg-surface rounded-2xl border border-border p-4"
               >
                 {/* Kategori Başlığı */}
-                <View className="flex-row items-center justify-between mb-4">
-                  <View className="flex-row items-center gap-3">
-                    <View
-                      className="w-10 h-10 rounded-full items-center justify-center"
-                      style={{ backgroundColor: getCategoryColor(budget.category) + "20" }}
-                    >
-                      <View
-                        className="w-4 h-4 rounded-full"
-                        style={{ backgroundColor: getCategoryColor(budget.category) }}
-                      />
-                    </View>
-                    <Text className="text-lg font-semibold text-foreground">
-                      {getCategoryLabel(budget.category)}
+                <View className="flex-row items-center justify-between mb-3">
+                  <View className="flex-row items-center gap-2 flex-1">
+                    <Text style={{ fontSize: 24 }}>{category.icon}</Text>
+                    <Text className="text-base font-semibold text-foreground">
+                      {category.name}
                     </Text>
                   </View>
                   <Switch
-                    value={budget.isActive}
-                    onValueChange={(value) => updateBudget(budget.category, "isActive", value)}
-                    trackColor={{ false: colors.border, true: colors.primary }}
+                    value={isEnabled}
+                    onValueChange={(value) => handleToggleBudget(category.id, value)}
+                    trackColor={{ false: colors.border, true: category.color }}
                     thumbColor={colors.background}
                   />
                 </View>
 
-                {budget.isActive && (
-                  <>
-                    {/* Bütçe Limiti */}
-                    <View className="mb-4">
-                      <Text className="text-sm font-medium text-foreground mb-2">
-                        {t("expense.monthlyLimit")}
-                      </Text>
-                      <TextInput
-                        className="bg-background border border-border rounded-lg px-4 py-3 text-foreground text-base"
-                        placeholder="0"
-                        keyboardType="numeric"
-                        value={budget.monthlyLimit > 0 ? budget.monthlyLimit.toString() : ""}
-                        onChangeText={(text) => {
-                          const value = parseFloat(text) || 0;
-                          updateBudget(budget.category, "monthlyLimit", value);
-                        }}
-                      />
-                    </View>
-
-                    {/* Bütçe Durumu */}
-                    {status && budget.monthlyLimit > 0 && (
-                      <View>
-                        <View className="flex-row items-center justify-between mb-2">
-                          <Text className="text-sm text-muted">{t("expense.spent")}</Text>
-                          <Text className="text-sm font-semibold text-foreground">
-                            {formatCurrency(status.spent, state.settings.currency as any)}
-                          </Text>
-                        </View>
-                        <View className="flex-row items-center justify-between mb-2">
-                          <Text className="text-sm text-muted">{t("expense.remaining")}</Text>
-                          <Text
-                            className={`text-sm font-semibold ${
-                              isOverBudget ? "text-error" : "text-success"
-                            }`}
+                {/* Bütçe Limiti */}
+                {isEnabled && (
+                  <View className="gap-2">
+                    {isEditing ? (
+                      // Düzenleme Modu
+                      <View className="gap-2">
+                        <Text className="text-xs text-muted">Aylık Limit (₺)</Text>
+                        <TextInput
+                          value={editingLimit}
+                          onChangeText={setEditingLimit}
+                          placeholder="0.00"
+                          placeholderTextColor={colors.muted}
+                          keyboardType="decimal-pad"
+                          className="bg-background border border-border rounded-lg px-3 py-2 text-foreground"
+                        />
+                        <View className="flex-row gap-2">
+                          <TouchableOpacity
+                            onPress={handleSaveEdit}
+                            className="flex-1 bg-primary rounded-lg py-2 items-center"
                           >
-                            {formatCurrency(status.remaining, state.settings.currency as any)}
-                          </Text>
-                        </View>
-
-                        {/* İlerleme Çubuğu */}
-                        <View className="mt-3">
-                          <View className="flex-row items-center justify-between mb-1">
-                            <Text className="text-xs text-muted">{t("expense.progress")}</Text>
-                            <Text
-                              className={`text-xs font-semibold ${
-                                isOverBudget ? "text-error" : "text-primary"
-                              }`}
-                            >
-                              {percentage.toFixed(0)}%
-                            </Text>
-                          </View>
-                          <View className="h-2 bg-border rounded-full overflow-hidden">
-                            <View
-                              className="h-full rounded-full"
-                              style={{
-                                width: `${Math.min(percentage, 100)}%`,
-                                backgroundColor: isOverBudget ? colors.error : colors.primary,
-                              }}
-                            />
-                          </View>
-                        </View>
-
-                        {/* Bütçe Aşım Uyarısı */}
-                        {isOverBudget && (
-                          <View
-                            className="mt-3 px-3 py-2 rounded-lg"
-                            style={{ backgroundColor: colors.error + "10" }}
+                            <Text className="text-background font-semibold">Kaydet</Text>
+                          </TouchableOpacity>
+                          <TouchableOpacity
+                            onPress={handleCancelEdit}
+                            className="flex-1 bg-surface border border-border rounded-lg py-2 items-center"
                           >
-                            <Text className="text-xs font-semibold text-error">
-                              ⚠️ {t("expense.budgetExceeded")}
-                            </Text>
-                          </View>
-                        )}
+                            <Text className="text-foreground font-semibold">İptal</Text>
+                          </TouchableOpacity>
+                        </View>
                       </View>
+                    ) : (
+                      // Görüntüleme Modu
+                      <TouchableOpacity
+                        onPress={() => handleStartEdit(category.id)}
+                        className="bg-background rounded-lg p-3"
+                      >
+                        <View className="flex-row items-center justify-between">
+                          <Text className="text-xs text-muted">Aylık Limit</Text>
+                          <Text className="text-base font-semibold text-foreground">
+                            {setting?.monthlyLimit ? `${setting.monthlyLimit.toLocaleString("tr-TR")} ₺` : "Belirle"}
+                          </Text>
+                        </View>
+                      </TouchableOpacity>
                     )}
-                  </>
+                  </View>
                 )}
               </View>
             );
           })}
-        </View>
 
-        {/* Kaydet Butonu */}
-        <Pressable
-          onPress={handleSave}
-          className="bg-primary rounded-2xl p-4 items-center mt-6 active:opacity-80"
-        >
-          <Text className="text-background font-semibold text-base">{t("common.save")}</Text>
-        </Pressable>
+          {/* Bilgi Notu */}
+          <View className="bg-primary/10 border border-primary/20 rounded-xl p-4 mt-4">
+            <Text className="text-sm text-foreground">
+              💡 <Text className="font-semibold">İpucu:</Text> Bütçe takibi harcamalarınızı kontrol altında tutmanıza yardımcı olur. 
+              Gerçekçi limitler belirleyin ve düzenli olarak gözden geçirin.
+            </Text>
+          </View>
+        </View>
       </ScrollView>
     </ScreenContainer>
   );
