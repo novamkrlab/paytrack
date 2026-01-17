@@ -296,7 +296,11 @@
     "infinite": "Infinite",
     "count": "Specific Count",
     "untilDate": "Until Date",
-    "endDate": "End Date"
+    "endDate": "End Date",
+    "generateFuture": "Generate future incomes now",
+    "futureMonths": "For how many months?",
+    "months": "{{count}} months",
+    "futureGenerated": "{{count}} months of income generated"
   },
   "categories": {
     "all": "All",

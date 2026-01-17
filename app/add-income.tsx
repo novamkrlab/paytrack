@@ -31,6 +31,8 @@ export default function AddIncomeScreen() {
   const [repeatType, setRepeatType] = useState<"infinite" | "count" | "date">("infinite"); // Tekrar tipi
   const [repeatCount, setRepeatCount] = useState(""); // Kaç kez tekrarlanacak
   const [endDate, setEndDate] = useState(new Date()); // Bitiş tarihi
+  const [generateFuture, setGenerateFuture] = useState(false); // Gelecek gelirleri şimdi oluştur
+  const [futureMonths, setFutureMonths] = useState("6"); // Kaç ay için oluşturulacak
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const typeOptions = [
@@ -71,8 +73,13 @@ export default function AddIncomeScreen() {
           }
         : undefined,
     };
-    await addIncome(income);
-    Alert.alert(t("incomeDetail.success"), t("incomeDetail.addTitle"), [{ text: t("incomeDetail.ok"), onPress: () => router.back() }]);
+    await addIncome(income, generateFuture ? Number(futureMonths) : undefined);
+    
+    const message = generateFuture 
+      ? t("incomeDetail.futureGenerated", { count: Number(futureMonths) })
+      : t("incomeDetail.addTitle");
+    
+    Alert.alert(t("incomeDetail.success"), message, [{ text: t("incomeDetail.ok"), onPress: () => router.back() }]);
   };
 
   return (
@@ -136,6 +143,35 @@ export default function AddIncomeScreen() {
             )}
           </View>
         )}
+        
+        {/* Gelecek Gelirleri Şimdi Oluştur */}
+        {hasRecurrence && (
+          <View className="mb-4">
+            <SwitchField
+              label={t("incomeDetail.generateFuture")}
+              value={generateFuture}
+              onChange={setGenerateFuture}
+            />
+            {generateFuture && (
+              <View className="mt-4">
+                <PickerField
+                  label={t("incomeDetail.futureMonths")}
+                  value={futureMonths}
+                  onChange={setFutureMonths}
+                  options={[
+                    { label: t("incomeDetail.months", { count: 1 }), value: "1" },
+                    { label: t("incomeDetail.months", { count: 3 }), value: "3" },
+                    { label: t("incomeDetail.months", { count: 6 }), value: "6" },
+                    { label: t("incomeDetail.months", { count: 12 }), value: "12" },
+                    { label: t("incomeDetail.months", { count: 24 }), value: "24" },
+                  ]}
+                  required
+                />
+              </View>
+            )}
+          </View>
+        )}
+        
         <View className="flex-row gap-3 mt-6">
           <TouchableOpacity className="flex-1 bg-surface border border-border rounded-2xl p-4 items-center active:opacity-80" onPress={() => router.back()}>
             <Text className="text-foreground font-semibold text-base">{t("incomeDetail.cancel")}</Text>

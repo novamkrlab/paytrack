@@ -286,7 +286,11 @@
     "infinite": "Süresiz",
     "count": "Belirli Sayıda",
     "untilDate": "Belirli Tarihe Kadar",
-    "endDate": "Bitiş Tarihi"
+    "endDate": "Bitiş Tarihi",
+    "generateFuture": "Gelecek gelirleri şimdi oluştur",
+    "futureMonths": "Kaç ay için?",
+    "months": "{{count}} ay",
+    "futureGenerated": "{{count}} aylık gelir oluşturuldu"
   },
   "oldPaymentDetail": {
     "title": "Ödeme Detayı",

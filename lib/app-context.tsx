@@ -140,7 +140,7 @@ interface AppContextType {
   deletePayment: (id: string) => Promise<void>;
   markPaymentAsPaid: (id: string) => Promise<void>;
   togglePaymentStatus: (id: string) => Promise<void>;
-  addIncome: (income: Omit<Income, "id" | "createdAt" | "updatedAt">) => Promise<void>;
+  addIncome: (income: Omit<Income, "id" | "createdAt" | "updatedAt">, futureMonths?: number) => Promise<void>;
   updateIncome: (income: Income) => Promise<void>;
   deleteIncome: (id: string) => Promise<void>;
   addExpense: (expense: Omit<Expense, "id" | "createdAt" | "updatedAt" | "type">) => Promise<void>;
@@ -353,7 +353,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   };
 
   // Gelir ekleme
-  const addIncome = async (incomeData: Omit<Income, "id" | "createdAt" | "updatedAt">) => {
+  const addIncome = async (incomeData: Omit<Income, "id" | "createdAt" | "updatedAt">, futureMonths?: number) => {
     const now = new Date().toISOString();
     const newIncome: Income = {
       ...incomeData,
@@ -368,25 +368,44 @@ export function AppProvider({ children }: { children: ReactNode }) {
     
     // Eğer tekrarlayan gelirse, nextDate'i bir sonraki döneme güncelle
     if (newIncome.recurrence && newIncome.recurrence.frequency !== "none") {
-      const { calculateNextIncomeDate } = await import("@/utils/recurring-income-helpers");
+      const { calculateNextIncomeDate, createRecurringIncomeInstance } = await import("@/utils/recurring-income-helpers");
       
-      // nextDate'i bir sonraki döneme güncelle (duplike oluşmaması için)
-      const nextDate = calculateNextIncomeDate(
-        newIncome.recurrence.nextDate!,
-        newIncome.recurrence.frequency
-      );
+      let allIncomes = [...updatedIncomes];
       
-      newIncome.recurrence.nextDate = nextDate;
-      
-      // Güncellenmiş geliri kaydet
-      const allIncomes = updatedIncomes.map((i) => 
-        i.id === newIncome.id ? newIncome : i
-      );
+      // Eğer futureMonths belirtilmişse, gelecek aylar için gelirleri oluştur
+      if (futureMonths && futureMonths > 0) {
+        const futureIncomes: Income[] = [];
+        let currentDate = newIncome.recurrence.nextDate!;
+        
+        for (let i = 0; i < futureMonths; i++) {
+          const futureIncome = createRecurringIncomeInstance(newIncome, currentDate);
+          futureIncomes.push(futureIncome);
+          currentDate = calculateNextIncomeDate(currentDate, newIncome.recurrence.frequency);
+        }
+        
+        // Orijinal gelirin nextDate'ini son oluşturulan gelirden sonraya güncelle
+        newIncome.recurrence.nextDate = currentDate;
+        
+        // Tüm gelirleri ekle
+        allIncomes = allIncomes.map((i) => i.id === newIncome.id ? newIncome : i);
+        allIncomes.push(...futureIncomes);
+        
+        console.log(`✅ Tekrarlayan gelir eklendi + ${futureMonths} aylık gelir oluşturuldu`);
+      } else {
+        // Sadece nextDate'i bir sonraki döneme güncelle (duplike oluşmaması için)
+        const nextDate = calculateNextIncomeDate(
+          newIncome.recurrence.nextDate!,
+          newIncome.recurrence.frequency
+        );
+        
+        newIncome.recurrence.nextDate = nextDate;
+        allIncomes = allIncomes.map((i) => i.id === newIncome.id ? newIncome : i);
+        
+        console.log(`✅ Tekrarlayan gelir eklendi, bir sonraki tarih: ${nextDate}`);
+      }
       
       dispatch({ type: "SET_INCOMES", payload: allIncomes });
       await saveIncomes(allIncomes);
-      
-      console.log(`✅ Tekrarlayan gelir eklendi, bir sonraki tarih: ${nextDate}`);
     }
   };
 

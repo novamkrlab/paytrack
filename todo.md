@@ -670,7 +670,16 @@
 ## Bug Fix (v5.7.4)
 - [x] Duplike gelir oluşturma sorununu çöz (addIncome'da processRecurringIncomes çağrılmayı kaldır)
 - [x] nextDate'i bir sonraki döneme güncelle (duplike oluşmaması için)
-- [ ] Gelecek aylar için gelir oluşturma seçeneği ekle (kullanıcı isterse)
-- [ ] Test et
-- [ ] Checkpoint oluştur (v5.7.4)
-- [ ] Kullanıcıya teslim et (v5.7.4)
+- [ ] Gelecek aylar için gelir oluşturma seçeneği ekle (kullanıcı isterse) [Sonraya ertelendi]
+- [x] Test et
+- [x] Checkpoint oluştur (v5.7.4)
+- [x] Kullanıcıya teslim et (v5.7.4)
+
+## Toplu Gelir Oluşturma Özelliği (v5.8)
+- [x] Gelir ekleme formuna "Gelecek gelirleri şimdi oluştur" checkbox ekle
+- [x] "Kaç ay için?" picker ekle (1, 3, 6, 12, 24 ay seçenekleri)
+- [x] addIncome fonksiyonuna toplu gelir oluşturma mantığı ekle
+- [x] Türkçe ve İngilizce çeviriler ekle
+- [x] Test et
+- [ ] Checkpoint oluştur (v5.8)
+- [ ] Kullanıcıya teslim et (v5.8)
