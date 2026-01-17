@@ -98,6 +98,12 @@ export default function ExpenseListScreen() {
               Bu ay {expenses.length} harcama
             </Text>
           </View>
+          <TouchableOpacity
+            className="bg-primary w-12 h-12 rounded-full items-center justify-center active:opacity-80 ml-3"
+            onPress={() => router.push("/add-expense" as any)}
+          >
+            <Text className="text-background font-bold text-2xl">+</Text>
+          </TouchableOpacity>
         </View>
 
         {expenses.length === 0 ? (

@@ -698,5 +698,10 @@
 
 ## UX İyileştirme (v5.8.3)
 - [x] "Yeni Ödeme Ekle" butonunu ödemeler sekmesinde başlığın yanına (sağ üst) taşı
-- [ ] Checkpoint oluştur (v5.8.3)
-- [ ] Kullanıcıya teslim et (v5.8.3)
+- [x] Checkpoint oluştur (v5.8.3)
+- [x] Kullanıcıya teslim et (v5.8.3)
+
+## UX İyileştirme (v5.8.4)
+- [x] "Yeni Harcama Ekle" butonunu harcama listesi ekranında başlığın yanına (sağ üst) taşı
+- [ ] Checkpoint oluştur (v5.8.4)
+- [ ] Kullanıcıya teslim et (v5.8.4)
