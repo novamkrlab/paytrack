@@ -605,10 +605,17 @@
 
 ## Bug Fixes (v5.4.2)
 - [ ] Harcama ekle butonunu düzelt (çalışmıyor)
-- [ ] Checkpoint oluştur (v5.4.2)
-- [ ] Kullanıcıya teslim et (v5.4.2)
+- [x] Checkpoint oluştur (v5.4.2)
+- [x] Kullanıcıya teslim et (v5.4.2)
 
 ## Bug Fixes (v5.4.2)
 - [x] Ana sayfadaki harcama kartının "+ Harcama Ekle" butonunu düzelt
-- [ ] Checkpoint oluştur (v5.4.2)
-- [ ] Kullanıcıya teslim et (v5.4.2)
+- [x] Checkpoint oluştur (v5.4.2)
+- [x] Kullanıcıya teslim et (v5.4.2)
+
+## UX İyileştirme (v5.5)
+- [x] Ana sayfaya Floating Action Button (FAB) ekle (sağ alt köşe)
+- [x] FAB'a tıklandığında harcama ekleme ekranına git
+- [ ] FAB animasyonu ekle (fade in/out on scroll) [Sonraya ertelendi]
+- [ ] Checkpoint oluştur (v5.5)
+- [ ] Kullanıcıya teslim et (v5.5)

@@ -3,7 +3,7 @@
  * Aylık özet ve yaklaşan ödemeler
  */
 
-import { ScrollView, Text, View, TouchableOpacity, RefreshControl } from "react-native";
+import { ScrollView, Text, View, TouchableOpacity, RefreshControl, Platform } from "react-native";
 import { useState } from "react";
 import { useRouter } from "expo-router";
 import { seedData } from "@/scripts/seed-data";
@@ -22,6 +22,10 @@ import {
 } from "@/utils/helpers";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
+import * as Haptics from "expo-haptics";
+import { IconSymbol } from "@/components/ui/icon-symbol";
+import { useColors } from "@/hooks/use-colors";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { loadFireSettings } from "@/lib/fire-storage";
 import { getFireSummary } from "@/lib/fire-calculator";
 import { calculateDebtSummary } from "@/lib/debt-calculator";
@@ -252,6 +256,27 @@ export default function HomeScreen() {
           </TouchableOpacity>
         </View>
       </ScrollView>
+
+      {/* Floating Action Button */}
+      <TouchableOpacity
+        onPress={() => {
+          if (Platform.OS !== "web") {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+          }
+          router.push("/add-expense" as any);
+        }}
+        className="absolute bottom-20 right-6 bg-primary rounded-full w-14 h-14 items-center justify-center shadow-lg"
+        activeOpacity={0.8}
+        style={{
+          shadowColor: "#000",
+          shadowOffset: { width: 0, height: 4 },
+          shadowOpacity: 0.3,
+          shadowRadius: 4.65,
+          elevation: 8,
+        }}
+      >
+        <IconSymbol name="plus" size={28} color="#FFFFFF" />
+      </TouchableOpacity>
     </ScreenContainer>
   );
 }
