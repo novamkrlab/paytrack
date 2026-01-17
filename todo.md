@@ -688,5 +688,10 @@
 - [x] Toplu gelir oluşturma duplike sorunu (ilk aya 2 tane ekliyor)
 - [x] Toplu oluşturma bir sonraki aydan başlamalı
 - [x] Test et
-- [ ] Checkpoint oluştur (v5.8.1)
-- [ ] Kullanıcıya teslim et (v5.8.1)
+- [x] Checkpoint oluştur (v5.8.1)
+- [x] Kullanıcıya teslim et (v5.8.1)
+
+## UX İyileştirme (v5.8.2)
+- [x] "Yeni Gelir Ekle" butonunu sayfanın altından başlığın yanına (sağ üst) taşı
+- [ ] Checkpoint oluştur (v5.8.2)
+- [ ] Kullanıcıya teslim et (v5.8.2)

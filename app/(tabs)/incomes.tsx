@@ -34,11 +34,19 @@ export default function IncomesScreen() {
         className="flex-1"
         contentContainerStyle={{ paddingHorizontal: 16, paddingTop: 16, paddingBottom: 32 }}
       >
-        <View className="mb-6">
-          <Text className="text-3xl font-bold text-foreground">{t("incomes.title")}</Text>
-          <Text className="text-base text-muted mt-1">
-            {t("incomes.subtitle")}
-          </Text>
+        <View className="mb-6 flex-row items-center justify-between">
+          <View className="flex-1">
+            <Text className="text-3xl font-bold text-foreground">{t("incomes.title")}</Text>
+            <Text className="text-base text-muted mt-1">
+              {t("incomes.subtitle")}
+            </Text>
+          </View>
+          <TouchableOpacity
+            className="bg-success w-12 h-12 rounded-full items-center justify-center active:opacity-80 ml-3"
+            onPress={() => router.push("/add-income" as any)}
+          >
+            <Text className="text-background font-bold text-2xl">+</Text>
+          </TouchableOpacity>
         </View>
 
         <View className="flex-row gap-2 mb-6">
@@ -107,14 +115,7 @@ export default function IncomesScreen() {
           </View>
         )}
 
-        <TouchableOpacity
-          className="bg-success rounded-2xl p-4 items-center mt-6 active:opacity-80"
-          onPress={() => router.push("/add-income" as any)}
-        >
-          <Text className="text-background font-semibold text-base">
-            {t("incomes.addIncome")}
-          </Text>
-        </TouchableOpacity>
+
       </ScrollView>
     </ScreenContainer>
   );
