@@ -10,16 +10,33 @@ import { useTranslation } from "react-i18next";
 import { formatCurrency } from "@/utils/currency-helpers";
 import { getCurrentMonthExpenses } from "@/utils/expense-helpers";
 import type { Expense } from "@/types/expense";
-import { getCategoryIcon } from "@/types/expense";
 import { router } from "expo-router";
 import { IconSymbol } from "@/components/ui/icon-symbol";
+import { loadCategories } from "@/services/category-service";
+import { useState, useEffect } from "react";
+import type { Category } from "@/types/category";
 
 export default function ExpenseListScreen() {
   const { t } = useTranslation();
   const { state, deleteExpense } = useApp();
   const colors = useColors();
+  const [categories, setCategories] = useState<Category[]>([]);
 
   const expenses = getCurrentMonthExpenses(state.expenses);
+
+  useEffect(() => {
+    loadCategories().then(setCategories);
+  }, []);
+
+  // Kategori bilgilerini al
+  const getCategoryInfo = (categoryId: string) => {
+    const category = categories.find((c) => c.id === categoryId);
+    return {
+      name: category?.name || "Bilinmeyen",
+      icon: category?.icon || "💵",
+      color: category?.color || "#999999",
+    };
+  };
 
   const handleDelete = (expense: Expense) => {
     Alert.alert(
@@ -54,7 +71,7 @@ export default function ExpenseListScreen() {
         <View className="flex-row items-center justify-between">
           <View className="flex-1">
             <View className="flex-row items-center gap-2 mb-1">
-              <Text className="text-xl">{getCategoryIcon(item.category)}</Text>
+              <Text className="text-xl">{getCategoryInfo(item.category).icon}</Text>
               <Text className="text-base font-semibold text-foreground">
                 {item.name}
               </Text>
@@ -64,7 +81,7 @@ export default function ExpenseListScreen() {
               />
             </View>
             <Text className="text-xs text-muted">
-              {t(`expenseCategories.${item.category}`)} • {item.date}
+              {getCategoryInfo(item.category).name} • {item.date}
             </Text>
             {item.notes && (
               <Text className="text-xs text-muted mt-1">{item.notes}</Text>

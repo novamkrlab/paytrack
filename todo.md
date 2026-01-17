@@ -872,5 +872,16 @@
 - [x] İstatistik servisinde kategori filtreleme mantığını kontrol et
 - [x] Sorunu tespit et ve düzelt (useFocusEffect ile sayfa odaklandığında kategoriler yeniden yükleniyor)
 - [x] Özel kategori ile test et (5/5 unit test passed)
-- [ ] Checkpoint oluştur (v6.3.2)
+- [x] Checkpoint oluştur (v6.3.2)
 - [ ] Kullanıcıya teslim et (v6.3.2)
+
+
+## Bug: Harcama Listesinde İkon ve Çeviri Sorunları (v6.3.3)
+- [x] Harcama listesi bileşenini incele (app/expense-list.tsx)
+- [x] Kategori ikonlarının neden aynı göründüğünü tespit et (getCategoryIcon eski enum sistemi kullanıyordu)
+- [x] Çeviri anahtarlarının neden gösterildiğini tespit et (expenseCategories.çeviri sistemi eski enum içindi)
+- [x] İkon yükleme mantığını düzelt (loadCategories ile kategori bilgilerini yükle)
+- [x] Çeviri sistemini düzelt (kategori adını doğrudan göster)
+- [x] Test et (TypeScript hatası yok)
+- [ ] Checkpoint oluştur (v6.3.3)
+- [ ] Kullanıcıya teslim et (v6.3.3)
