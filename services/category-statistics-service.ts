@@ -50,11 +50,9 @@ export async function calculateCategoryExpenses(
   const categoryData: CategoryExpenseData[] = [];
 
   for (const category of categories) {
-    // TODO: Expense tipinde categoryId alanı yok, şimdilik category enum kullanılıyor
-    // Bu kısım expense-category entegrasyonundan sonra düzeltilecek
+    // Harcamaları category ID ile filtrele
     const categoryExpenses = monthExpenses.filter((expense) => {
-      // Geçici: expense.category ile category.name'i karşılaştır
-      return false; // Şimdilik boş
+      return expense.category === category.id;
     });
 
     const categoryTotal = categoryExpenses.reduce((sum, expense) => sum + expense.amount, 0);
@@ -112,8 +110,8 @@ export async function calculateMonthlyTrends(
     const categoryBreakdown: { categoryId: string; categoryName: string; amount: number }[] = [];
     
     for (const category of categories) {
-      // TODO: Expense tipinde categoryId alanı yok
-      const categoryExpenses = monthExpenses.filter(() => false); // Geçici
+      // Harcamaları category ID ile filtrele
+      const categoryExpenses = monthExpenses.filter((expense) => expense.category === category.id);
       const categoryTotal = categoryExpenses.reduce((sum, expense) => sum + expense.amount, 0);
 
       if (categoryTotal > 0) {

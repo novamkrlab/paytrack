@@ -851,5 +851,16 @@
 - [x] Expense interface'i güncelle (category: string)
 - [x] TypeScript hatalarını düzelt (getExpenseType, getCategoryIcon)
 - [x] Migration testleri yaz ve çalıştır (6/6 test passed)
-- [ ] Checkpoint oluştur (v6.3.0)
+- [x] Checkpoint oluştur (v6.3.0)
 - [ ] Kullanıcıya teslim et (v6.3.0)
+
+
+## Bug: İstatistikler Sayfasında Harcamalar Görünmüyor (v6.3.1)
+- [x] İstatistikler sayfasını incele (app/(tabs)/statistics.tsx)
+- [x] Harcama verilerinin yüklenip yüklenmediğini kontrol et
+- [x] Kategori migrasyonu sonrası veri akışını test et
+- [x] Sorunu tespit et ve düzelt (category-statistics-service.ts'de TODO olarak bırakılmış filtreleme kodu düzeltildi)
+- [x] Test et (TypeScript hatası yok)
+- [x] Unit testler yaz ve çalıştır (7/7 test passed - category-statistics.test.ts)
+- [ ] Checkpoint oluştur (v6.3.1)
+- [ ] Kullanıcıya teslim et (v6.3.1)
