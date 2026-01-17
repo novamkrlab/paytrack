@@ -728,5 +728,12 @@
 ## Bug Fix (v5.8.7)
 - [x] Tab bar'daki "tabs.calen..." yazısını düzelt (çeviri anahtarı eksik veya yanlış)
 - [x] Takvim tab'ının başlığını kontrol et ve doğru çeviri anahtarını kullan
-- [ ] Checkpoint oluştur (v5.8.7)
-- [ ] Kullanıcıya teslim et (v5.8.7)
+- [x] Checkpoint oluştur (v5.8.7)
+- [x] Kullanıcıya teslim et (v5.8.7)
+
+
+## UX İyileştirme (v5.8.8)
+- [x] Gelirler sayfasındaki gelirleri yakın tarihten uzak tarihe doğru sırala
+- [x] En yakın tarihli gelir en üstte, en uzak tarihli en altta olacak şekilde düzenle
+- [ ] Checkpoint oluştur (v5.8.8)
+- [ ] Kullanıcıya teslim et (v5.8.8)

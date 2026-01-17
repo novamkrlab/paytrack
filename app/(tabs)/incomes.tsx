@@ -24,8 +24,9 @@ export default function IncomesScreen() {
     return income.type === filter;
   });
 
+  // Yakın tarihten uzak tarihe sırala (en yakın tarih en üstte)
   const sortedIncomes = [...filteredIncomes].sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
   );
 
   return (
