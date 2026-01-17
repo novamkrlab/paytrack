@@ -175,7 +175,7 @@ export default function CategoriesScreen() {
 
   const renderIconPicker = () => (
     <Modal visible={showIconPicker} transparent animationType="slide">
-      <View className="flex-1 bg-black/50 justify-end">
+      <View className="flex-1 bg-black/70 justify-end" style={{ zIndex: 9999 }}>
         <View className="bg-surface rounded-t-3xl p-6 max-h-[70%]">
           <View className="flex-row items-center justify-between mb-4">
             <Text className="text-xl font-bold text-foreground">İkon Seç</Text>
@@ -213,7 +213,7 @@ export default function CategoriesScreen() {
 
   const renderColorPicker = () => (
     <Modal visible={showColorPicker} transparent animationType="slide">
-      <View className="flex-1 bg-black/50 justify-end">
+      <View className="flex-1 bg-black/70 justify-end" style={{ zIndex: 9999 }}>
         <View className="bg-surface rounded-t-3xl p-6">
           <View className="flex-row items-center justify-between mb-4">
             <Text className="text-xl font-bold text-foreground">Renk Seç</Text>
@@ -255,7 +255,7 @@ export default function CategoriesScreen() {
 
   const renderFormModal = (isEdit: boolean) => (
     <Modal
-      visible={isEdit ? showEditModal : showAddModal}
+      visible={(isEdit ? showEditModal : showAddModal) && !showIconPicker && !showColorPicker}
       transparent
       animationType="slide"
     >
