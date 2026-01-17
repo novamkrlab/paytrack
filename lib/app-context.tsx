@@ -375,7 +375,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
       // Eğer futureMonths belirtilmişse, gelecek aylar için gelirleri oluştur
       if (futureMonths && futureMonths > 0) {
         const futureIncomes: Income[] = [];
-        let currentDate = newIncome.recurrence.nextDate!;
+        // Bir sonraki aydan başlat (ilk gelir zaten mevcut)
+        let currentDate = calculateNextIncomeDate(
+          newIncome.recurrence.nextDate!,
+          newIncome.recurrence.frequency
+        );
         
         for (let i = 0; i < futureMonths; i++) {
           const futureIncome = createRecurringIncomeInstance(newIncome, currentDate);

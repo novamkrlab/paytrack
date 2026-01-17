@@ -681,5 +681,12 @@
 - [x] addIncome fonksiyonuna toplu gelir oluşturma mantığı ekle
 - [x] Türkçe ve İngilizce çeviriler ekle
 - [x] Test et
-- [ ] Checkpoint oluştur (v5.8)
-- [ ] Kullanıcıya teslim et (v5.8)
+- [x] Checkpoint oluştur (v5.8)
+- [x] Kullanıcıya teslim et (v5.8)
+
+## Bug Fix (v5.8.1)
+- [x] Toplu gelir oluşturma duplike sorunu (ilk aya 2 tane ekliyor)
+- [x] Toplu oluşturma bir sonraki aydan başlamalı
+- [x] Test et
+- [ ] Checkpoint oluştur (v5.8.1)
+- [ ] Kullanıcıya teslim et (v5.8.1)
