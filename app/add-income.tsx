@@ -28,6 +28,8 @@ export default function AddIncomeScreen() {
   const [notes, setNotes] = useState("");
   const [hasRecurrence, setHasRecurrence] = useState(false);
   const [recurrenceFrequency, setRecurrenceFrequency] = useState<RecurrenceFrequency>(RecurrenceFrequency.MONTHLY);
+  const [isInfinite, setIsInfinite] = useState(true); // Süresiz tekrar
+  const [repeatCount, setRepeatCount] = useState(""); // Kaç kez tekrarlanacak
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const typeOptions = [
@@ -59,7 +61,13 @@ export default function AddIncomeScreen() {
       type,
       date: date.toISOString(),
       notes: notes.trim() || undefined,
-      recurrence: hasRecurrence ? { frequency: recurrenceFrequency } : undefined,
+      recurrence: hasRecurrence
+        ? {
+            frequency: recurrenceFrequency,
+            nextDate: date.toISOString().split("T")[0], // İlk tekrar tarihi
+            repeatCount: isInfinite ? undefined : Number(repeatCount) || undefined,
+          }
+        : undefined,
     };
     await addIncome(income);
     Alert.alert(t("incomeDetail.success"), t("incomeDetail.addTitle"), [{ text: t("incomeDetail.ok"), onPress: () => router.back() }]);
@@ -89,7 +97,27 @@ export default function AddIncomeScreen() {
         <SwitchField label={t("incomeDetail.recurringIncome")} value={hasRecurrence} onChange={setHasRecurrence} />
         {hasRecurrence && (
           <View className="ml-4 mb-4">
-            <PickerField label={t("incomeDetail.frequency")} value={recurrenceFrequency} onChange={(value) => setRecurrenceFrequency(value as RecurrenceFrequency)} options={recurrenceOptions} required />
+            <PickerField
+              label={t("incomeDetail.frequency")}
+              value={recurrenceFrequency}
+              onChange={(value) => setRecurrenceFrequency(value as RecurrenceFrequency)}
+              options={recurrenceOptions}
+              required
+            />
+            <SwitchField
+              label={t("incomeDetail.infiniteRepeat")}
+              value={isInfinite}
+              onChange={setIsInfinite}
+            />
+            {!isInfinite && (
+              <TextInputField
+                label={t("incomeDetail.repeatCount")}
+                value={repeatCount}
+                onChangeText={setRepeatCount}
+                placeholder="12"
+                keyboardType="numeric"
+              />
+            )}
           </View>
         )}
         <View className="flex-row gap-3 mt-6">

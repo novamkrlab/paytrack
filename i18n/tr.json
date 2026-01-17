@@ -279,7 +279,9 @@
       "single": "Sadece bunu sil",
       "fromThis": "Bundan sonrakini sil",
       "all": "Tümünü sil"
-    }
+    },
+    "infiniteRepeat": "Süresiz Tekrarla",
+    "repeatCount": "Tekrar Sayısı"
   },
   "oldPaymentDetail": {
     "title": "Ödeme Detayı",

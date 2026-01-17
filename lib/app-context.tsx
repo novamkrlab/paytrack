@@ -7,6 +7,7 @@ import React, { createContext, useContext, useReducer, useEffect, ReactNode } fr
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { scheduleAllPaymentNotifications, cancelAllNotifications } from "@/lib/notifications";
 import { onPaymentChanged } from "@/services/budget-notification";
+import { checkAndGenerateRecurringIncomes } from "@/services/recurring-income-service";
 import i18n from "@/i18n";
 import {
   AppState,
@@ -196,6 +197,27 @@ export function AppProvider({ children }: { children: ReactNode }) {
       if (incomesJson) {
         const incomes: Income[] = JSON.parse(incomesJson);
         dispatch({ type: "SET_INCOMES", payload: incomes });
+        
+        // Tekrarlayan gelirleri kontrol et ve otomatik oluştur
+        await checkAndGenerateRecurringIncomes(
+          incomes,
+          async (income) => {
+            const newIncome: Income = {
+              ...income as Income,
+              id: income.id || `income_${Date.now()}`,
+              createdAt: income.createdAt || new Date().toISOString(),
+              updatedAt: income.updatedAt || new Date().toISOString(),
+            };
+            dispatch({ type: "ADD_INCOME", payload: newIncome });
+          },
+          async (id, updates) => {
+            const income = incomes.find((i) => i.id === id);
+            if (income) {
+              const updatedIncome: Income = { ...income, ...updates };
+              dispatch({ type: "UPDATE_INCOME", payload: updatedIncome });
+            }
+          }
+        );
       }
 
       if (expensesJson) {

@@ -630,5 +630,17 @@
 - [x] Harcama ekleme ekranında kategori seçiciye ikonları ekle
 - [x] Harcama listesinde her item'a kategori ikonu ekle
 - [ ] Harcama özeti kartına kategori ikonları ekle [Opsiyonel]
-- [ ] Checkpoint oluştur (v5.6)
-- [ ] Kullanıcıya teslim et (v5.6)
+- [x] Checkpoint oluştur (v5.6)
+- [x] Kullanıcıya teslim et (v5.6)
+
+## Tekrarlayan Gelir Özelliği (v5.7)
+- [x] Income veri tipine tekrar alanları ekle (nextDate, repeatCount, endDate)
+- [x] Gelir ekleme formuna tekrarlayan gelir seçenekleri ekle
+- [x] Otomatik gelir oluşturma servisi yaz (uygulama başlangıcında çalışır)
+- [ ] Tekrarlayan gelir yönetim ekranı oluştur [Opsiyonel]
+- [ ] Bildirim sistemi entegre et [Sonraya ertelendi]
+- [x] Türkçe ve İngilizce çeviriler ekle
+- [x] Unit testler yaz
+- [x] Test et
+- [ ] Checkpoint oluştur (v5.7)
+- [ ] Kullanıcıya teslim et (v5.7)
