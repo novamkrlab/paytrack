@@ -163,7 +163,19 @@ export function AppProvider({ children }: { children: ReactNode }) {
   // Uygulama başlangıcında verileri yükle
   useEffect(() => {
     loadData();
+    // Geciken ödemeleri kontrol et
+    checkOverduePaymentsOnStartup();
   }, []);
+
+  // Geciken ödemeleri kontrol et
+  const checkOverduePaymentsOnStartup = async () => {
+    try {
+      const { checkOverduePayments } = await import("@/services/smart-notifications");
+      await checkOverduePayments(state.payments);
+    } catch (error) {
+      console.error("Geciken ödeme kontrol hatası:", error);
+    }
+  };
 
   // Ödemeler veya ayarlar değiştiğinde bildirimleri güncelle
   useEffect(() => {
@@ -309,6 +321,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
     await savePayments(newPayments);
     // Bütçe kontrolü
     await onPaymentChanged(newPayments, i18n.language);
+    // Akıllı bildirim planla
+    try {
+      const { schedulePaymentReminder } = await import("@/services/smart-notifications");
+      await schedulePaymentReminder(updatedPayment);
+    } catch (error) {
+      console.error("Bildirim planlama hatası:", error);
+    }
   };
 
   // Ödeme güncelleme
@@ -349,6 +368,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
         p.id === id ? updatedPayment : p
       );
       await savePayments(updatedPayments);
+      // Başarı bildirimi gönder
+      try {
+        const { sendPaymentSuccessNotification } = await import("@/services/smart-notifications");
+        await sendPaymentSuccessNotification(updatedPayment);
+      } catch (error) {
+        console.error("Başarı bildirimi hatası:", error);
+      }
     }
   };
 

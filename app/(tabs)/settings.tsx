@@ -220,7 +220,7 @@ export default function SettingsScreen() {
               {dailyNotificationEnabled && (
                 <TouchableOpacity
                   onPress={handleChangeNotificationHour}
-                  className="bg-background rounded-xl p-3"
+                  className="bg-background rounded-xl p-3 mb-3"
                 >
                   <Text className="text-sm font-medium text-foreground">
                     Bildirim Saati: {dailyNotificationHour}:00
@@ -230,6 +230,22 @@ export default function SettingsScreen() {
                   </Text>
                 </TouchableOpacity>
               )}
+
+              {/* Gelişmiş Ayarlar Linki */}
+              <TouchableOpacity
+                onPress={() => router.push("/notification-settings" as any)}
+                className="bg-primary/10 rounded-xl p-3 flex-row items-center justify-between"
+              >
+                <View className="flex-1">
+                  <Text className="text-sm font-semibold text-primary">
+                    ⚙️ Gelişmiş Bildirim Ayarları
+                  </Text>
+                  <Text className="text-xs text-primary/70 mt-1">
+                    Hatırlatma, özet ve uyarı ayarları
+                  </Text>
+                </View>
+                <Text className="text-primary text-lg">→</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </View>

@@ -766,5 +766,25 @@
 ## Bug Fix (v5.9.2)
 - [x] Gelirler listesindeki "duplicate key" hatasını düzelt
 - [x] Her gelir için benzersiz key oluştur (income.id yerine index veya kombinasyon kullan)
-- [ ] Checkpoint oluştur (v5.9.2)
-- [ ] Kullanıcıya teslim et (v5.9.2)
+- [x] Checkpoint oluştur (v5.9.2)
+- [x] Kullanıcıya teslim et (v5.9.2)
+
+
+## Feature: Bildirim Sistemi Geliştirmeleri (v6.0.0)
+- [x] Bildirim ayarları sayfası oluştur (Settings içinde)
+- [x] Bildirim master switch (açık/kapalı)
+- [x] Hatırlatma süresi ayarı (1, 3, 7 gün önceden)
+- [x] Bildirim zamanı ayarı (sabah 9:00, öğlen 12:00, akşam 18:00)
+- [x] Günlük özet bildirimi ayarı (açık/kapalı)
+- [x] Ses ve titreşim ayarları
+- [x] Akıllı bildirim mantığı: X gün önceden hatırlatma
+- [x] Akıllı bildirim: Ödeme günü sabahı özet
+- [x] Akıllı bildirim: Geciken ödeme uyarısı
+- [x] Akıllı bildirim: Ödeme başarı mesajı
+- [x] Günlük özet bildirimi (her sabah 9:00)
+- [x] Haftalık özet bildirimi (Pazartesi sabahı)
+- [x] Aylık özet bildirimi (ayın ilk günü)
+- [x] Bildirim ayarlarını AsyncStorage'a kaydet
+- [x] Bildirim ayarlarını uygula
+- [x] Checkpoint oluştur (v6.0.0)
+- [x] Kullanıcıya teslim et (v6.0.0)
