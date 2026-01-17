@@ -744,5 +744,13 @@
 - [x] Gelir detay sayfasındaki "incomeDetail.type" çevirisini ekle ("Gelir Tipi")
 - [x] Gelir detay sayfasındaki "incomeDetail.recurringIncome" çevirisini ekle ("Düzenli Gelir")
 - [x] Gelir detay sayfasındaki "incomeDetail.cancel" çevirisini ekle ("İptal")
-- [ ] Checkpoint oluştur (v5.8.9)
-- [ ] Kullanıcıya teslim et (v5.8.9)
+- [x] Checkpoint oluştur (v5.8.9)
+- [x] Kullanıcıya teslim et (v5.8.9)
+
+
+## Bug Fix (v5.9.0)
+- [x] Gelir ekleme sayfasındaki "incomeDetail.success" çevirisini ekle ("Başarılı")
+- [x] Gelir ekleme sayfasındaki "incomeDetail.ok" çevirisini ekle ("Tamam")
+- [x] Gelir ekleme sayfasındaki "incomeDetail.frequency" çevirisini ekle ("Sıklık")
+- [ ] Checkpoint oluştur (v5.9.0)
+- [ ] Kullanıcıya teslim et (v5.9.0)
