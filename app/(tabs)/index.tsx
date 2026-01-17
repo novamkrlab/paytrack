@@ -140,7 +140,7 @@ export default function HomeScreen() {
         contentContainerStyle={{ paddingHorizontal: 16, paddingTop: 16, paddingBottom: 32 }}
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
       >
-        {/* Başlık ve FAB */}
+        {/* Başlık ve Hızlı Eylem Butonları */}
         <View className="mb-6 flex-row items-start justify-between">
           <View className="flex-1">
             <Text className="text-3xl font-bold text-foreground">{t("home.title")}</Text>
@@ -149,26 +149,50 @@ export default function HomeScreen() {
             </Text>
           </View>
           
-          {/* Floating Action Button */}
-          <TouchableOpacity
-            onPress={() => {
-              if (Platform.OS !== "web") {
-                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-              }
-              router.push("/add-expense" as any);
-            }}
-            className="bg-primary rounded-full w-14 h-14 items-center justify-center shadow-lg ml-3"
-            activeOpacity={0.8}
-            style={{
-              shadowColor: "#000",
-              shadowOffset: { width: 0, height: 4 },
-              shadowOpacity: 0.3,
-              shadowRadius: 4.65,
-              elevation: 8,
-            }}
-          >
-            <IconSymbol name="plus" size={28} color="#FFFFFF" />
-          </TouchableOpacity>
+          {/* Hızlı Eylem Butonları */}
+          <View className="flex-row gap-2 ml-3">
+            {/* Yeni Ödeme Ekle */}
+            <TouchableOpacity
+              onPress={() => {
+                if (Platform.OS !== "web") {
+                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                }
+                router.push("/add-payment" as any);
+              }}
+              className="bg-primary rounded-full w-12 h-12 items-center justify-center"
+              activeOpacity={0.8}
+            >
+              <IconSymbol name="plus" size={24} color="#FFFFFF" />
+            </TouchableOpacity>
+
+            {/* Yeni Gelir Ekle */}
+            <TouchableOpacity
+              onPress={() => {
+                if (Platform.OS !== "web") {
+                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                }
+                router.push("/add-income" as any);
+              }}
+              className="bg-success rounded-full w-12 h-12 items-center justify-center"
+              activeOpacity={0.8}
+            >
+              <IconSymbol name="plus" size={24} color="#FFFFFF" />
+            </TouchableOpacity>
+
+            {/* Harcama Ekle (FAB) */}
+            <TouchableOpacity
+              onPress={() => {
+                if (Platform.OS !== "web") {
+                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                }
+                router.push("/add-expense" as any);
+              }}
+              className="bg-warning rounded-full w-12 h-12 items-center justify-center"
+              activeOpacity={0.8}
+            >
+              <IconSymbol name="plus" size={24} color="#FFFFFF" />
+            </TouchableOpacity>
+          </View>
         </View>
 
         {/* Özet Kartı */}
@@ -242,30 +266,8 @@ export default function HomeScreen() {
           </View>
         )}
 
-        {/* Hızlı Eylem Butonları */}
-        <View className="mt-8 gap-3">
-          <TouchableOpacity
-            className="bg-primary rounded-2xl p-4 items-center active:opacity-80"
-            onPress={() => {
-              router.push("/add-payment" as any);
-            }}
-          >
-            <Text className="text-background font-semibold text-base">
-              {t("payments.addPayment")}
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            className="bg-success rounded-2xl p-4 items-center active:opacity-80"
-            onPress={() => {
-              router.push("/add-income" as any);
-            }}
-          >
-            <Text className="text-background font-semibold text-base">
-              {t("incomes.addIncome")}
-            </Text>
-          </TouchableOpacity>
-
+        {/* Test Verileri Yükle Butonu */}
+        <View className="mt-8">
           <TouchableOpacity
             className="bg-muted/20 rounded-2xl p-4 items-center active:opacity-80 border border-border"
             onPress={async () => {
