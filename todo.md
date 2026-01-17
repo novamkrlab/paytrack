@@ -622,5 +622,13 @@
 
 ## UX İyileştirme (v5.5.1)
 - [x] FAB'ı sağ alt köşeden başlığın yanına (sağ üst) taşı
-- [ ] Checkpoint oluştur (v5.5.1)
-- [ ] Kullanıcıya teslim et (v5.5.1)
+- [x] Checkpoint oluştur (v5.5.1)
+- [x] Kullanıcıya teslim et (v5.5.1)
+
+## UX İyileştirme (v5.6)
+- [x] Her harcama kategorisine emoji ikon ekle
+- [x] Harcama ekleme ekranında kategori seçiciye ikonları ekle
+- [x] Harcama listesinde her item'a kategori ikonu ekle
+- [ ] Harcama özeti kartına kategori ikonları ekle [Opsiyonel]
+- [ ] Checkpoint oluştur (v5.6)
+- [ ] Kullanıcıya teslim et (v5.6)

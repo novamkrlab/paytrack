@@ -17,7 +17,7 @@ import { router } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
 import { useApp } from "@/lib/app-context";
 import { useColors } from "@/hooks/use-colors";
-import { ExpenseCategory } from "@/types/expense";
+import { ExpenseCategory, getCategoryIcon } from "@/types/expense";
 import { useTranslation } from "react-i18next";
 import * as Haptics from "expo-haptics";
 import { IconSymbol } from "@/components/ui/icon-symbol";
@@ -115,11 +115,14 @@ export default function AddExpenseScreen() {
           isSelected ? "border-primary bg-primary/10" : "border-border bg-surface"
         }`}
       >
-        <Text
-          className={`text-sm ${isSelected ? "text-primary font-semibold" : "text-foreground"}`}
-        >
-          {t(`expenseCategories.${cat}`)}
-        </Text>
+        <View className="flex-row items-center gap-2">
+          <Text className="text-lg">{getCategoryIcon(cat)}</Text>
+          <Text
+            className={`text-sm ${isSelected ? "text-primary font-semibold" : "text-foreground"}`}
+          >
+            {t(`expenseCategories.${cat}`)}
+          </Text>
+        </View>
       </TouchableOpacity>
     );
   };

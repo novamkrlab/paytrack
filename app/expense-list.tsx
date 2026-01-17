@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next";
 import { formatCurrency } from "@/utils/currency-helpers";
 import { getCurrentMonthExpenses } from "@/utils/expense-helpers";
 import type { Expense } from "@/types/expense";
+import { getCategoryIcon } from "@/types/expense";
 import { router } from "expo-router";
 import { IconSymbol } from "@/components/ui/icon-symbol";
 
@@ -53,13 +54,14 @@ export default function ExpenseListScreen() {
         <View className="flex-row items-center justify-between">
           <View className="flex-1">
             <View className="flex-row items-center gap-2 mb-1">
-              <View
-                className="w-3 h-3 rounded-full"
-                style={{ backgroundColor: typeColor }}
-              />
+              <Text className="text-xl">{getCategoryIcon(item.category)}</Text>
               <Text className="text-base font-semibold text-foreground">
                 {item.name}
               </Text>
+              <View
+                className="w-2 h-2 rounded-full"
+                style={{ backgroundColor: typeColor }}
+              />
             </View>
             <Text className="text-xs text-muted">
               {t(`expenseCategories.${item.category}`)} • {item.date}

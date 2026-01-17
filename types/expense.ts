@@ -119,10 +119,45 @@ export interface MonthlyExpenseSummary {
 }
 
 /**
+ * Kategori İkonları (Emoji)
+ */
+export const CATEGORY_ICON_MAP: Record<ExpenseCategory, string> = {
+  // Zorunlu
+  [ExpenseCategory.RENT]: "🏠", // Ev
+  [ExpenseCategory.ELECTRICITY]: "⚡", // Şimşek
+  [ExpenseCategory.WATER]: "💧", // Damla
+  [ExpenseCategory.GAS]: "🔥", // Ateş
+  [ExpenseCategory.PHONE_INTERNET]: "📱", // Telefon
+  [ExpenseCategory.TRANSPORTATION]: "🚗", // Araba
+  [ExpenseCategory.GROCERIES]: "🛒", // Alışveriş Sepeti
+  
+  // İstek
+  [ExpenseCategory.ENTERTAINMENT]: "🎬", // Sinema
+  [ExpenseCategory.CLOTHING]: "👕", // T-shirt
+  [ExpenseCategory.DINING_OUT]: "☕", // Kahve
+  [ExpenseCategory.GIFTS]: "🎁", // Hediye
+  [ExpenseCategory.HOBBIES]: "🎮", // Oyun
+  [ExpenseCategory.TRAVEL]: "✈️", // Uçak
+  
+  // Diğer
+  [ExpenseCategory.HEALTHCARE]: "💊", // İlaç
+  [ExpenseCategory.EDUCATION]: "📚", // Kitap
+  [ExpenseCategory.MAINTENANCE]: "🔧", // Anahtar
+  [ExpenseCategory.OTHER]: "💵", // Para
+};
+
+/**
  * Kategori tipini döner
  */
 export function getExpenseType(category: ExpenseCategory): ExpenseType {
   return CATEGORY_TYPE_MAP[category] || ExpenseType.OTHER;
+}
+
+/**
+ * Kategori ikonunu döner
+ */
+export function getCategoryIcon(category: ExpenseCategory): string {
+  return CATEGORY_ICON_MAP[category] || "💵";
 }
 
 /**
