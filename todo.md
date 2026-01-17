@@ -664,5 +664,13 @@
 ## Bug Fix (v5.7.3)
 - [x] addIncome fonksiyonuna gelir eklendikten sonra tekrarlayan gelir kontrolü ekle
 - [x] Test et (bugünün tarihiyle gelir ekle, hemen oluşturulmalı)
-- [ ] Checkpoint oluştur (v5.7.3)
-- [ ] Kullanıcıya teslim et (v5.7.3)
+- [x] Checkpoint oluştur (v5.7.3)
+- [x] Kullanıcıya teslim et (v5.7.3)
+
+## Bug Fix (v5.7.4)
+- [x] Duplike gelir oluşturma sorununu çöz (addIncome'da processRecurringIncomes çağrılmayı kaldır)
+- [x] nextDate'i bir sonraki döneme güncelle (duplike oluşmaması için)
+- [ ] Gelecek aylar için gelir oluşturma seçeneği ekle (kullanıcı isterse)
+- [ ] Test et
+- [ ] Checkpoint oluştur (v5.7.4)
+- [ ] Kullanıcıya teslim et (v5.7.4)

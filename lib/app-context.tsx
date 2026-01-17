@@ -366,31 +366,27 @@ export function AppProvider({ children }: { children: ReactNode }) {
     dispatch({ type: "ADD_INCOME", payload: newIncome });
     await saveIncomes(updatedIncomes);
     
-    // Eğer tekrarlayan gelirse, hemen kontrol et ve oluştur
+    // Eğer tekrarlayan gelirse, nextDate'i bir sonraki döneme güncelle
     if (newIncome.recurrence && newIncome.recurrence.frequency !== "none") {
-      const { processRecurringIncomes } = await import("@/services/recurring-income-service");
-      const { newIncomes, updatedIncomes: updated } = processRecurringIncomes(updatedIncomes);
+      const { calculateNextIncomeDate } = await import("@/utils/recurring-income-helpers");
       
-      if (newIncomes.length > 0 || updated.length > 0) {
-        const allIncomes = [...updatedIncomes];
-        
-        // Güncellenmiş gelirleri uygula
-        updated.forEach((u) => {
-          const index = allIncomes.findIndex((i) => i.id === u.id);
-          if (index !== -1) {
-            allIncomes[index] = u;
-          }
-        });
-        
-        // Yeni gelirleri ekle
-        allIncomes.push(...newIncomes);
-        
-        // State'i güncelle
-        dispatch({ type: "SET_INCOMES", payload: allIncomes });
-        await saveIncomes(allIncomes);
-        
-        console.log(`✅ ${newIncomes.length} yeni tekrarlayan gelir hemen oluşturuldu`);
-      }
+      // nextDate'i bir sonraki döneme güncelle (duplike oluşmaması için)
+      const nextDate = calculateNextIncomeDate(
+        newIncome.recurrence.nextDate!,
+        newIncome.recurrence.frequency
+      );
+      
+      newIncome.recurrence.nextDate = nextDate;
+      
+      // Güncellenmiş geliri kaydet
+      const allIncomes = updatedIncomes.map((i) => 
+        i.id === newIncome.id ? newIncome : i
+      );
+      
+      dispatch({ type: "SET_INCOMES", payload: allIncomes });
+      await saveIncomes(allIncomes);
+      
+      console.log(`✅ Tekrarlayan gelir eklendi, bir sonraki tarih: ${nextDate}`);
     }
   };
 
