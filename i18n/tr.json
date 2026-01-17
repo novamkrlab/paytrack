@@ -87,6 +87,10 @@
       "savingsRate": "Tasarruf Oranı",
       "fireProgress": "FIRE İlerlemesi"
     },
+    "healthScore.categories.debtManagementDescription": "Gelirinize göre borç oranınız. İdeal: Aylık gelirinizin %30'unun altında borç ödemesi.",
+    "healthScore.categories.emergencyFundDescription": "Kaç aylık harcamanızı karşılayacak birikimi var. Hedef: 3-6 aylık harcama karşılığı acil fon.",
+    "healthScore.categories.savingsRateDescription": "Gelirinizin yüzde kaçını biriktiriyorsunuz. Hedef: Aylık gelirinizin en az %10'unu tasarruf edin.",
+    "healthScore.categories.fireProgressDescription": "Finansal bağımsızlık hedefinize ne kadar yakınsınız. FIRE: Finansal Özgürlük, Erken Emeklilik.",
     "recommendations": {
       "reduceDebt": "Borçlarınızı azaltmaya öncelik verin. Yüksek faizli borçları önce kapatın.",
       "buildEmergencyFund": "Acil fon oluşturun. Hedef: 3-6 aylık harcamanız kadar birikim.",

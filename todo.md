@@ -711,5 +711,15 @@
 - [x] Ana sayfadaki "Yeni Ödeme Ekle" butonunu başlığın yanına (sağ üst) taşı
 - [x] Ana sayfadaki "Yeni Gelir Ekle" butonunu başlığın yanına (sağ üst) taşı
 - [x] Alttaki büyük butonları kaldır
-- [ ] Checkpoint oluştur (v5.8.5)
-- [ ] Kullanıcıya teslim et (v5.8.5)
+- [x] Checkpoint oluştur (v5.8.5)
+- [x] Kullanıcıya teslim et (v5.8.5)
+
+
+## UX İyileştirme (v5.8.6)
+- [x] Finansal sağlık sayfasındaki kategori detaylarına açıklama metinleri ekle
+- [x] Borç Yönetimi kategorisi açıklaması (gelire göre borç oranı, ideal: %30'un altı)
+- [x] Acil Fon kategorisi açıklaması (kaç aylık harcama karşılığı birikim, hedef: 3-6 ay)
+- [x] Tasarruf Oranı kategorisi açıklaması (gelirin yüzde kaçını biriktiriyorsunuz, hedef: %10+)
+- [x] FIRE İlerlemesi kategorisi açıklaması (finansal bağımsızlık hedefinize ne kadar yakınsınız)
+- [ ] Checkpoint oluştur (v5.8.6)
+- [ ] Kullanıcıya teslim et (v5.8.6)

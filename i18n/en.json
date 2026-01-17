@@ -86,6 +86,10 @@
       "savingsRate": "Savings Rate",
       "fireProgress": "FIRE Progress"
     },
+    "healthScore.categories.debtManagementDescription": "Your debt-to-income ratio. Ideal: Debt payments below 30% of monthly income.",
+    "healthScore.categories.emergencyFundDescription": "How many months of expenses you can cover. Goal: 3-6 months of emergency fund.",
+    "healthScore.categories.savingsRateDescription": "What percentage of your income you're saving. Goal: Save at least 10% of monthly income.",
+    "healthScore.categories.fireProgressDescription": "How close you are to financial independence. FIRE: Financial Independence, Retire Early.",
     "recommendations": {
       "reduceDebt": "Prioritize reducing your debt. Pay off high-interest debts first.",
       "buildEmergencyFund": "Build an emergency fund. Goal: 3-6 months of expenses.",

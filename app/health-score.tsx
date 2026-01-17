@@ -192,6 +192,7 @@ export default function HealthScoreScreen() {
                 backgroundColor: colors.border,
                 borderRadius: 4,
                 overflow: 'hidden',
+                marginBottom: 8,
               }}
             >
               <View
@@ -207,6 +208,10 @@ export default function HealthScoreScreen() {
                 }}
               />
             </View>
+            {/* Kategori Açıklaması */}
+            <Text style={{ fontSize: 13, color: colors.muted, lineHeight: 18 }}>
+              {t(`healthScore.${item.category}Description`)}
+            </Text>
           </View>
         ))}
 
