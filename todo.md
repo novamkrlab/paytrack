@@ -721,5 +721,12 @@
 - [x] Acil Fon kategorisi açıklaması (kaç aylık harcama karşılığı birikim, hedef: 3-6 ay)
 - [x] Tasarruf Oranı kategorisi açıklaması (gelirin yüzde kaçını biriktiriyorsunuz, hedef: %10+)
 - [x] FIRE İlerlemesi kategorisi açıklaması (finansal bağımsızlık hedefinize ne kadar yakınsınız)
-- [ ] Checkpoint oluştur (v5.8.6)
-- [ ] Kullanıcıya teslim et (v5.8.6)
+- [x] Checkpoint oluştur (v5.8.6)
+- [x] Kullanıcıya teslim et (v5.8.6)
+
+
+## Bug Fix (v5.8.7)
+- [x] Tab bar'daki "tabs.calen..." yazısını düzelt (çeviri anahtarı eksik veya yanlış)
+- [x] Takvim tab'ının başlığını kontrol et ve doğru çeviri anahtarını kullan
+- [ ] Checkpoint oluştur (v5.8.7)
+- [ ] Kullanıcıya teslim et (v5.8.7)
