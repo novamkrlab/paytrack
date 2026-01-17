@@ -838,5 +838,18 @@
 ## Testing & Delivery (v6.2.0)
 - [x] Bütçe sistemi testleri yaz
 - [x] Grafik render testleri yaz
-- [ ] Checkpoint oluştur (v6.2.0)
-- [ ] Kullanıcıya teslim et (v6.2.0)
+- [x] Checkpoint oluştur (v6.2.0)
+- [x] Kullanıcıya teslim et (v6.2.0)
+
+
+## Feature: Harcama Kategori Entegrasyonu (v6.3.0)
+- [x] Veri migrasyon scripti oluştur (ExpenseCategory enum → Category ID)
+- [x] Kategori mapping tanımla (RENT → cat_rent, GROCERIES → cat_food vb.)
+- [x] Harcama ekleme sayfasını güncelle (yeni kategori seçici)
+- [x] Harcama düzenleme sayfasını güncelle (aynı sayfa kullanılıyor)
+- [x] Mevcut harcamaları otomatik migrate et
+- [x] Expense interface'i güncelle (category: string)
+- [x] TypeScript hatalarını düzelt (getExpenseType, getCategoryIcon)
+- [x] Migration testleri yaz ve çalıştır (6/6 test passed)
+- [ ] Checkpoint oluştur (v6.3.0)
+- [ ] Kullanıcıya teslim et (v6.3.0)

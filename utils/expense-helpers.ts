@@ -46,7 +46,7 @@ export function calculateCategoryExpenseSummary(
   const totalAmount = expenses.reduce((sum, e) => sum + e.amount, 0);
 
   // Kategorilere göre grupla
-  const categoryMap = new Map<ExpenseCategory, { amount: number; count: number }>();
+  const categoryMap = new Map<string, { amount: number; count: number }>();
 
   for (const expense of expenses) {
     const existing = categoryMap.get(expense.category) || { amount: 0, count: 0 };

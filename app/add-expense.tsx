@@ -1,8 +1,7 @@
 /**
- * Harcama Ekleme Ekranı
+ * Harcama Ekleme Ekranı (Yeni Kategori Sistemi)
  */
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -11,68 +10,44 @@ import {
   ScrollView,
   Platform,
   Alert,
-  Pressable,
 } from "react-native";
 import { router } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
 import { useApp } from "@/lib/app-context";
 import { useColors } from "@/hooks/use-colors";
-import { ExpenseCategory, getCategoryIcon } from "@/types/expense";
 import { useTranslation } from "react-i18next";
 import * as Haptics from "expo-haptics";
 import { IconSymbol } from "@/components/ui/icon-symbol";
+import type { Category } from "@/types/category";
 
 export default function AddExpenseScreen() {
   const { t } = useTranslation();
-  const { addExpense } = useApp();
+  const { addExpense, state } = useApp();
   const colors = useColors();
-
+  
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
-  const [category, setCategory] = useState<ExpenseCategory | null>(null);
+  const [category, setCategory] = useState<string | null>(null);
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
   const [notes, setNotes] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const essentialCategories: ExpenseCategory[] = [
-    ExpenseCategory.RENT,
-    ExpenseCategory.ELECTRICITY,
-    ExpenseCategory.WATER,
-    ExpenseCategory.GAS,
-    ExpenseCategory.PHONE_INTERNET,
-    ExpenseCategory.TRANSPORTATION,
-    ExpenseCategory.GROCERIES,
-  ];
-
-  const discretionaryCategories: ExpenseCategory[] = [
-    ExpenseCategory.ENTERTAINMENT,
-    ExpenseCategory.CLOTHING,
-    ExpenseCategory.DINING_OUT,
-    ExpenseCategory.GIFTS,
-    ExpenseCategory.HOBBIES,
-    ExpenseCategory.TRAVEL,
-  ];
-
-  const otherCategories: ExpenseCategory[] = [
-    ExpenseCategory.HEALTHCARE,
-    ExpenseCategory.EDUCATION,
-    ExpenseCategory.MAINTENANCE,
-    ExpenseCategory.OTHER,
-  ];
+  const categories = state.categories || [];
 
   const handleSubmit = async () => {
     if (!name.trim()) {
-      Alert.alert(t("common.error"), t("expenses.expenseName") + " gerekli");
+      Alert.alert(t("common.error"), "Harcama adı gerekli");
       return;
     }
 
-    if (!amount || parseFloat(amount) <= 0) {
+    const amountNum = parseFloat(amount);
+    if (isNaN(amountNum) || amountNum <= 0) {
       Alert.alert(t("common.error"), "Geçerli bir tutar girin");
       return;
     }
 
     if (!category) {
-      Alert.alert(t("common.error"), t("expenses.selectCategory"));
+      Alert.alert(t("common.error"), "Kategori seçin");
       return;
     }
 
@@ -81,10 +56,10 @@ export default function AddExpenseScreen() {
     try {
       await addExpense({
         name: name.trim(),
-        amount: parseFloat(amount),
+        amount: amountNum,
         category,
-        date,
-        notes: notes.trim() || undefined,
+        date: new Date(date).toISOString(),
+        notes: notes.trim(),
       });
 
       if (Platform.OS !== "web") {
@@ -93,171 +68,162 @@ export default function AddExpenseScreen() {
 
       router.back();
     } catch (error) {
-      console.error("Harcama ekleme hatası:", error);
-      Alert.alert(t("common.error"), "Harcama eklenirken bir hata oluştu");
+      Alert.alert(t("common.error"), "Harcama eklenemedi");
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const renderCategoryButton = (cat: ExpenseCategory) => {
-    const isSelected = category === cat;
-    return (
-      <TouchableOpacity
-        key={cat}
-        onPress={() => {
-          setCategory(cat);
-          if (Platform.OS !== "web") {
-            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-          }
-        }}
-        className={`p-3 rounded-lg border ${
-          isSelected ? "border-primary bg-primary/10" : "border-border bg-surface"
-        }`}
-      >
-        <View className="flex-row items-center gap-2">
-          <Text className="text-lg">{getCategoryIcon(cat)}</Text>
-          <Text
-            className={`text-sm ${isSelected ? "text-primary font-semibold" : "text-foreground"}`}
-          >
-            {t(`expenseCategories.${cat}`)}
-          </Text>
-        </View>
-      </TouchableOpacity>
-    );
-  };
-
   return (
-    <ScreenContainer>
-      {/* Header with Back Button */}
-      <View className="flex-row items-center px-4 pt-4 pb-2">
-        <Pressable
-          onPress={() => router.back()}
-          className="mr-3"
-          style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1 })}
-        >
-          <IconSymbol name="chevron.left" size={24} color={colors.foreground} />
-        </Pressable>
-        <Text className="text-2xl font-bold text-foreground">
-          {t("expenses.addExpense")}
-        </Text>
-      </View>
+    <ScreenContainer className="bg-background">
+      <ScrollView
+        className="flex-1 px-4"
+        contentContainerStyle={{ paddingBottom: 40 }}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* Header */}
+        <View className="flex-row items-center justify-between py-4">
+          <TouchableOpacity
+            onPress={() => router.back()}
+            style={{ opacity: 0.8 }}
+          >
+            <IconSymbol name="chevron.left" size={24} color={colors.tint} />
+          </TouchableOpacity>
+          <Text className="text-2xl font-bold text-foreground">
+            Yeni Harcama
+          </Text>
+          <View style={{ width: 24 }} />
+        </View>
 
-      <ScrollView className="flex-1 p-4" showsVerticalScrollIndicator={false}>
-        <View className="gap-6">
-
-          <View className="gap-2">
-            <Text className="text-sm font-medium text-foreground">
-              {t("expenses.expenseName")}
+        {/* Form */}
+        <View className="gap-6 mt-4">
+          {/* Harcama Adı */}
+          <View>
+            <Text className="text-sm font-medium text-muted mb-2">
+              Harcama Adı *
             </Text>
             <TextInput
-              value={name}
-              onChangeText={setName}
+              className="bg-surface border border-border rounded-xl px-4 py-3 text-foreground"
               placeholder="Örn: Market alışverişi"
               placeholderTextColor={colors.muted}
-              className="bg-surface border border-border rounded-lg px-4 py-3 text-foreground"
+              value={name}
+              onChangeText={setName}
             />
           </View>
 
-          <View className="gap-2">
-            <Text className="text-sm font-medium text-foreground">
-              {t("expenses.amount")}
+          {/* Tutar */}
+          <View>
+            <Text className="text-sm font-medium text-muted mb-2">
+              Tutar *
             </Text>
             <TextInput
-              value={amount}
-              onChangeText={setAmount}
+              className="bg-surface border border-border rounded-xl px-4 py-3 text-foreground"
               placeholder="0.00"
               placeholderTextColor={colors.muted}
+              value={amount}
+              onChangeText={setAmount}
               keyboardType="decimal-pad"
-              className="bg-surface border border-border rounded-lg px-4 py-3 text-foreground"
             />
           </View>
 
-          <View className="gap-2">
-            <Text className="text-sm font-medium text-foreground">
-              {t("expenses.date")}
+          {/* Kategori Seçimi */}
+          <View>
+            <Text className="text-sm font-medium text-muted mb-2">
+              Kategori *
+            </Text>
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              className="gap-2"
+              contentContainerStyle={{ gap: 8 }}
+            >
+              {categories.map((cat) => {
+                const isSelected = category === cat.id;
+                return (
+                  <TouchableOpacity
+                    key={cat.id}
+                    onPress={() => {
+                      setCategory(cat.id);
+                      if (Platform.OS !== "web") {
+                        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                      }
+                    }}
+                    style={{
+                      backgroundColor: isSelected ? cat.color : colors.surface,
+                      borderWidth: 1,
+                      borderColor: isSelected ? cat.color : colors.border,
+                      paddingHorizontal: 16,
+                      paddingVertical: 12,
+                      borderRadius: 12,
+                      flexDirection: "row",
+                      alignItems: "center",
+                      gap: 8,
+                    }}
+                  >
+                    <Text style={{ fontSize: 20 }}>{cat.icon}</Text>
+                    <Text
+                      style={{
+                        color: isSelected ? "#FFFFFF" : colors.foreground,
+                        fontWeight: isSelected ? "600" : "400",
+                      }}
+                    >
+                      {cat.name}
+                    </Text>
+                  </TouchableOpacity>
+                );
+              })}
+            </ScrollView>
+          </View>
+
+          {/* Tarih */}
+          <View>
+            <Text className="text-sm font-medium text-muted mb-2">
+              Tarih *
             </Text>
             <TextInput
+              className="bg-surface border border-border rounded-xl px-4 py-3 text-foreground"
               value={date}
               onChangeText={setDate}
               placeholder="YYYY-MM-DD"
               placeholderTextColor={colors.muted}
-              className="bg-surface border border-border rounded-lg px-4 py-3 text-foreground"
             />
           </View>
 
-          <View className="gap-3">
-            <Text className="text-sm font-medium text-foreground">
-              {t("expenses.category")}
-            </Text>
-
-            <View className="gap-2">
-              <Text className="text-xs font-semibold text-muted uppercase">
-                {t("expenseTypes.essential")}
-              </Text>
-              <View className="flex-row flex-wrap gap-2">
-                {essentialCategories.map(renderCategoryButton)}
-              </View>
-            </View>
-
-            <View className="gap-2">
-              <Text className="text-xs font-semibold text-muted uppercase">
-                {t("expenseTypes.discretionary")}
-              </Text>
-              <View className="flex-row flex-wrap gap-2">
-                {discretionaryCategories.map(renderCategoryButton)}
-              </View>
-            </View>
-
-            <View className="gap-2">
-              <Text className="text-xs font-semibold text-muted uppercase">
-                {t("expenseTypes.other")}
-              </Text>
-              <View className="flex-row flex-wrap gap-2">
-                {otherCategories.map(renderCategoryButton)}
-              </View>
-            </View>
-          </View>
-
-          <View className="gap-2">
-            <Text className="text-sm font-medium text-foreground">
-              {t("expenses.notes")} ({t("common.optional")})
+          {/* Notlar */}
+          <View>
+            <Text className="text-sm font-medium text-muted mb-2">
+              Notlar
             </Text>
             <TextInput
+              className="bg-surface border border-border rounded-xl px-4 py-3 text-foreground"
+              placeholder="İsteğe bağlı not ekleyin"
+              placeholderTextColor={colors.muted}
               value={notes}
               onChangeText={setNotes}
-              placeholder="Ek bilgi..."
-              placeholderTextColor={colors.muted}
               multiline
               numberOfLines={3}
-              className="bg-surface border border-border rounded-lg px-4 py-3 text-foreground"
-              style={{ textAlignVertical: "top" }}
+              textAlignVertical="top"
             />
           </View>
-
-          <View className="flex-row gap-3 pb-8">
-            <TouchableOpacity
-              onPress={() => router.back()}
-              className="flex-1 bg-surface border border-border rounded-full py-4 items-center"
-            >
-              <Text className="text-foreground font-semibold">
-                {t("common.cancel")}
-              </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              onPress={handleSubmit}
-              disabled={isSubmitting}
-              className={`flex-1 bg-primary rounded-full py-4 items-center ${
-                isSubmitting ? "opacity-50" : ""
-              }`}
-            >
-              <Text className="text-background font-semibold">
-                {isSubmitting ? t("common.saving") : t("common.save")}
-              </Text>
-            </TouchableOpacity>
-          </View>
         </View>
+
+        {/* Submit Button */}
+        <TouchableOpacity
+          onPress={handleSubmit}
+          disabled={isSubmitting}
+          style={{
+            backgroundColor: colors.tint,
+            paddingVertical: 16,
+            borderRadius: 12,
+            alignItems: "center",
+            marginTop: 32,
+            opacity: isSubmitting ? 0.6 : 1,
+          }}
+        >
+          <Text className="text-white font-semibold text-lg">
+            {isSubmitting ? "Ekleniyor..." : "Harcama Ekle"}
+          </Text>
+        </TouchableOpacity>
       </ScrollView>
     </ScreenContainer>
   );

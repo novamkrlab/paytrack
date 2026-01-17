@@ -251,7 +251,28 @@ export function AppProvider({ children }: { children: ReactNode }) {
       }
 
       if (expensesJson) {
-        const expenses: Expense[] = JSON.parse(expensesJson);
+        let expenses: Expense[] = JSON.parse(expensesJson);
+        
+        // Harcama kategorilerini migrate et (bir kere)
+        const { migrateExpenseCategories, isMigrationDone } = await import("@/scripts/migrate-expense-categories");
+        const migrationDone = await isMigrationDone();
+        
+        if (!migrationDone) {
+          console.log("🔄 Harcama kategorileri migrate ediliyor...");
+          const result = await migrateExpenseCategories();
+          
+          if (result.success) {
+            console.log(`✅ ${result.migratedCount} harcama migrate edildi`);
+            // Migrate edilmiş verileri tekrar yükle
+            const migratedJson = await AsyncStorage.getItem(STORAGE_KEYS.EXPENSES);
+            if (migratedJson) {
+              expenses = JSON.parse(migratedJson);
+            }
+          } else {
+            console.error("❌ Migration hatası:", result.errors);
+          }
+        }
+        
         dispatch({ type: "SET_EXPENSES", payload: expenses });
       }
 

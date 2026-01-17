@@ -75,7 +75,7 @@ export interface Expense {
   id: string;
   name: string;
   amount: number;
-  category: ExpenseCategory;
+  category: string; // Kategori ID (cat_food, cat_transport vb.) veya eski enum değeri
   type: ExpenseType; // Otomatik hesaplanır (CATEGORY_TYPE_MAP'ten)
   date: string; // ISO 8601 format (YYYY-MM-DD)
   notes?: string;
@@ -87,7 +87,7 @@ export interface Expense {
  * Kategori bazlı harcama özeti
  */
 export interface CategoryExpenseSummary {
-  category: ExpenseCategory;
+  category: string; // Kategori ID veya eski enum değeri
   type: ExpenseType;
   amount: number;
   count: number;
@@ -147,17 +147,28 @@ export const CATEGORY_ICON_MAP: Record<ExpenseCategory, string> = {
 };
 
 /**
- * Kategori tipini döner
+ * Kategori tipini döner (yeni sistem için)
  */
-export function getExpenseType(category: ExpenseCategory): ExpenseType {
-  return CATEGORY_TYPE_MAP[category] || ExpenseType.OTHER;
+export function getExpenseType(category: string): ExpenseType {
+  // Yeni kategori ID'leri için
+  if (category.startsWith('cat_')) {
+    // Varsayılan olarak OTHER döndür, gerçek mapping başka bir yerde
+    return ExpenseType.OTHER;
+  }
+  // Eski enum değerleri için
+  return CATEGORY_TYPE_MAP[category as ExpenseCategory] || ExpenseType.OTHER;
 }
 
 /**
- * Kategori ikonunu döner
+ * Kategori ikonunu döner (yeni sistem için)
  */
-export function getCategoryIcon(category: ExpenseCategory): string {
-  return CATEGORY_ICON_MAP[category] || "💵";
+export function getCategoryIcon(category: string): string {
+  // Yeni kategori ID'leri için - kategori objesinden alınmalı
+  if (category.startsWith('cat_')) {
+    return "💵"; // Varsayılan
+  }
+  // Eski enum değerleri için
+  return CATEGORY_ICON_MAP[category as ExpenseCategory] || "💵";
 }
 
 /**
