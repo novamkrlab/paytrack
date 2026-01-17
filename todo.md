@@ -617,5 +617,10 @@
 - [x] Ana sayfaya Floating Action Button (FAB) ekle (sağ alt köşe)
 - [x] FAB'a tıklandığında harcama ekleme ekranına git
 - [ ] FAB animasyonu ekle (fade in/out on scroll) [Sonraya ertelendi]
-- [ ] Checkpoint oluştur (v5.5)
-- [ ] Kullanıcıya teslim et (v5.5)
+- [x] Checkpoint oluştur (v5.5)
+- [x] Kullanıcıya teslim et (v5.5)
+
+## UX İyileştirme (v5.5.1)
+- [x] FAB'ı sağ alt köşeden başlığın yanına (sağ üst) taşı
+- [ ] Checkpoint oluştur (v5.5.1)
+- [ ] Kullanıcıya teslim et (v5.5.1)

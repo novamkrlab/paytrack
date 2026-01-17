@@ -140,12 +140,35 @@ export default function HomeScreen() {
         contentContainerStyle={{ paddingHorizontal: 16, paddingTop: 16, paddingBottom: 32 }}
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
       >
-        {/* Başlık */}
-        <View className="mb-6">
-          <Text className="text-3xl font-bold text-foreground">{t("home.title")}</Text>
-          <Text className="text-base text-muted mt-1">
-            {t("home.subtitle")}
-          </Text>
+        {/* Başlık ve FAB */}
+        <View className="mb-6 flex-row items-start justify-between">
+          <View className="flex-1">
+            <Text className="text-3xl font-bold text-foreground">{t("home.title")}</Text>
+            <Text className="text-base text-muted mt-1">
+              {t("home.subtitle")}
+            </Text>
+          </View>
+          
+          {/* Floating Action Button */}
+          <TouchableOpacity
+            onPress={() => {
+              if (Platform.OS !== "web") {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+              }
+              router.push("/add-expense" as any);
+            }}
+            className="bg-primary rounded-full w-14 h-14 items-center justify-center shadow-lg ml-3"
+            activeOpacity={0.8}
+            style={{
+              shadowColor: "#000",
+              shadowOffset: { width: 0, height: 4 },
+              shadowOpacity: 0.3,
+              shadowRadius: 4.65,
+              elevation: 8,
+            }}
+          >
+            <IconSymbol name="plus" size={28} color="#FFFFFF" />
+          </TouchableOpacity>
         </View>
 
         {/* Özet Kartı */}
@@ -257,26 +280,7 @@ export default function HomeScreen() {
         </View>
       </ScrollView>
 
-      {/* Floating Action Button */}
-      <TouchableOpacity
-        onPress={() => {
-          if (Platform.OS !== "web") {
-            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-          }
-          router.push("/add-expense" as any);
-        }}
-        className="absolute bottom-20 right-6 bg-primary rounded-full w-14 h-14 items-center justify-center shadow-lg"
-        activeOpacity={0.8}
-        style={{
-          shadowColor: "#000",
-          shadowOffset: { width: 0, height: 4 },
-          shadowOpacity: 0.3,
-          shadowRadius: 4.65,
-          elevation: 8,
-        }}
-      >
-        <IconSymbol name="plus" size={28} color="#FFFFFF" />
-      </TouchableOpacity>
+
     </ScreenContainer>
   );
 }
