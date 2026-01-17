@@ -752,5 +752,12 @@
 - [x] Gelir ekleme sayfasındaki "incomeDetail.success" çevirisini ekle ("Başarılı")
 - [x] Gelir ekleme sayfasındaki "incomeDetail.ok" çevirisini ekle ("Tamam")
 - [x] Gelir ekleme sayfasındaki "incomeDetail.frequency" çevirisini ekle ("Sıklık")
-- [ ] Checkpoint oluştur (v5.9.0)
-- [ ] Kullanıcıya teslim et (v5.9.0)
+- [x] Checkpoint oluştur (v5.9.0)
+- [x] Kullanıcıya teslim et (v5.9.0)
+
+
+## Bug Fix (v5.9.1)
+- [x] Gelir detay ekranındaki "incomeDetail.edit" çevirisini ekle ("Düzenle")
+- [x] Gelir detay ekranındaki "incomeDetail.delete" çevirisini ekle ("Sil")
+- [ ] Checkpoint oluştur (v5.9.1)
+- [ ] Kullanıcıya teslim et (v5.9.1)

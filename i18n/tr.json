@@ -283,6 +283,8 @@
     "frequency": "Sıklık",
     "success": "Başarılı",
     "ok": "Tamam",
+    "edit": "Düzenle",
+    "delete": "Sil",
     "recurrence": "Tekrar",
     "autoGenerate": "Otomatik Oluştur",
     "generateRecurring": "Tekrarlanan Gelirleri Oluştur",
