@@ -44,11 +44,19 @@ export default function PaymentsScreen() {
         contentContainerStyle={{ paddingHorizontal: 16, paddingTop: 16, paddingBottom: 32 }}
       >
         {/* Başlık */}
-        <View className="mb-4">
-          <Text className="text-3xl font-bold text-foreground">{t("payments.title")}</Text>
-          <Text className="text-base text-muted mt-1">
-            {t("payments.subtitle")}
-          </Text>
+        <View className="mb-4 flex-row items-center justify-between">
+          <View className="flex-1">
+            <Text className="text-3xl font-bold text-foreground">{t("payments.title")}</Text>
+            <Text className="text-base text-muted mt-1">
+              {t("payments.subtitle")}
+            </Text>
+          </View>
+          <TouchableOpacity
+            className="bg-primary w-12 h-12 rounded-full items-center justify-center active:opacity-80 ml-3"
+            onPress={() => router.push("/add-payment" as any)}
+          >
+            <Text className="text-background font-bold text-2xl">+</Text>
+          </TouchableOpacity>
         </View>
 
         {/* Filtre Butonları */}
@@ -148,17 +156,7 @@ export default function PaymentsScreen() {
           </View>
         )}
 
-        {/* Ödeme Ekle Butonu */}
-        <TouchableOpacity
-          className="bg-primary rounded-2xl p-4 items-center mt-6 active:opacity-80"
-          onPress={() => {
-            router.push("/add-payment" as any);
-          }}
-        >
-          <Text className="text-background font-semibold text-base">
-            {t("payments.addPayment")}
-          </Text>
-        </TouchableOpacity>
+
       </ScrollView>
     </ScreenContainer>
   );

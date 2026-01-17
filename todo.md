@@ -693,5 +693,10 @@
 
 ## UX İyileştirme (v5.8.2)
 - [x] "Yeni Gelir Ekle" butonunu sayfanın altından başlığın yanına (sağ üst) taşı
-- [ ] Checkpoint oluştur (v5.8.2)
-- [ ] Kullanıcıya teslim et (v5.8.2)
+- [x] Checkpoint oluştur (v5.8.2)
+- [x] Kullanıcıya teslim et (v5.8.2)
+
+## UX İyileştirme (v5.8.3)
+- [x] "Yeni Ödeme Ekle" butonunu ödemeler sekmesinde başlığın yanına (sağ üst) taşı
+- [ ] Checkpoint oluştur (v5.8.3)
+- [ ] Kullanıcıya teslim et (v5.8.3)
