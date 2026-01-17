@@ -199,25 +199,34 @@ export function AppProvider({ children }: { children: ReactNode }) {
         dispatch({ type: "SET_INCOMES", payload: incomes });
         
         // Tekrarlayan gelirleri kontrol et ve otomatik oluştur
-        await checkAndGenerateRecurringIncomes(
-          incomes,
-          async (income) => {
-            const newIncome: Income = {
-              ...income as Income,
-              id: income.id || `income_${Date.now()}`,
-              createdAt: income.createdAt || new Date().toISOString(),
-              updatedAt: income.updatedAt || new Date().toISOString(),
-            };
-            dispatch({ type: "ADD_INCOME", payload: newIncome });
-          },
-          async (id, updates) => {
-            const income = incomes.find((i) => i.id === id);
-            if (income) {
-              const updatedIncome: Income = { ...income, ...updates };
-              dispatch({ type: "UPDATE_INCOME", payload: updatedIncome });
+        const { newIncomes, updatedIncomes } = await (async () => {
+          const { processRecurringIncomes } = await import("@/services/recurring-income-service");
+          return processRecurringIncomes(incomes);
+        })();
+
+        // Yeni gelirleri ve güncellenmiş gelirleri birleştir
+        if (newIncomes.length > 0 || updatedIncomes.length > 0) {
+          const allIncomes = [...incomes];
+          
+          // Güncellenmiş gelirleri uygula
+          updatedIncomes.forEach((updated) => {
+            const index = allIncomes.findIndex((i) => i.id === updated.id);
+            if (index !== -1) {
+              allIncomes[index] = updated;
             }
-          }
-        );
+          });
+          
+          // Yeni gelirleri ekle
+          allIncomes.push(...newIncomes);
+          
+          // State'i güncelle
+          dispatch({ type: "SET_INCOMES", payload: allIncomes });
+          
+          // AsyncStorage'a kaydet
+          await AsyncStorage.setItem(STORAGE_KEYS.INCOMES, JSON.stringify(allIncomes));
+          
+          console.log(`✅ ${newIncomes.length} yeni tekrarlayan gelir oluşturuldu`);
+        }
       }
 
       if (expensesJson) {

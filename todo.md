@@ -651,5 +651,12 @@
 - [x] endDate kontrolü zaten mevcut (shouldGenerateRecurringIncome fonksiyonunda)
 - [x] Türkçe ve İngilizce çeviriler ekle
 - [x] Test et
-- [ ] Checkpoint oluştur (v5.7.1)
-- [ ] Kullanıcıya teslim et (v5.7.1)
+- [x] Checkpoint oluştur (v5.7.1)
+- [x] Kullanıcıya teslim et (v5.7.1)
+
+## Bug Fix (v5.7.2)
+- [x] Tekrarlayan gelir oluşturma sorununu çöz (gelirler görünmüyor)
+- [x] Otomatik oluşturulan gelirlerin AsyncStorage'a kaydedildiğinden emin ol
+- [x] Test et
+- [ ] Checkpoint oluştur (v5.7.2)
+- [ ] Kullanıcıya teslim et (v5.7.2)
