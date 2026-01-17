@@ -17,6 +17,8 @@ import {
   DEFAULT_SETTINGS,
   PaymentStatus,
 } from "@/types";
+import type { Category } from "@/types/category";
+import { loadCategories } from "@/services/category-service";
 
 // AsyncStorage anahtarları
 const STORAGE_KEYS = {
@@ -24,6 +26,7 @@ const STORAGE_KEYS = {
   INCOMES: "@odeme_takibi:incomes",
   EXPENSES: "@odeme_takibi:expenses",
   SETTINGS: "@odeme_takibi:settings",
+  CATEGORIES: "@categories",
 };
 
 // Action tipleri
@@ -42,6 +45,7 @@ type AppAction =
   | { type: "ADD_EXPENSE"; payload: Expense }
   | { type: "UPDATE_EXPENSE"; payload: Expense }
   | { type: "DELETE_EXPENSE"; payload: string }
+  | { type: "SET_CATEGORIES"; payload: Category[] }
   | { type: "UPDATE_SETTINGS"; payload: Partial<AppSettings> }
   | { type: "RESET_ALL" };
 
@@ -50,6 +54,7 @@ const initialState: AppState = {
   payments: [],
   incomes: [],
   expenses: [],
+  categories: [],
   settings: DEFAULT_SETTINGS,
 };
 
@@ -115,6 +120,9 @@ function appReducer(state: AppState, action: AppAction): AppState {
         ...state,
         expenses: state.expenses.filter((e) => e.id !== action.payload),
       };
+
+    case "SET_CATEGORIES":
+      return { ...state, categories: action.payload };
 
     case "UPDATE_SETTINGS":
       return {
@@ -192,11 +200,12 @@ export function AppProvider({ children }: { children: ReactNode }) {
   // Verileri AsyncStorage'dan yükle
   const loadData = async () => {
     try {
-      const [paymentsJson, incomesJson, expensesJson, settingsJson] = await Promise.all([
+      const [paymentsJson, incomesJson, expensesJson, settingsJson, categoriesData] = await Promise.all([
         AsyncStorage.getItem(STORAGE_KEYS.PAYMENTS),
         AsyncStorage.getItem(STORAGE_KEYS.INCOMES),
         AsyncStorage.getItem(STORAGE_KEYS.EXPENSES),
         AsyncStorage.getItem(STORAGE_KEYS.SETTINGS),
+        loadCategories(), // Kategorileri yükle
       ]);
 
       if (paymentsJson) {
@@ -249,6 +258,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
       if (settingsJson) {
         const settings: AppSettings = JSON.parse(settingsJson);
         dispatch({ type: "UPDATE_SETTINGS", payload: settings });
+      }
+
+      // Kategorileri yükle
+      if (categoriesData && categoriesData.length > 0) {
+        dispatch({ type: "SET_CATEGORIES", payload: categoriesData });
       }
     } catch (error) {
       console.error("Veri yükleme hatası:", error);

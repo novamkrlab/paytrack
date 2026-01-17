@@ -111,6 +111,7 @@ export interface AppState {
   payments: Payment[];
   incomes: Income[];
   expenses: import("@/types/expense").Expense[]; // Günlük harcamalar (borçlardan ayrı)
+  categories: import("@/types/category").Category[]; // Harcama kategorileri
   settings: AppSettings;
 }
 

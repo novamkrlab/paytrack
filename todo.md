@@ -788,3 +788,23 @@
 - [x] Bildirim ayarlarını uygula
 - [x] Checkpoint oluştur (v6.0.0)
 - [x] Kullanıcıya teslim et (v6.0.0)
+
+
+## Feature: Harcama Kategori Sistemi (v6.1.0)
+- [x] Kategori veri yapısı oluştur (id, name, icon, color, isCustom, isDefault)
+- [x] Varsayılan kategoriler tanımla (Gıda, Yakıt, Ulaşım, Kira, Faturalar, Eğlence, Giyim, Sağlık, Eğitim, Diğer)
+- [x] Her kategori için ikon ve renk seç
+- [x] Kategori yönetimi sayfası oluştur (/categories)
+- [x] Yeni kategori ekleme formu (ad, ikon, renk seçimi)
+- [x] Kategori düzenleme özelliği
+- [x] Kategori silme özelliği (varsayılan kategoriler silinemez)
+- [x] Kategori listesi görünümü (ikon + ad + renk)
+- [ ] Harcama ekleme sayfasında kategori seçimi güncelle
+- [ ] Bütçe ayarları sayfasında kategori seçimi güncelle
+- [ ] Finansal sağlık sayfasında kategori bazlı analiz
+- [x] Kategori verilerini AsyncStorage'a kaydet
+- [x] Ayarlar sayfasına Kategoriler linki ekle
+- [x] App Context'e kategori yönetimi entegre et
+- [ ] Dil dosyalarına kategori çevirileri ekle (TR/EN)
+- [x] Checkpoint oluştur (v6.1.0)
+- [x] Kullanıcıya teslim et (v6.1.0)

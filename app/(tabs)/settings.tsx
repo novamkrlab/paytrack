@@ -274,6 +274,30 @@ export default function SettingsScreen() {
           </View>
         </View>
 
+        {/* Kategoriler */}
+        <View className="mb-6">
+          <Text className="text-lg font-semibold text-foreground mb-3">
+            Kategoriler
+          </Text>
+
+          <View className="bg-surface rounded-2xl border border-border overflow-hidden">
+            <TouchableOpacity
+              className="p-4 flex-row items-center justify-between active:opacity-80"
+              onPress={() => router.push("/categories" as any)}
+            >
+              <View className="flex-1">
+                <Text className="text-base font-medium text-foreground">
+                  Kategori Yönetimi
+                </Text>
+                <Text className="text-sm text-muted mt-1">
+                  Harcama kategorilerinizi özelleştirin
+                </Text>
+              </View>
+              <Text className="text-primary font-medium">›</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
         {/* Dil */}
         <View className="mb-6">
           <Text className="text-lg font-semibold text-foreground mb-3">
