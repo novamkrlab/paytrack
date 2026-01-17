@@ -361,8 +361,37 @@ export function AppProvider({ children }: { children: ReactNode }) {
       createdAt: now,
       updatedAt: now,
     };
+    
+    const updatedIncomes = [...state.incomes, newIncome];
     dispatch({ type: "ADD_INCOME", payload: newIncome });
-    await saveIncomes([...state.incomes, newIncome]);
+    await saveIncomes(updatedIncomes);
+    
+    // Eğer tekrarlayan gelirse, hemen kontrol et ve oluştur
+    if (newIncome.recurrence && newIncome.recurrence.frequency !== "none") {
+      const { processRecurringIncomes } = await import("@/services/recurring-income-service");
+      const { newIncomes, updatedIncomes: updated } = processRecurringIncomes(updatedIncomes);
+      
+      if (newIncomes.length > 0 || updated.length > 0) {
+        const allIncomes = [...updatedIncomes];
+        
+        // Güncellenmiş gelirleri uygula
+        updated.forEach((u) => {
+          const index = allIncomes.findIndex((i) => i.id === u.id);
+          if (index !== -1) {
+            allIncomes[index] = u;
+          }
+        });
+        
+        // Yeni gelirleri ekle
+        allIncomes.push(...newIncomes);
+        
+        // State'i güncelle
+        dispatch({ type: "SET_INCOMES", payload: allIncomes });
+        await saveIncomes(allIncomes);
+        
+        console.log(`✅ ${newIncomes.length} yeni tekrarlayan gelir hemen oluşturuldu`);
+      }
+    }
   };
 
   // Gelir güncelleme
