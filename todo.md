@@ -735,5 +735,14 @@
 ## UX İyileştirme (v5.8.8)
 - [x] Gelirler sayfasındaki gelirleri yakın tarihten uzak tarihe doğru sırala
 - [x] En yakın tarihli gelir en üstte, en uzak tarihli en altta olacak şekilde düzenle
-- [ ] Checkpoint oluştur (v5.8.8)
-- [ ] Kullanıcıya teslim et (v5.8.8)
+- [x] Checkpoint oluştur (v5.8.8)
+- [x] Kullanıcıya teslim et (v5.8.8)
+
+
+## Bug Fix (v5.8.9)
+- [x] Gelir detay sayfasındaki "incomeDetail.subtitle" çevirisini ekle
+- [x] Gelir detay sayfasındaki "incomeDetail.type" çevirisini ekle ("Gelir Tipi")
+- [x] Gelir detay sayfasındaki "incomeDetail.recurringIncome" çevirisini ekle ("Düzenli Gelir")
+- [x] Gelir detay sayfasındaki "incomeDetail.cancel" çevirisini ekle ("İptal")
+- [ ] Checkpoint oluştur (v5.8.9)
+- [ ] Kullanıcıya teslim et (v5.8.9)
