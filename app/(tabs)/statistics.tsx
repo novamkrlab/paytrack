@@ -5,6 +5,8 @@
 
 import { ScrollView, Text, View, RefreshControl } from "react-native";
 import { useState, useEffect } from "react";
+import { useFocusEffect } from "@react-navigation/native";
+import { useCallback } from "react";
 import { ScreenContainer } from "@/components/screen-container";
 import { CategoryPieChart } from "@/components/charts/pie-chart";
 import { BudgetStatusCard } from "@/components/budget/budget-status-card";
@@ -29,9 +31,12 @@ export default function StatisticsScreen() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    loadData();
-  }, [state.expenses]);
+  // Sayfa her odaklandığında kategorileri yeniden yükle
+  useFocusEffect(
+    useCallback(() => {
+      loadData();
+    }, [state.expenses])
+  );
 
   const loadData = async () => {
     try {

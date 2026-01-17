@@ -862,5 +862,15 @@
 - [x] Sorunu tespit et ve düzelt (category-statistics-service.ts'de TODO olarak bırakılmış filtreleme kodu düzeltildi)
 - [x] Test et (TypeScript hatası yok)
 - [x] Unit testler yaz ve çalıştır (7/7 test passed - category-statistics.test.ts)
-- [ ] Checkpoint oluştur (v6.3.1)
+- [x] Checkpoint oluştur (v6.3.1)
 - [ ] Kullanıcıya teslim et (v6.3.1)
+
+
+## Bug: İstatistikler Özel Kategorileri Göstermiyor (v6.3.2)
+- [x] Kategori yükleme mantığını incele (loadCategories fonksiyonu)
+- [x] Özel kategorilerin AsyncStorage'dan yüklenip yüklenmediğini kontrol et
+- [x] İstatistik servisinde kategori filtreleme mantığını kontrol et
+- [x] Sorunu tespit et ve düzelt (useFocusEffect ile sayfa odaklandığında kategoriler yeniden yükleniyor)
+- [x] Özel kategori ile test et (5/5 unit test passed)
+- [ ] Checkpoint oluştur (v6.3.2)
+- [ ] Kullanıcıya teslim et (v6.3.2)
