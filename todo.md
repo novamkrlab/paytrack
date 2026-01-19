@@ -909,5 +909,14 @@
 - [x] Ay değiştiğinde toplamları güncelle (onMonthChange callback)
 - [x] Çevirileri ekle (tr.json, en.json)
 - [x] Test et (TypeScript hatası yok)
-- [ ] Checkpoint oluştur (v6.4.1)
+- [x] Checkpoint oluştur (v6.4.1)
 - [ ] Kullanıcıya teslim et (v6.4.1)
+
+
+## Feature: Borçları En Yakın Ödeme Tarihine Göre Sırala (v6.4.2)
+- [x] Borçlarım sayfasını incele (app/debt-list.tsx)
+- [x] Borçların bir sonraki ödeme tarihini hesapla (nextDueDate zaten var)
+- [x] Borçları tarihe göre sırala (en yakın tarih en üstte - sort ile)
+- [x] Test et (TypeScript hatası yok)
+- [ ] Checkpoint oluştur (v6.4.2)
+- [ ] Kullanıcıya teslim et (v6.4.2)

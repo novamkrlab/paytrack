@@ -19,9 +19,20 @@ export default function DebtListScreen() {
   const [expandedDebtId, setExpandedDebtId] = useState<string | null>(null);
   const [extraPayments, setExtraPayments] = useState<Record<string, string>>({});
 
-  // Tekrarlayan ödemeleri grupla
+  // Tekrarlayan ödemeleri grupla ve en yakın ödeme tarihine göre sırala
   const groupedDebts = useMemo(() => {
-    return groupRecurringDebts(state.payments);
+    const debts = groupRecurringDebts(state.payments);
+    
+    // En yakın ödeme tarihine göre sırala
+    return debts.sort((a, b) => {
+      // nextDueDate null olabilir, o zaman en sona koy
+      if (!a.nextDueDate) return 1;
+      if (!b.nextDueDate) return -1;
+      
+      const dateA = new Date(a.nextDueDate);
+      const dateB = new Date(b.nextDueDate);
+      return dateA.getTime() - dateB.getTime();
+    });
   }, [state.payments]);
 
   const formatCurrency = (amount: number) => {
