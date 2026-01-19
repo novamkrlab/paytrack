@@ -336,7 +336,9 @@
     "subtitle": "Track your payments and incomes",
     "noData": "No payments or incomes on this date",
     "payments": "Payments",
-    "incomes": "Incomes"
+    "incomes": "Incomes",
+    "totalIncome": "Total Income",
+    "totalPayments": "Total Payments"
   },
   "notifications": {
     "title": "Upcoming Payments",

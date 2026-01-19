@@ -898,3 +898,16 @@
 - [x] Test et (TypeScript hatası yok)
 - [ ] Checkpoint oluştur (v6.3.4)
 - [ ] Kullanıcıya teslim et (v6.3.4)
+
+
+## Feature: Takvim Aylık Özet (v6.4.1)
+- [x] Takvim sayfasını incele (app/(tabs)/calendar.tsx)
+- [x] Seçili ayın toplam gelir hesaplamasını ekle
+- [x] Seçili ayın toplam ödeme hesaplamasını ekle
+- [x] Takvim altına özet kartları ekle (Toplam Gelir, Toplam Ödeme)
+- [x] Kartları tasarla (ikon, renk, tutar - yeşil/kırmızı tema)
+- [x] Ay değiştiğinde toplamları güncelle (onMonthChange callback)
+- [x] Çevirileri ekle (tr.json, en.json)
+- [x] Test et (TypeScript hatası yok)
+- [ ] Checkpoint oluştur (v6.4.1)
+- [ ] Kullanıcıya teslim et (v6.4.1)

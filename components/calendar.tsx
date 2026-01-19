@@ -14,9 +14,10 @@ interface CalendarProps {
   payments: Payment[];
   incomes: Income[];
   onDatePress?: (date: Date) => void;
+  onMonthChange?: (year: number, month: number) => void;
 }
 
-export function Calendar({ payments, incomes, onDatePress }: CalendarProps) {
+export function Calendar({ payments, incomes, onDatePress, onMonthChange }: CalendarProps) {
   const { t } = useTranslation();
   const [currentDate, setCurrentDate] = useState(new Date());
 
@@ -35,12 +36,16 @@ export function Calendar({ payments, incomes, onDatePress }: CalendarProps) {
 
   // Önceki ay
   const previousMonth = () => {
-    setCurrentDate(new Date(year, month - 1, 1));
+    const newDate = new Date(year, month - 1, 1);
+    setCurrentDate(newDate);
+    onMonthChange?.(newDate.getFullYear(), newDate.getMonth());
   };
 
   // Sonraki ay
   const nextMonth = () => {
-    setCurrentDate(new Date(year, month + 1, 1));
+    const newDate = new Date(year, month + 1, 1);
+    setCurrentDate(newDate);
+    onMonthChange?.(newDate.getFullYear(), newDate.getMonth());
   };
 
   // Belirli bir tarihte ödeme var mı?

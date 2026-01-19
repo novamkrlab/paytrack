@@ -18,6 +18,8 @@ export default function CalendarScreen() {
   const { state } = useApp();
   const { t, i18n } = useTranslation();
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
+  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
 
   // Seçili tarihteki ödemeler
   const selectedPayments = selectedDate
@@ -38,6 +40,39 @@ export default function CalendarScreen() {
   const handleDatePress = (date: Date) => {
     setSelectedDate(date);
   };
+
+  const handleMonthChange = (year: number, month: number) => {
+    setCurrentYear(year);
+    setCurrentMonth(month);
+  };
+
+  // Seçili ayın toplam ödemeleri
+  const monthlyPayments = state.payments.filter((p) => {
+    const paymentDate = new Date(p.dueDate);
+    return (
+      paymentDate.getMonth() === currentMonth &&
+      paymentDate.getFullYear() === currentYear
+    );
+  });
+
+  const totalMonthlyPayments = monthlyPayments.reduce(
+    (sum, p) => sum + p.amount,
+    0
+  );
+
+  // Seçili ayın toplam gelirleri
+  const monthlyIncomes = state.incomes.filter((i) => {
+    const incomeDate = new Date(i.date);
+    return (
+      incomeDate.getMonth() === currentMonth &&
+      incomeDate.getFullYear() === currentYear
+    );
+  });
+
+  const totalMonthlyIncomes = monthlyIncomes.reduce(
+    (sum, i) => sum + i.amount,
+    0
+  );
 
   return (
     <ScreenContainer>
@@ -62,7 +97,33 @@ export default function CalendarScreen() {
           payments={state.payments}
           incomes={state.incomes}
           onDatePress={handleDatePress}
+          onMonthChange={handleMonthChange}
         />
+
+        {/* Aylık Özet */}
+        <View className="mt-6 flex-row gap-3">
+          {/* Toplam Gelir */}
+          <View className="flex-1 bg-success/10 rounded-2xl p-4 border border-success/20">
+            <Text className="text-success text-2xl mb-1">↑</Text>
+            <Text className="text-xs text-success/70 mb-1">
+              {t("calendar.totalIncome")}
+            </Text>
+            <Text className="text-xl font-bold text-success">
+              {totalMonthlyIncomes.toLocaleString()} {state.settings.currency}
+            </Text>
+          </View>
+
+          {/* Toplam Ödeme */}
+          <View className="flex-1 bg-error/10 rounded-2xl p-4 border border-error/20">
+            <Text className="text-error text-2xl mb-1">↓</Text>
+            <Text className="text-xs text-error/70 mb-1">
+              {t("calendar.totalPayments")}
+            </Text>
+            <Text className="text-xl font-bold text-error">
+              {totalMonthlyPayments.toLocaleString()} {state.settings.currency}
+            </Text>
+          </View>
+        </View>
 
         {/* Seçili Tarih Detayları */}
         {selectedDate && (

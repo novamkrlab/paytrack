@@ -357,7 +357,9 @@
     "subtitle": "Ödemelerinizi ve gelirlerinizi takip edin",
     "noData": "Bu tarihte ödeme veya gelir bulunmuyor",
     "payments": "Ödemeler",
-    "incomes": "Gelirler"
+    "incomes": "Gelirler",
+    "totalIncome": "Toplam Gelir",
+    "totalPayments": "Toplam Ödeme"
   },
   "notifications": {
     "title": "Yaklaşan Ödemeler",
