@@ -35,52 +35,47 @@ export default function ChatbotScreen() {
   const mutation = useChatMutation();
 
   // Finansal verileri hesapla
+  const totalIncome = state.incomes.reduce(
+    (sum: number, income: Income) => sum + income.amount,
+    0
+  );
+  
+  const totalPayments = state.payments
+    .filter((payment: Payment) => !payment.isPaid)
+    .reduce((sum: number, payment: Payment) => sum + payment.amount, 0);
+  
+  const totalExpenses = state.expenses.reduce(
+    (sum: number, expense: any) => sum + expense.amount,
+    0
+  );
+  
+  const totalDebt = state.payments
+    .filter(
+      (payment: Payment) =>
+        !payment.isPaid &&
+        (payment.category === PaymentCategory.LOAN ||
+          payment.category === PaymentCategory.CREDIT_CARD)
+    )
+    .reduce((sum: number, payment: Payment) => sum + payment.amount, 0);
+  
+  const paidPayments = state.payments
+    .filter((payment: Payment) => payment.isPaid)
+    .reduce((sum: number, payment: Payment) => sum + payment.amount, 0);
+  
+  const currentSavings = Math.max(0, totalIncome - paidPayments - totalExpenses);
+  
+  const monthlyExpenses = totalPayments + totalExpenses;
+  
   const financialContext = {
-    monthlyIncome: state.incomes.reduce(
-      (sum: number, income: Income) => sum + income.amount,
-      0
-    ),
-    monthlyExpenses: state.payments
-      .filter((payment: Payment) => !payment.isPaid)
-      .reduce((sum: number, payment: Payment) => sum + payment.amount, 0),
-    totalDebt: state.payments
-      .filter(
-        (payment: Payment) =>
-          !payment.isPaid &&
-          (payment.category === PaymentCategory.LOAN ||
-            payment.category === PaymentCategory.CREDIT_CARD)
-      )
-      .reduce((sum: number, payment: Payment) => sum + payment.amount, 0),
-    currentSavings: Math.max(
-      0,
-      state.incomes.reduce((sum: number, income: Income) => sum + income.amount, 0) -
-        state.payments
-          .filter((payment: Payment) => payment.isPaid)
-          .reduce((sum: number, payment: Payment) => sum + payment.amount, 0)
-    ),
+    monthlyIncome: totalIncome,
+    monthlyExpenses: monthlyExpenses,
+    totalDebt: totalDebt,
+    currentSavings: currentSavings,
     healthScore: calculateFinancialHealthScore({
-      monthlyIncome: state.incomes.reduce(
-        (sum: number, income: Income) => sum + income.amount,
-        0
-      ),
-      monthlyExpenses: state.payments
-        .filter((payment: Payment) => !payment.isPaid)
-        .reduce((sum: number, payment: Payment) => sum + payment.amount, 0),
-      totalDebt: state.payments
-        .filter(
-          (payment: Payment) =>
-            !payment.isPaid &&
-            (payment.category === PaymentCategory.LOAN ||
-              payment.category === PaymentCategory.CREDIT_CARD)
-        )
-        .reduce((sum: number, payment: Payment) => sum + payment.amount, 0),
-      currentSavings: Math.max(
-        0,
-        state.incomes.reduce((sum: number, income: Income) => sum + income.amount, 0) -
-          state.payments
-            .filter((payment: Payment) => payment.isPaid)
-            .reduce((sum: number, payment: Payment) => sum + payment.amount, 0)
-      ),
+      monthlyIncome: totalIncome,
+      monthlyExpenses: monthlyExpenses,
+      totalDebt: totalDebt,
+      currentSavings: currentSavings,
     }).totalScore,
   };
 

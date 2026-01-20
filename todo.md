@@ -918,5 +918,16 @@
 - [x] Borçların bir sonraki ödeme tarihini hesapla (nextDueDate zaten var)
 - [x] Borçları tarihe göre sırala (en yakın tarih en üstte - sort ile)
 - [x] Test et (TypeScript hatası yok)
-- [ ] Checkpoint oluştur (v6.4.2)
+- [x] Checkpoint oluştur (v6.4.2)
 - [ ] Kullanıcıya teslim et (v6.4.2)
+
+
+## Bug: AI Asistan Varsayılan Verilerle Çalışıyor (v6.4.3)
+- [x] AI asistanının veri kaynağını incele (app/chatbot.tsx, server/routers.ts)
+- [x] Kullanıcının gerçek verilerini AI'ya nasıl gönderdiğini kontrol et (financialContext)
+- [x] AsyncStorage'dan gerçek verileri yükle (state.expenses eksikti)
+- [x] AI prompt'una gerçek verileri ekle (backend zaten doğruydu)
+- [x] Finansal context hesaplamasını düzelt (expenses + payments topla)
+- [x] Test et (TypeScript hatası yok)
+- [ ] Checkpoint oluştur (v6.4.3)
+- [ ] Kullanıcıya teslim et (v6.4.3)
