@@ -941,5 +941,15 @@
 - [x] Kartları öncelik sırasına göre sırala (en fazla 3 öneri)
 - [x] Çevirileri ekle (tr.json, en.json)
 - [x] Test et (TypeScript hatası yok)
-- [ ] Checkpoint oluştur (v6.5.0)
+- [x] Checkpoint oluştur (v6.5.0)
 - [ ] Kullanıcıya teslim et (v6.5.0)
+
+
+## Bug: Finansal Öneri Hesaplamaları Tüm Zamanların Toplamını Alıyor (v6.5.1)
+- [x] Finansal öneri servisini incele (services/financial-suggestions.ts)
+- [x] Aylık gelir hesaplamasını düzelt (sadece bu ay - tarih filtreleme eklendi)
+- [x] Aylık gider hesaplamasını düzelt (sadece bu ay - ödemeler + harcamalar)
+- [x] Mevcut birikim hesaplamasını düzelt (tüm zamanların toplamı - doğru)
+- [x] Test et (TypeScript hatası yok)
+- [ ] Checkpoint oluştur (v6.5.1)
+- [ ] Kullanıcıya teslim et (v6.5.1)

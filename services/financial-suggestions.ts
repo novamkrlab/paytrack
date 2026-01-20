@@ -32,44 +32,64 @@ interface FinancialData {
 export function generateFinancialSuggestions(data: FinancialData): FinancialSuggestion[] {
   const suggestions: FinancialSuggestion[] = [];
 
-  // Toplam gelir hesapla
-  const totalIncome = data.incomes.reduce((sum, income) => sum + income.amount, 0);
+  // Mevcut ay bilgileri
+  const now = new Date();
+  const currentYear = now.getFullYear();
+  const currentMonth = now.getMonth();
 
-  // Toplam harcama hesapla
-  const totalExpenses = data.expenses.reduce((sum, expense) => sum + expense.amount, 0);
+  // Sadece bu ayın verilerini filtrele
+  const currentMonthIncomes = data.incomes.filter(income => {
+    const date = new Date(income.date);
+    return date.getFullYear() === currentYear && date.getMonth() === currentMonth;
+  });
 
-  // Ödenmemiş ödemeler
-  const unpaidPayments = data.payments.filter(p => !p.isPaid);
-  const totalUnpaidPayments = unpaidPayments.reduce((sum, p) => sum + p.amount, 0);
+  const currentMonthPayments = data.payments.filter(payment => {
+    const date = new Date(payment.dueDate);
+    return date.getFullYear() === currentYear && date.getMonth() === currentMonth;
+  });
 
-  // Borçlar (kredi ve kredi kartı)
-  const debts = unpaidPayments.filter(
+  const currentMonthExpenses = data.expenses.filter(expense => {
+    const date = new Date(expense.date);
+    return date.getFullYear() === currentYear && date.getMonth() === currentMonth;
+  });
+
+  // Aylık gelir hesapla
+  const monthlyIncome = currentMonthIncomes.reduce((sum, income) => sum + income.amount, 0);
+
+  // Aylık harcama hesapla
+  const monthlyExpenses = currentMonthExpenses.reduce((sum, expense) => sum + expense.amount, 0);
+
+  // Bu aydaki ödenmemiş ödemeler
+  const unpaidPayments = currentMonthPayments.filter(p => !p.isPaid);
+  const monthlyUnpaidPayments = unpaidPayments.reduce((sum, p) => sum + p.amount, 0);
+
+  // Bu aydaki borçlar (kredi ve kredi kartı)
+  const monthlyDebts = unpaidPayments.filter(
     p => p.category === PaymentCategory.LOAN || p.category === PaymentCategory.CREDIT_CARD
   );
-  const totalDebt = debts.reduce((sum, d) => sum + d.amount, 0);
+  const monthlyDebt = monthlyDebts.reduce((sum, d) => sum + d.amount, 0);
 
-  // Ödenen ödemeler
-  const paidPayments = data.payments.filter(p => p.isPaid);
-  const totalPaidPayments = paidPayments.reduce((sum, p) => sum + p.amount, 0);
-
-  // Mevcut birikim
+  // Mevcut birikim (tüm zamanların toplamı)
+  const totalIncome = data.incomes.reduce((sum, income) => sum + income.amount, 0);
+  const totalPaidPayments = data.payments.filter(p => p.isPaid).reduce((sum, p) => sum + p.amount, 0);
+  const totalExpenses = data.expenses.reduce((sum, expense) => sum + expense.amount, 0);
   const currentSavings = Math.max(0, totalIncome - totalPaidPayments - totalExpenses);
 
   // Aylık toplam gider
-  const monthlyExpenses = totalUnpaidPayments + totalExpenses;
+  const monthlyTotalExpenses = monthlyUnpaidPayments + monthlyExpenses;
 
   // Tasarruf oranı
-  const savingsRate = totalIncome > 0 ? ((totalIncome - monthlyExpenses) / totalIncome) * 100 : 0;
+  const savingsRate = monthlyIncome > 0 ? ((monthlyIncome - monthlyTotalExpenses) / monthlyIncome) * 100 : 0;
 
   // 1. Borç Uyarısı (Yüksek borç varsa)
-  if (totalDebt > totalIncome * 0.5) {
+  if (monthlyDebt > monthlyIncome * 0.5) {
     suggestions.push({
       id: 'high_debt',
       type: 'debt',
       priority: 1,
       icon: '⚠️',
       title: 'Yüksek Borç Yükü',
-      description: `Toplam borcunuz (${totalDebt.toFixed(0)} ₺) aylık gelirinizin %${((totalDebt / totalIncome) * 100).toFixed(0)}'ini aşıyor. Borç ödeme planı oluşturmanızı öneriyoruz.`,
+      description: `Bu ayki borç ödemeleriniz (${monthlyDebt.toFixed(0)} ₺) aylık gelirinizin %${((monthlyDebt / monthlyIncome) * 100).toFixed(0)}'ini aşıyor. Borç ödeme planı oluşturmanızı öneriyoruz.`,
       action: {
         label: 'Borçlarımı Görüntüle',
         route: '/debt-list',
@@ -78,7 +98,7 @@ export function generateFinancialSuggestions(data: FinancialData): FinancialSugg
   }
 
   // 2. Acil Fon Uyarısı (3 aylık gider kadar birikim yoksa)
-  const emergencyFundTarget = monthlyExpenses * 3;
+  const emergencyFundTarget = monthlyTotalExpenses * 3;
   if (currentSavings < emergencyFundTarget) {
     suggestions.push({
       id: 'emergency_fund',
@@ -127,7 +147,7 @@ export function generateFinancialSuggestions(data: FinancialData): FinancialSugg
   }
 
   // 5. Yatırım Önerisi (İyi tasarruf oranı ve düşük borç varsa)
-  if (savingsRate >= 30 && totalDebt < totalIncome * 0.2 && currentSavings > emergencyFundTarget) {
+  if (savingsRate >= 30 && monthlyDebt < monthlyIncome * 0.2 && currentSavings > emergencyFundTarget) {
     suggestions.push({
       id: 'investment_ready',
       type: 'investment',
