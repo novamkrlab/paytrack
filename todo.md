@@ -929,5 +929,17 @@
 - [x] AI prompt'una gerçek verileri ekle (backend zaten doğruydu)
 - [x] Finansal context hesaplamasını düzelt (expenses + payments topla)
 - [x] Test et (TypeScript hatası yok)
-- [ ] Checkpoint oluştur (v6.4.3)
+- [x] Checkpoint oluştur (v6.4.3)
 - [ ] Kullanıcıya teslim et (v6.4.3)
+
+
+## Feature: Ana Sayfa Finansal Öneri Kartları (v6.5.0)
+- [x] Finansal öneri mantığını tasarla (borç ödeme, tasarruf, bütçe vb.)
+- [x] Kullanıcının durumuna göre öneri oluştur (rule-based sistem - 6 farklı öneri tipi)
+- [x] Öneri kartı bileşeni oluştur (ikon, başlık, açıklama, aksiyon butonu)
+- [x] Ana sayfaya öneri kartlarını ekle
+- [x] Kartları öncelik sırasına göre sırala (en fazla 3 öneri)
+- [x] Çevirileri ekle (tr.json, en.json)
+- [x] Test et (TypeScript hatası yok)
+- [ ] Checkpoint oluştur (v6.5.0)
+- [ ] Kullanıcıya teslim et (v6.5.0)

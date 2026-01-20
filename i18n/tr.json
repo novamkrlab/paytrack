@@ -198,7 +198,8 @@
     "totalIncomes": "Toplam Gelirler",
     "balance": "Denge",
     "noUpcomingPayments": "Önümüzdeki 7 gün içinde ödeme bulunmuyor",
-    "loadTestData": "Test Verileri Yükle"
+    "loadTestData": "Test Verileri Yükle",
+    "suggestions": "Finansal Öneriler"
   },
   "payments": {
     "title": "Ödemeler",

@@ -36,7 +36,9 @@ import { calculateFinancialHealthScore } from "@/lib/financial-health";
 import type { FinancialHealthScore } from "@/types/financial-health";
 import { getCurrentMonthExpenseSummary } from "@/utils/expense-calculations";
 import { loadBudgets, getBudgetMap } from "@/utils/budget-storage";
-import type { MonthlyExpenseSummary } from "@/types/budget";
+import type { MonthlyExpenseSummary } from '@/types/budget';
+import { generateFinancialSuggestions } from '@/services/financial-suggestions';
+import { FinancialSuggestionCard } from '@/components/financial-suggestion-card';
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -47,6 +49,13 @@ export default function HomeScreen() {
   const [debtSummary, setDebtSummary] = useState<DebtSummary | null>(null);
   const [healthScore, setHealthScore] = useState<FinancialHealthScore | null>(null);
   const [expenseSummary, setExpenseSummary] = useState<MonthlyExpenseSummary | null>(null);
+
+  // Finansal öneriler
+  const financialSuggestions = generateFinancialSuggestions({
+    payments: state.payments,
+    incomes: state.incomes,
+    expenses: state.expenses,
+  });
 
   // Mevcut ay bilgileri
   const now = new Date();
@@ -194,6 +203,18 @@ export default function HomeScreen() {
             </TouchableOpacity>
           </View>
         </View>
+
+        {/* Finansal Öneriler */}
+        {financialSuggestions.length > 0 && (
+          <View className="mb-6">
+            <Text className="text-lg font-semibold text-foreground mb-3">
+              💡 {t('home.suggestions')}
+            </Text>
+            {financialSuggestions.map(suggestion => (
+              <FinancialSuggestionCard key={suggestion.id} suggestion={suggestion} />
+            ))}
+          </View>
+        )}
 
         {/* Özet Kartı */}
         <SummaryCard

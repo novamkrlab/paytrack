@@ -197,7 +197,8 @@
     "totalIncomes": "Total Incomes",
     "balance": "Balance",
     "noUpcomingPayments": "No upcoming payments in the next 7 days",
-    "loadTestData": "Load Test Data"
+    "loadTestData": "Load Test Data",
+    "suggestions": "Financial Suggestions"
   },
   "payments": {
     "title": "Payments",
