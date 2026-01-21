@@ -967,5 +967,21 @@ Kullanıcı Bildirimi: Yapay zeka hala bazı verileri kullanıcının girdikleri
 - [x] Backend'e gönderilen veriyi console.log ile kontrol et
 - [x] Düzeltmeleri yap (aylık bazda hesaplama eklendi)
 - [x] Test et (gerçek verilerle chatbot'a soru sor) - 7/7 unit test başarılı
-- [ ] Checkpoint oluştur (v6.5.2)
+- [x] Checkpoint oluştur (v6.5.2)
 - [ ] Kullanıcıya teslim et (v6.5.2)
+
+
+
+## Bug: AI Asistan Mevcut Birikim Değerini Yanlış Hesaplıyor (v6.5.3)
+
+Kullanıcı Bildirimi: AI asistan 281.600 TL birikim gösteriyor ama kullanıcı 900.000 TL girmiş
+
+Sorun: AI asistan finansal sağlık ayarlarındaki "Mevcut Birikim" değerini kullanmıyor, bunun yerine gelir/ödeme/harcama toplamından hesaplıyor
+
+- [x] Finansal sağlık ayarlarını incele (AsyncStorage'da nasıl saklanıyor) - FIRE ayarları olarak saklanıyor
+- [x] Chatbot'un mevcut birikim hesaplamasını incele - Otomatik hesaplama yapıyordu
+- [x] Finansal sağlık ayarlarından "currentSavings" değerini oku - loadFireSettings ile yükledik
+- [x] Chatbot'a bu değeri gönder - Öncelik: FIRE ayarları > Otomatik hesaplama
+- [x] Test et (900.000 TL görmeli) - 7/7 unit test başarılı
+- [ ] Checkpoint oluştur (v6.5.3)
+- [ ] Kullanıcıya teslim et (v6.5.3)

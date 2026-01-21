@@ -15,6 +15,7 @@ import {
 import { router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { useState, useRef, useEffect } from 'react';
+import { loadFireSettings } from '@/lib/fire-storage';
 import { ScreenContainer } from '@/components/screen-container';
 import { ChatMessage } from '@/components/chat-message';
 import { useColors } from '@/hooks/use-colors';
@@ -33,6 +34,16 @@ export default function ChatbotScreen() {
   const [inputText, setInputText] = useState('');
   const scrollViewRef = useRef<ScrollView>(null);
   const mutation = useChatMutation();
+  const [fireCurrentSavings, setFireCurrentSavings] = useState<number | null>(null);
+
+  // FIRE ayarlarından mevcut birikim değerini yükle
+  useEffect(() => {
+    loadFireSettings().then(settings => {
+      if (settings && settings.currentSavings > 0) {
+        setFireCurrentSavings(settings.currentSavings);
+      }
+    }).catch(console.error);
+  }, []);
 
   // Finansal verileri hesapla (AYLIK BAZDA)
   const now = new Date();
@@ -77,19 +88,28 @@ export default function ChatbotScreen() {
     )
     .reduce((sum: number, payment: Payment) => sum + payment.amount, 0);
   
-  // MEVCUT BİRİKİM (tüm zamanların toplamı)
-  const totalIncomeAllTime = state.incomes.reduce(
-    (sum: number, income: Income) => sum + income.amount,
-    0
-  );
-  const paidPayments = state.payments
-    .filter((payment: Payment) => payment.isPaid)
-    .reduce((sum: number, payment: Payment) => sum + payment.amount, 0);
-  const totalExpensesAllTime = state.expenses.reduce(
-    (sum: number, expense: any) => sum + expense.amount,
-    0
-  );
-  const currentSavings = Math.max(0, totalIncomeAllTime - paidPayments - totalExpensesAllTime);
+  // MEVCUT BİRİKİM
+  // Eğer kullanıcı FIRE ayarlarında mevcut birikim girdiyse, onu kullan
+  // Yoksa, tüm zamanların toplamından hesapla
+  let currentSavings: number;
+  if (fireCurrentSavings !== null && fireCurrentSavings > 0) {
+    // FIRE ayarlarından al (kullanıcının girdiği değer)
+    currentSavings = fireCurrentSavings;
+  } else {
+    // Otomatik hesapla (gelir - ödeme - harcama)
+    const totalIncomeAllTime = state.incomes.reduce(
+      (sum: number, income: Income) => sum + income.amount,
+      0
+    );
+    const paidPayments = state.payments
+      .filter((payment: Payment) => payment.isPaid)
+      .reduce((sum: number, payment: Payment) => sum + payment.amount, 0);
+    const totalExpensesAllTime = state.expenses.reduce(
+      (sum: number, expense: any) => sum + expense.amount,
+      0
+    );
+    currentSavings = Math.max(0, totalIncomeAllTime - paidPayments - totalExpensesAllTime);
+  }
   
   const financialContext = {
     monthlyIncome: monthlyIncome,
