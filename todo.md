@@ -983,5 +983,28 @@ Sorun: AI asistan finansal sağlık ayarlarındaki "Mevcut Birikim" değerini ku
 - [x] Finansal sağlık ayarlarından "currentSavings" değerini oku - loadFireSettings ile yükledik
 - [x] Chatbot'a bu değeri gönder - Öncelik: FIRE ayarları > Otomatik hesaplama
 - [x] Test et (900.000 TL görmeli) - 7/7 unit test başarılı
-- [ ] Checkpoint oluştur (v6.5.3)
+- [x] Checkpoint oluştur (v6.5.3)
 - [ ] Kullanıcıya teslim et (v6.5.3)
+
+
+
+## Bug: Finansal Sağlık Skoru Borç Yönetimi Yanlış Hesaplanıyor (v6.5.4)
+
+Kullanıcı Bildirimi: Borçlar gelire neredeyse eşit olmasına rağmen "yüzde 30'un altında" diyor ve skor 25/30 gösteriyor
+
+Gerçek Durum:
+- Aylık Gelir (Ocak): 61.600 TL
+- Aylık Borç Ödeme (Ocak): 47.697 TL (24.100 + 23.597)
+- Borç/Gelir Oranı: 77% (çok yüksek, %30'un çok üzerinde)
+- Skor: 25/30 gösteriyor (iyi) ← YANLIŞ!
+
+Sorun: Finansal sağlık skoru hesaplaması yanlış veri kullanıyor
+
+- [x] Finansal sağlık skoru hesaplama kodunu incele (lib/financial-health.ts)
+- [x] Borç yönetimi skoru hesaplama mantığını kontrol et - Yanlış: Toplam borç / Yıllık gelir
+- [x] Aylık gelir hesaplamasını kontrol et (FIRE ayarları mı yoksa gerçek gelirler mi?) - Tüm gelirleri topluyordu
+- [x] Aylık borç ödeme hesaplamasını kontrol et (sadece bu ayın ödemeleri mi?) - Tüm ödenmemiş borçları topluyordu
+- [x] Düzeltmeleri yap (aylık bazda doğru hesaplama) - Aylık borç ödeme / Aylık gelir
+- [x] Test et (77% oranında düşük skor görmeli) - 10/10 unit test başarılı, %77 oran 0/30 puan veriyor
+- [ ] Checkpoint oluştur (v6.5.4)
+- [ ] Kullanıcıya teslim et (v6.5.4)

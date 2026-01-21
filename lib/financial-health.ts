@@ -11,21 +11,28 @@ import type {
 
 /**
  * Borç yönetimi skorunu hesapla (0-30 puan)
- * Borç/Gelir oranına göre puanlama
+ * Aylık Borç Ödeme / Aylık Gelir oranına göre puanlama
+ * 
+ * NOT: totalDebt parametresi artık "aylık borç ödeme" olarak kullanılıyor
+ * (tüm borçların toplamı değil, sadece bu ayda ödenecek tutar)
  */
 function calculateDebtManagementScore(
-  totalDebt: number,
+  monthlyDebtPayment: number,
   monthlyIncome: number
 ): number {
   if (monthlyIncome === 0) return 0;
   
-  const debtToIncomeRatio = totalDebt / (monthlyIncome * 12); // Yıllık gelire göre
+  // Aylık borç ödeme / Aylık gelir oranı
+  const debtToIncomeRatio = monthlyDebtPayment / monthlyIncome;
   
+  // İdeal: %30'un altında borç ödemesi
   if (debtToIncomeRatio === 0) return 30;
-  if (debtToIncomeRatio <= 0.2) return 25;
-  if (debtToIncomeRatio <= 0.4) return 15;
-  if (debtToIncomeRatio <= 0.6) return 5;
-  return 0;
+  if (debtToIncomeRatio <= 0.1) return 30; // %10'un altında (mükemmel)
+  if (debtToIncomeRatio <= 0.2) return 25; // %20'nin altında (iyi)
+  if (debtToIncomeRatio <= 0.3) return 20; // %30'un altında (kabul edilebilir)
+  if (debtToIncomeRatio <= 0.4) return 10; // %40'nın altında (riskli)
+  if (debtToIncomeRatio <= 0.5) return 5;  // %50'nin altında (çok riskli)
+  return 0; // %50'ün üzerinde (kritik)
 }
 
 /**
