@@ -951,5 +951,21 @@
 - [x] Aylık gider hesaplamasını düzelt (sadece bu ay - ödemeler + harcamalar)
 - [x] Mevcut birikim hesaplamasını düzelt (tüm zamanların toplamı - doğru)
 - [x] Test et (TypeScript hatası yok)
-- [ ] Checkpoint oluştur (v6.5.1)
+- [x] Checkpoint oluştur (v6.5.1)
 - [ ] Kullanıcıya teslim et (v6.5.1)
+
+
+
+## Bug: AI Asistan Hala Varsayılan Verilerle Çalışıyor (v6.5.2)
+
+Kullanıcı Bildirimi: Yapay zeka hala bazı verileri kullanıcının girdiklerine göre değil varsayılana göre değerlendiriyor
+
+- [x] Chatbot sayfasını incele (app/chatbot.tsx)
+- [x] Finansal context hesaplamasını kontrol et
+- [x] Varsayılan verilerin nereden geldiğini bul
+- [x] Gerçek kullanıcı verilerinin doğru gönderildiğini doğrula
+- [x] Backend'e gönderilen veriyi console.log ile kontrol et
+- [x] Düzeltmeleri yap (aylık bazda hesaplama eklendi)
+- [x] Test et (gerçek verilerle chatbot'a soru sor) - 7/7 unit test başarılı
+- [ ] Checkpoint oluştur (v6.5.2)
+- [ ] Kullanıcıya teslim et (v6.5.2)

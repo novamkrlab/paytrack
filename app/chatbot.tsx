@@ -34,21 +34,40 @@ export default function ChatbotScreen() {
   const scrollViewRef = useRef<ScrollView>(null);
   const mutation = useChatMutation();
 
-  // Finansal verileri hesapla
-  const totalIncome = state.incomes.reduce(
-    (sum: number, income: Income) => sum + income.amount,
-    0
-  );
+  // Finansal verileri hesapla (AYLIK BAZDA)
+  const now = new Date();
+  const currentMonth = now.getMonth();
+  const currentYear = now.getFullYear();
   
-  const totalPayments = state.payments
-    .filter((payment: Payment) => !payment.isPaid)
+  // Bu ayın başlangıç ve bitiş tarihleri
+  const monthStart = new Date(currentYear, currentMonth, 1);
+  const monthEnd = new Date(currentYear, currentMonth + 1, 0, 23, 59, 59);
+  
+  // Tarihin bu ay içinde olup olmadığını kontrol et
+  const isInCurrentMonth = (dateString: string) => {
+    const date = new Date(dateString);
+    return date >= monthStart && date <= monthEnd;
+  };
+  
+  // AYLIK GELİR (sadece bu ay)
+  const monthlyIncome = state.incomes
+    .filter((income: Income) => isInCurrentMonth(income.date))
+    .reduce((sum: number, income: Income) => sum + income.amount, 0);
+  
+  // AYLIK ÖDEMELER (sadece bu ay, ödenmemiş)
+  const monthlyPayments = state.payments
+    .filter((payment: Payment) => !payment.isPaid && isInCurrentMonth(payment.dueDate))
     .reduce((sum: number, payment: Payment) => sum + payment.amount, 0);
   
-  const totalExpenses = state.expenses.reduce(
-    (sum: number, expense: any) => sum + expense.amount,
-    0
-  );
+  // AYLIK HARCAMALAR (sadece bu ay)
+  const monthlyExpensesAmount = state.expenses
+    .filter((expense: any) => isInCurrentMonth(expense.date))
+    .reduce((sum: number, expense: any) => sum + expense.amount, 0);
   
+  // TOPLAM AYLIK GİDER (ödemeler + harcamalar)
+  const totalMonthlyExpenses = monthlyPayments + monthlyExpensesAmount;
+  
+  // TOPLAM BORÇ (tüm ödenmemiş borçlar - kredi kartı ve krediler)
   const totalDebt = state.payments
     .filter(
       (payment: Payment) =>
@@ -58,22 +77,28 @@ export default function ChatbotScreen() {
     )
     .reduce((sum: number, payment: Payment) => sum + payment.amount, 0);
   
+  // MEVCUT BİRİKİM (tüm zamanların toplamı)
+  const totalIncomeAllTime = state.incomes.reduce(
+    (sum: number, income: Income) => sum + income.amount,
+    0
+  );
   const paidPayments = state.payments
     .filter((payment: Payment) => payment.isPaid)
     .reduce((sum: number, payment: Payment) => sum + payment.amount, 0);
-  
-  const currentSavings = Math.max(0, totalIncome - paidPayments - totalExpenses);
-  
-  const monthlyExpenses = totalPayments + totalExpenses;
+  const totalExpensesAllTime = state.expenses.reduce(
+    (sum: number, expense: any) => sum + expense.amount,
+    0
+  );
+  const currentSavings = Math.max(0, totalIncomeAllTime - paidPayments - totalExpensesAllTime);
   
   const financialContext = {
-    monthlyIncome: totalIncome,
-    monthlyExpenses: monthlyExpenses,
+    monthlyIncome: monthlyIncome,
+    monthlyExpenses: totalMonthlyExpenses,
     totalDebt: totalDebt,
     currentSavings: currentSavings,
     healthScore: calculateFinancialHealthScore({
-      monthlyIncome: totalIncome,
-      monthlyExpenses: monthlyExpenses,
+      monthlyIncome: monthlyIncome,
+      monthlyExpenses: totalMonthlyExpenses,
       totalDebt: totalDebt,
       currentSavings: currentSavings,
     }).totalScore,
