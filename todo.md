@@ -1076,5 +1076,30 @@ Kullanıcı İsteği: Borç azaltma planı özelliği ekle - Kar topu ve Çığ 
 **7. Checkpoint:**
 - [x] Tüm görevleri tamamla
 - [x] TypeScript hatalarını kontrol et - 0 hata
-- [ ] Checkpoint oluştur (v7.0.0)
+- [x] Checkpoint oluştur (v7.0.0)
 - [ ] Kullanıcıya teslim et (v7.0.0)
+
+
+
+## Bug: Ana Sayfa Tasarımı Değişmiş (Bileşenler Kaybolmuş)
+
+**Sorun:** Ana sayfa bileşenleri mevcut ama NativeWind (Tailwind CSS) stilleri uygulanmıyor. Renkler, kartlar ve butonlar görünmüyor.
+
+**Eksik Bileşenler:**
+- [ ] Üstteki 3 renkli buton (Ödeme/Gelir/Harcama ekle) - mavi, yeşil, sarı
+- [ ] "Yüksek Borç Yükü" uyarı kartı (kırmızı arka plan)
+- [ ] "Bu Ay Özet" büyük mavi kart (Toplam Gelir, Toplam Ödeme, Kalan Bakiye)
+- [ ] "Finansal Özgürlük" kartı (FIRE sayısı, mevcut birikim, yüzde grafiği)
+
+**Mevcut Bileşenler (Doğru):**
+- [x] "Finansal Öneriler" bölümü (Tasarruf oranı uyarısı)
+- [x] "Finansal Sağlık Skoru" kartı
+- [x] "Yaklaşan Ödemeler" bölümü
+- [x] "Harcamalar" bölümü
+
+**Yapılacaklar:**
+- [ ] app/(tabs)/index.tsx dosyasını incele
+- [ ] Eksik bileşenleri tespit et
+- [ ] Eski tasarımı geri getir
+- [ ] Test et
+- [ ] Checkpoint oluştur (v7.0.1)
