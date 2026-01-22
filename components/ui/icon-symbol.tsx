@@ -28,6 +28,7 @@ const MAPPING = {
   "arrow.up.circle.fill": "arrow-circle-up",
   "chart.pie.fill": "pie-chart",
   "chart.bar.fill": "bar-chart",
+  "chart.line.uptrend.xyaxis": "trending-up",
   "plus": "add",
 } as IconMapping;
 

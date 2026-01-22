@@ -1006,5 +1006,75 @@ Sorun: Finansal sağlık skoru hesaplaması yanlış veri kullanıyor
 - [x] Aylık borç ödeme hesaplamasını kontrol et (sadece bu ayın ödemeleri mi?) - Tüm ödenmemiş borçları topluyordu
 - [x] Düzeltmeleri yap (aylık bazda doğru hesaplama) - Aylık borç ödeme / Aylık gelir
 - [x] Test et (77% oranında düşük skor görmeli) - 10/10 unit test başarılı, %77 oran 0/30 puan veriyor
-- [ ] Checkpoint oluştur (v6.5.4)
+- [x] Checkpoint oluştur (v6.5.4)
 - [ ] Kullanıcıya teslim et (v6.5.4)
+
+
+
+## Yeni Özellik: Borç Azaltma Planı (v7.0.0)
+
+Kullanıcı İsteği: Borç azaltma planı özelliği ekle - Kar topu ve Çığ yöntemlerini karşılaştırmalı olarak sun
+
+Özellik Detayları:
+1. Yeni sayfa: "Borç Azaltma Planı" (Tab bar'a eklenecek)
+2. Yöntem seçimi: Kar topu (Snowball) vs Çığ (Avalanche) karşılaştırma
+3. Ödeme simülasyonu: "Aylık ekstra ödeme" slider'ı ile simülasyon
+4. İlerleme takibi: Aylık borç azalma grafiği
+5. Motivasyon: "X ay sonra borçsuz olacaksınız!" mesajı
+
+### Kar Topu Yöntemi (Snowball):
+- En küçük borcu önce öde
+- Psikolojik motivasyon (hızlı kazanımlar)
+- Borç sayısı azaldıkça motivasyon artar
+
+### Çığ Yöntemi (Avalanche):
+- En yüksek faizli borcu önce öde
+- Matematiksel optimizasyon (toplam faiz tasarrufu)
+- Uzun vadede daha az faiz ödersiniz
+
+### Görevler:
+
+**1. Borç Azaltma Hesaplama Fonksiyonları:**
+- [x] lib/debt-payoff.ts dosyası oluştur
+- [x] calculateSnowballMethod() fonksiyonu yaz (en küçük borç önce)
+- [x] calculateAvalancheMethod() fonksiyonu yaz (en yüksek faizli borç önce)
+- [x] comparePayoffMethods() fonksiyonu yaz (iki yöntemi karşılaştır)
+- [x] calculateMonthlyProgress() fonksiyonu yaz (aylık ilerleme)
+- [x] Faiz hesaplama ekle (aylık bileşik faiz)
+
+**2. Tip Tanımlamaları:**
+- [x] types/debt-payoff.ts dosyası oluştur
+- [x] DebtPayoffMethod tipi (snowball | avalanche)
+- [x] DebtPayoffPlan tipi (method, totalMonths, totalInterest, monthlyPayments)
+- [x] MonthlyPayment tipi (month, principal, interest, remaining)
+- [x] PayoffComparison tipi (snowball vs avalanche karşılaştırma)
+
+**3. Borç Azaltma Planı Sayfası:**
+- [x] app/(tabs)/debt-payoff.tsx dosyası oluştur
+- [x] Yöntem seçimi UI (Kar topu vs Çığ)
+- [x] Aylık ekstra ödeme slider'ı (0 - 50.000 TL)
+- [x] Karşılaştırma tablosu (iki yöntem yan yana)
+- [x] Borç listesi (öncelik sırasına göre)
+- [x] Özet kartları (toplam ay, toplam faiz, tasarruf)
+- [x] Motivasyon mesajı ("X ay sonra borçsuz!")
+
+**4. Tab Bar Güncellemeleri:**
+- [x] components/ui/icon-symbol.tsx'e "chart.line.uptrend.xyaxis" icon ekle
+- [x] app/(tabs)/_layout.tsx'e "debt-payoff" tab ekle
+- [x] Tab icon ve başlık ayarla
+
+**5. Çeviriler:**
+- [x] i18n/tr.json'a borç azaltma planı çevirileri ekle
+- [x] i18n/en.json'a borç azaltma planı çevirileri ekle
+
+**6. Testler:**
+- [x] __tests__/debt-payoff-snowball.test.ts oluştur
+- [x] __tests__/debt-payoff-avalanche.test.ts oluştur
+- [x] __tests__/debt-payoff-comparison.test.ts oluştur
+- [x] Tüm testleri çalıştır ve doğrula - 21/21 test başarılı
+
+**7. Checkpoint:**
+- [x] Tüm görevleri tamamla
+- [x] TypeScript hatalarını kontrol et - 0 hata
+- [ ] Checkpoint oluştur (v7.0.0)
+- [ ] Kullanıcıya teslim et (v7.0.0)

@@ -66,6 +66,13 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="debt-payoff"
+        options={{
+          title: t("tabs.debtPayoff"),
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="chart.line.uptrend.xyaxis" color={color} />,
+        }}
+      />
+      <Tabs.Screen
         name="calendar"
         options={{
           title: t("tabs.calendar"),
