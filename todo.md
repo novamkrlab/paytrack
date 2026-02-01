@@ -1133,4 +1133,25 @@ Kullanıcı İsteği: Borç azaltma planı özelliği ekle - Kar topu ve Çığ 
 - [x] Detay sayfası: health-score.tsx ile aynı mantığı kullan (aylık bazda)
 - [x] Her iki sayfanın aynı healthInput kullandığından emin ol
 - [x] Test et (her iki sayfa da aynı skoru göstermeli)
-- [ ] Checkpoint oluştur (v7.1.3)
+- [x] Checkpoint oluştur (v7.1.3)
+
+## Taksitli Ödeme Toggle'ını Kaldır (UX İyileştirmesi)
+- [ ] Yeni Ödeme formundan "Taksitli Ödeme" toggle'ını kaldır
+- [ ] İlgili taksit alanlarını kaldır (taksit sayısı, kalan taksit vb.)
+- [ ] Sadece "Tekrarlanan Ödeme" toggle'ı kalsın
+- [ ] Ödeme düzenleme formunda da aynı değişikliği yap
+- [ ] Test et (form daha basit ve anlaşılır olmalı)
+- [ ] Checkpoint oluştur (v7.2.0)
+
+## Taksitli Ödeme Toggle Kaldırma (Kullanıcı Geri Bildirimi - Test Dönemi)
+- [x] Ödeme ekleme formundan "Taksitli Ödeme" toggle'ını kaldır
+- [x] Ödeme düzenleme formundan "Taksitli Ödeme" toggle'ını kaldır
+- [x] Taksit ile ilgili state'leri temizle (hasInstallments, installmentTotal, installmentCurrent, installmentEndDate, autoGenerateInstallments)
+- [x] Taksit validasyonunu kaldır
+- [x] Taksit oluşturma kodunu kaldır
+- [x] generateInstallments import'unu kaldır
+- [x] Sadece "Tekrarlanan Ödeme" toggle'ı kalsın
+- [x] TypeScript hatalarını düzelt
+- [x] Test et
+- [ ] Checkpoint oluştur (v7.1.4 - Taksitli ödeme toggle kaldırıldı)
+- [ ] Kullanıcıya teslim et (v7.1.4)
