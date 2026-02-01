@@ -1195,5 +1195,15 @@ Kullanıcı İsteği: Borç azaltma planı özelliği ekle - Kar topu ve Çığ 
 - [x] İngilizce çeviri dosyasına statistics.categoryDistribution ekle
 - [x] İngilizce çeviri dosyasına statistics.budgetStatus ekle
 - [x] Test et
-- [ ] Checkpoint oluştur (v7.1.8 - Takvim başlık çevirileri düzeltildi)
-- [ ] Kullanıcıya teslim et (v7.1.8)
+- [x] Checkpoint oluştur (v7.1.8 - Takvim başlık çevirileri düzeltildi)
+- [x] Kullanıcıya teslim et (v7.1.8)
+
+## Bütçe Durumu Hesaplama Hatası Düzeltme (Kullanıcı Bug Raporu)
+- [x] category-budget-service.ts dosyasını incele
+- [x] getCurrentMonthBudgets fonksiyonunu incele
+- [x] Harcama hesaplama mantığını kontrol et
+- [x] Her kategori için doğru harcama tutarını hesapla
+- [x] Bug'ı düzelt (kategori filtresi eklendi)
+- [x] Test et (sadece Gıda kategorisinde 1000₺ harcama olmalı)
+- [ ] Checkpoint oluştur (v7.1.9 - Bütçe hesaplama hatası düzeltildi)
+- [ ] Kullanıcıya teslim et (v7.1.9)

@@ -94,9 +94,8 @@ export async function calculateCategoryBudgets(
     const categoryExpenses = expenses.filter((expense) => {
       // Expense'in tarihini kontrol et (YYYY-MM formatına dönüştür)
       const expenseMonth = expense.date.substring(0, 7); // "2026-01-15" -> "2026-01"
-      // TODO: Expense tipinde categoryId alanı yok, şimdilik category enum kullanılıyor
-      // Bu kısım expense-category entegrasyonundan sonra düzeltilecek
-      return expenseMonth === month;
+      // Hem ay hem de kategori eşleşmesini kontrol et
+      return expenseMonth === month && expense.category === setting.categoryId;
     });
 
     // Toplam harcamayı hesapla
