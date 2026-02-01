@@ -1205,5 +1205,14 @@ Kullanıcı İsteği: Borç azaltma planı özelliği ekle - Kar topu ve Çığ 
 - [x] Her kategori için doğru harcama tutarını hesapla
 - [x] Bug'ı düzelt (kategori filtresi eklendi)
 - [x] Test et (sadece Gıda kategorisinde 1000₺ harcama olmalı)
-- [ ] Checkpoint oluştur (v7.1.9 - Bütçe hesaplama hatası düzeltildi)
-- [ ] Kullanıcıya teslim et (v7.1.9)
+- [x] Checkpoint oluştur (v7.1.9 - Bütçe hesaplama hatası düzeltildi)
+- [x] Kullanıcıya teslim et (v7.1.9)
+
+## Takvim Sayfası Bütçe Hesaplama Bug'ı Düzeltme (Kullanıcı Bug Raporu)
+- [x] calendar.tsx dosyasını incele - bütçe hesaplama kodunu görmek için
+- [x] Ay değiştiğinde bütçe hesaplamasının güncellenip güncellenmediğini kontrol et
+- [x] calculateCategoryBudgets fonksiyonuna doğru ay parametresinin gönderildiğini kontrol et
+- [x] Bug'ı düzelt (getCurrentMonthBudgets yerine calculateCategoryBudgets kullan)
+- [x] Test et (Ocak ve Şubat ayları farklı veriler göstermeli)
+- [ ] Checkpoint oluştur (v7.2.0 - Takvim bütçe hesaplama bug'ı düzeltildi)
+- [ ] Kullanıcıya teslim et (v7.2.0)

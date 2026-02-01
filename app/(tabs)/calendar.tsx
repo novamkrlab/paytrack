@@ -15,7 +15,7 @@ import { useApp } from "@/lib/app-context";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { calculateCategoryExpenses } from "@/services/category-statistics-service";
-import { getCurrentMonthBudgets } from "@/services/category-budget-service";
+import { calculateCategoryBudgets } from "@/services/category-budget-service";
 import { loadCategories } from "@/services/category-service";
 import type { CategoryExpenseData } from "@/services/category-statistics-service";
 import type { CategoryBudget } from "@/types/category-budget";
@@ -43,7 +43,7 @@ export default function CalendarScreen() {
       const [loadedCategories, expenseData, budgetData] = await Promise.all([
         loadCategories(),
         calculateCategoryExpenses(state.expenses, month),
-        getCurrentMonthBudgets(state.expenses),
+        calculateCategoryBudgets(state.expenses, month),
       ]);
 
       setCategories(loadedCategories);
