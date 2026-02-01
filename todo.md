@@ -1163,5 +1163,15 @@ Kullanıcı İsteği: Borç azaltma planı özelliği ekle - Kar topu ve Çığ 
 - [x] Türkçe ve İngilizce tab başlıklarını ekle
 - [x] expense-list.tsx dosyasını (tabs) klasörüne taşı
 - [x] Test et
-- [ ] Checkpoint oluştur (v7.1.5 - Harcamalar tab butonu eklendi)
-- [ ] Kullanıcıya teslim et (v7.1.5)
+- [x] Checkpoint oluştur (v7.1.5 - Harcamalar tab butonu eklendi)
+- [x] Kullanıcıya teslim et (v7.1.5)
+
+## Takvim Sayfasına Aylık Harcama Kartı Ekleme (Kullanıcı İsteği)
+- [x] Takvim sayfasında aylık harcamaları hesapla
+- [x] "Toplam Harcama" kartı ekle (Toplam Gelir ve Toplam Ödeme kartlarının altına)
+- [x] Kart tasarımı: Turuncu tema, aşağı ok ikonu
+- [x] Ay değiştiğinde harcama toplamını güncelle
+- [x] Türkçe ve İngilizce çevirileri ekle
+- [x] Test et
+- [ ] Checkpoint oluştur (v7.1.6 - Takvim harcama kartı eklendi)
+- [ ] Kullanıcıya teslim et (v7.1.6)

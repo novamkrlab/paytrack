@@ -74,6 +74,20 @@ export default function CalendarScreen() {
     0
   );
 
+  // Seçili ayın toplam harcamaları
+  const monthlyExpenses = state.expenses.filter((e) => {
+    const expenseDate = new Date(e.date);
+    return (
+      expenseDate.getMonth() === currentMonth &&
+      expenseDate.getFullYear() === currentYear
+    );
+  });
+
+  const totalMonthlyExpenses = monthlyExpenses.reduce(
+    (sum, e) => sum + e.amount,
+    0
+  );
+
   return (
     <ScreenContainer>
       <ScrollView
@@ -121,6 +135,19 @@ export default function CalendarScreen() {
             </Text>
             <Text className="text-xl font-bold text-error">
               {totalMonthlyPayments.toLocaleString()} {state.settings.currency}
+            </Text>
+          </View>
+        </View>
+
+        {/* Toplam Harcama */}
+        <View className="mt-3">
+          <View className="bg-warning/10 rounded-2xl p-4 border border-warning/20">
+            <Text className="text-warning text-2xl mb-1">↓</Text>
+            <Text className="text-xs text-warning/70 mb-1">
+              {t("calendar.totalExpenses")}
+            </Text>
+            <Text className="text-xl font-bold text-warning">
+              {totalMonthlyExpenses.toLocaleString()} {state.settings.currency}
             </Text>
           </View>
         </View>

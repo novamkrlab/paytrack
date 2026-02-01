@@ -415,7 +415,8 @@
     "payments": "Payments",
     "incomes": "Incomes",
     "totalIncome": "Total Income",
-    "totalPayments": "Total Payments"
+    "totalPayments": "Total Payments",
+    "totalExpenses": "Total Expenses"
   },
   "notifications": {
     "title": "Upcoming Payments",

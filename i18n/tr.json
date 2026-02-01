@@ -436,7 +436,8 @@
     "payments": "Ödemeler",
     "incomes": "Gelirler",
     "totalIncome": "Toplam Gelir",
-    "totalPayments": "Toplam Ödeme"
+    "totalPayments": "Toplam Ödeme",
+    "totalExpenses": "Toplam Harcama"
   },
   "notifications": {
     "title": "Yaklaşan Ödemeler",
