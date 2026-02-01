@@ -1186,5 +1186,14 @@ Kullanıcı İsteği: Borç azaltma planı özelliği ekle - Kar topu ve Çığ 
 - [x] Her kategori için bütçe durumu progress bar'ı göster
 - [x] Ay değiştiğinde istatistikleri güncelle
 - [x] Test et
-- [ ] Checkpoint oluştur (v7.1.7 - Takvim istatistikleri eklendi)
-- [ ] Kullanıcıya teslim et (v7.1.7)
+- [x] Checkpoint oluştur (v7.1.7 - Takvim istatistikleri eklendi)
+- [x] Kullanıcıya teslim et (v7.1.7)
+
+## Takvim Sayfası Başlık Çevirilerini Düzelt (Kullanıcı İsteği)
+- [x] Türkçe çeviri dosyasına statistics.categoryDistribution ekle
+- [x] Türkçe çeviri dosyasına statistics.budgetStatus ekle
+- [x] İngilizce çeviri dosyasına statistics.categoryDistribution ekle
+- [x] İngilizce çeviri dosyasına statistics.budgetStatus ekle
+- [x] Test et
+- [ ] Checkpoint oluştur (v7.1.8 - Takvim başlık çevirileri düzeltildi)
+- [ ] Kullanıcıya teslim et (v7.1.8)

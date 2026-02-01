@@ -624,5 +624,13 @@
     "discretionaryExpenses": "Discretionary Expenses",
     "noExpenses": "No expenses yet",
     "totalExpenses": "Total Expenses"
+  },
+  "statistics": {
+    "title": "Statistics",
+    "categoryDistribution": "Category Distribution",
+    "budgetStatus": "Budget Status",
+    "monthlyAnalysis": "Monthly Analysis",
+    "totalExpenses": "Total Expenses",
+    "noData": "No data yet"
   }
 }

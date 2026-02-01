@@ -670,5 +670,13 @@
     "discretionaryExpenses": "İstek Harcamaları",
     "noExpenses": "Henüz harcama yok",
     "totalExpenses": "Toplam Harcama"
+  },
+  "statistics": {
+    "title": "İstatistikler",
+    "categoryDistribution": "Kategori Bazlı Harcama Dağılımı",
+    "budgetStatus": "Bütçe Durumu",
+    "monthlyAnalysis": "Aylık Analiz",
+    "totalExpenses": "Toplam Harcama",
+    "noData": "Henüz veri yok"
   }
 }
