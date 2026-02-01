@@ -1118,4 +1118,11 @@ Kullanıcı İsteği: Borç azaltma planı özelliği ekle - Kar topu ve Çığ 
 - [x] Modal içeriğinin neden görünmediğini tespit et (ScrollView flex sorunu)
 - [x] ScrollView veya layout sorununu düzelt (sabit yükseklik verildi)
 - [x] Tüm kategorilerde test et
-- [ ] Checkpoint oluştur (v7.1.1)
+- [x] Checkpoint oluştur (v7.1.1)
+
+## FIRE İlerleme Veri Uyumsuzluğu (Bug Fix)
+- [x] Ana sayfa ve modal arasındaki FIRE verisi uyumsuzluğunu tespit et (healthInput'ta fireProgressPercent yoktu)
+- [x] Modal'ın fireProgressPercent hesaplamasını kontrol et
+- [x] healthInput verisine fireProgressPercent eklendi (FIRE ayarlarından yükleniyor)
+- [x] Test et (ana sayfa %1, modal da %1 göstermeli)
+- [ ] Checkpoint oluştur (v7.1.2)

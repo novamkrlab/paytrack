@@ -21,11 +21,30 @@ import { useMemo, useEffect, useState } from 'react';
 import { HealthScoreDetailModal } from '@/components/health-score-detail-modal';
 import { saveCurrentMonthScore, getRecentHealthScores } from '@/lib/health-score-storage';
 import type { HealthScoreHistoryEntry } from '@/types/health-score-history';
+import { loadFireSettings } from '@/lib/fire-storage';
+import { getFireSummary } from '@/lib/fire-calculator';
 
 export default function HealthScoreScreen() {
   const { t } = useTranslation();
   const colors = useColors();
   const { state } = useApp();
+  const [fireProgressPercent, setFireProgressPercent] = useState<number>(0);
+
+  // FIRE ilerleme yüzdesini yükle
+  useEffect(() => {
+    const loadFireProgress = async () => {
+      try {
+        const fireSettings = await loadFireSettings();
+        if (fireSettings) {
+          const fireSummary = getFireSummary(fireSettings);
+          setFireProgressPercent(fireSummary.progress);
+        }
+      } catch (error) {
+        console.error('FIRE ilerleme yüklenemedi:', error);
+      }
+    };
+    loadFireProgress();
+  }, []);
 
   // Finansal verileri hesapla (AYLIK BAZDA)
   const healthInput: FinancialHealthInput = useMemo(() => {
@@ -82,8 +101,9 @@ export default function HealthScoreScreen() {
       monthlyExpenses,
       totalDebt: monthlyDebtPayment, // Artık aylık borç ödemesi
       currentSavings,
+      fireProgressPercent,
     };
-  }, [state.payments, state.incomes, state.expenses]);
+  }, [state.payments, state.incomes, state.expenses, fireProgressPercent]);
 
   const healthScore = useMemo(
     () => calculateFinancialHealthScore(healthInput),
