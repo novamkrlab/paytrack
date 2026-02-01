@@ -1173,5 +1173,18 @@ Kullanıcı İsteği: Borç azaltma planı özelliği ekle - Kar topu ve Çığ 
 - [x] Ay değiştiğinde harcama toplamını güncelle
 - [x] Türkçe ve İngilizce çevirileri ekle
 - [x] Test et
-- [ ] Checkpoint oluştur (v7.1.6 - Takvim harcama kartı eklendi)
-- [ ] Kullanıcıya teslim et (v7.1.6)
+- [x] Checkpoint oluştur (v7.1.6 - Takvim harcama kartı eklendi)
+- [x] Kullanıcıya teslim et (v7.1.6)
+
+## Takvim Sayfasına Aylık İstatistikler Ekleme (Kullanıcı İsteği)
+- [x] İstatistikler sayfasındaki CategoryPieChart bileşenini kullan
+- [x] İstatistikler sayfasındaki BudgetStatusCard bileşenini kullan
+- [x] Takvim sayfasına "Kategori Bazlı Harcama Dağılımı" bölümü ekle
+- [x] Takvim sayfasına "Bütçe Durumu" bölümü ekle
+- [x] Aylık harcamaları kategorilere göre grupla
+- [x] Pasta grafik ile kategori dağılımını göster
+- [x] Her kategori için bütçe durumu progress bar'ı göster
+- [x] Ay değiştiğinde istatistikleri güncelle
+- [x] Test et
+- [ ] Checkpoint oluştur (v7.1.7 - Takvim istatistikleri eklendi)
+- [ ] Kullanıcıya teslim et (v7.1.7)

@@ -4,14 +4,22 @@
  */
 
 import { ScrollView, Text, View } from "react-native";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ScreenContainer } from "@/components/screen-container";
 import { Calendar } from "@/components/calendar";
 import { PaymentCard } from "@/components/payment-card";
 import { IncomeCard } from "@/components/income-card";
+import { CategoryPieChart } from "@/components/charts/pie-chart";
+import { BudgetStatusCard } from "@/components/budget/budget-status-card";
 import { useApp } from "@/lib/app-context";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
+import { calculateCategoryExpenses } from "@/services/category-statistics-service";
+import { getCurrentMonthBudgets } from "@/services/category-budget-service";
+import { loadCategories } from "@/services/category-service";
+import type { CategoryExpenseData } from "@/services/category-statistics-service";
+import type { CategoryBudget } from "@/types/category-budget";
+import type { Category } from "@/types/category";
 
 export default function CalendarScreen() {
   const router = useRouter();
@@ -20,6 +28,41 @@ export default function CalendarScreen() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+  const [categoryExpenses, setCategoryExpenses] = useState<CategoryExpenseData[]>([]);
+  const [budgets, setBudgets] = useState<CategoryBudget[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+
+  // Ay değiştiğinde istatistikleri yükle
+  useEffect(() => {
+    loadMonthStatistics();
+  }, [currentMonth, currentYear, state.expenses]);
+
+  const loadMonthStatistics = async () => {
+    try {
+      const month = `${currentYear}-${String(currentMonth + 1).padStart(2, "0")}`;
+      const [loadedCategories, expenseData, budgetData] = await Promise.all([
+        loadCategories(),
+        calculateCategoryExpenses(state.expenses, month),
+        getCurrentMonthBudgets(state.expenses),
+      ]);
+
+      setCategories(loadedCategories);
+      setCategoryExpenses(expenseData);
+      setBudgets(budgetData);
+    } catch (error) {
+      console.error("İstatistik yükleme hatası:", error);
+    }
+  };
+
+  // Kategori bilgilerini al
+  const getCategoryInfo = (categoryId: string) => {
+    const category = categories.find((c) => c.id === categoryId);
+    return {
+      name: category?.name || "Bilinmeyen",
+      icon: category?.icon || "❓",
+      color: category?.color || "#999999",
+    };
+  };
 
   // Seçili tarihteki ödemeler
   const selectedPayments = selectedDate
@@ -151,6 +194,39 @@ export default function CalendarScreen() {
             </Text>
           </View>
         </View>
+
+        {/* Kategori Bazlı Harcama Dağılımı */}
+        {categoryExpenses.length > 0 && (
+          <View className="mt-6">
+            <Text className="text-xl font-bold text-foreground mb-4">
+              {t("statistics.categoryDistribution")}
+            </Text>
+            <CategoryPieChart
+              data={categoryExpenses}
+            />
+          </View>
+        )}
+
+        {/* Bütçe Durumu */}
+        {budgets.length > 0 && (
+          <View className="mt-6">
+            <Text className="text-xl font-bold text-foreground mb-4">
+              {t("statistics.budgetStatus")}
+            </Text>
+            {budgets.map((budget) => {
+              const categoryInfo = getCategoryInfo(budget.categoryId);
+              return (
+                <BudgetStatusCard
+                  key={budget.categoryId}
+                  budget={budget}
+                  categoryName={categoryInfo.name}
+                  categoryIcon={categoryInfo.icon}
+                  categoryColor={categoryInfo.color}
+                />
+              );
+            })}
+          </View>
+        )}
 
         {/* Seçili Tarih Detayları */}
         {selectedDate && (
