@@ -102,26 +102,52 @@ export default function HomeScreen() {
     const debt = calculateDebtSummary(debts);
     setDebtSummary(debt);
 
-    // Finansal Sağlık Skoru
-    const monthlyIncome = state.incomes.reduce(
+    // Finansal Sağlık Skoru (AYLIK BAZDA - detay sayfasıyla aynı mantık)
+    const monthStart = new Date(currentYear, currentMonth, 1);
+    const monthEnd = new Date(currentYear, currentMonth + 1, 0, 23, 59, 59);
+    
+    const isInCurrentMonth = (dateString: string) => {
+      const date = new Date(dateString);
+      return date >= monthStart && date <= monthEnd;
+    };
+    
+    // AYLIK GELİR (sadece bu ay)
+    const monthlyIncome = state.incomes
+      .filter((income: Income) => isInCurrentMonth(income.date))
+      .reduce((sum: number, income: Income) => sum + income.amount, 0);
+
+    // AYLIK BORÇ ÖDEMESİ (sadece bu ay, ödenmemiş, kredi ve kredi kartı)
+    const monthlyDebtPayment = state.payments
+      .filter(
+        (payment: Payment) =>
+          !payment.isPaid &&
+          isInCurrentMonth(payment.dueDate) &&
+          (payment.category === PaymentCategory.LOAN || payment.category === PaymentCategory.CREDIT_CARD)
+      )
+      .reduce((sum: number, payment: Payment) => sum + payment.amount, 0);
+
+    // AYLIK HARCAMA (sadece bu ay, ödenmemiş tüm ödemeler)
+    const monthlyExpenses = state.payments
+      .filter((payment: Payment) => !payment.isPaid && isInCurrentMonth(payment.dueDate))
+      .reduce((sum: number, payment: Payment) => sum + payment.amount, 0);
+
+    // MEVCUT BİRİKİM (tüm zamanların toplamı)
+    const totalIncomeAllTime = state.incomes.reduce(
       (sum: number, income: Income) => sum + income.amount,
       0
     );
-    const monthlyExpenses = state.payments
-      .filter((payment: Payment) => !payment.isPaid)
+    const paidPayments = state.payments
+      .filter((payment: Payment) => payment.isPaid)
       .reduce((sum: number, payment: Payment) => sum + payment.amount, 0);
-    const totalDebt = debtPayments.reduce((sum: number, p: Payment) => sum + p.amount, 0);
-    const currentSavings = Math.max(
-      0,
-      state.incomes.reduce((sum: number, income: Income) => sum + income.amount, 0) -
-        state.payments
-          .filter((payment: Payment) => payment.isPaid)
-          .reduce((sum: number, payment: Payment) => sum + payment.amount, 0)
+    const totalExpensesAllTime = state.expenses.reduce(
+      (sum: number, expense: any) => sum + expense.amount,
+      0
     );
+    const currentSavings = Math.max(0, totalIncomeAllTime - paidPayments - totalExpensesAllTime);
     const health = calculateFinancialHealthScore({
       monthlyIncome,
       monthlyExpenses,
-      totalDebt,
+      totalDebt: monthlyDebtPayment, // Artık aylık borç ödemesi
       currentSavings,
     });
     setHealthScore(health);

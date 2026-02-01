@@ -1125,4 +1125,12 @@ Kullanıcı İsteği: Borç azaltma planı özelliği ekle - Kar topu ve Çığ 
 - [x] Modal'ın fireProgressPercent hesaplamasını kontrol et
 - [x] healthInput verisine fireProgressPercent eklendi (FIRE ayarlarından yükleniyor)
 - [x] Test et (ana sayfa %1, modal da %1 göstermeli)
-- [ ] Checkpoint oluştur (v7.1.2)
+- [x] Checkpoint oluştur (v7.1.2)
+
+## Ana Sayfa ve Detay Sayfası Skor Uyumsuzluğu (Critical Bug)
+- [x] Ana sayfa ve detay sayfasındaki skor hesaplama farkını tespit et (ana sayfa tüm zamanların gelirini kullanıyordu)
+- [x] Ana sayfa: index.tsx'teki hesaplamayı düzelt
+- [x] Detay sayfası: health-score.tsx ile aynı mantığı kullan (aylık bazda)
+- [x] Her iki sayfanın aynı healthInput kullandığından emin ol
+- [x] Test et (her iki sayfa da aynı skoru göstermeli)
+- [ ] Checkpoint oluştur (v7.1.3)
