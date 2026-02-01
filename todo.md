@@ -1153,5 +1153,15 @@ Kullanıcı İsteği: Borç azaltma planı özelliği ekle - Kar topu ve Çığ 
 - [x] Sadece "Tekrarlanan Ödeme" toggle'ı kalsın
 - [x] TypeScript hatalarını düzelt
 - [x] Test et
-- [ ] Checkpoint oluştur (v7.1.4 - Taksitli ödeme toggle kaldırıldı)
-- [ ] Kullanıcıya teslim et (v7.1.4)
+- [x] Checkpoint oluştur (v7.1.4 - Taksitli ödeme toggle kaldırıldı)
+- [x] Kullanıcıya teslim et (v7.1.4)
+
+## Harcamalar Tab Butonu Ekleme (Kullanıcı İsteği)
+- [x] icon-symbol.tsx'e harcamalar ikonu ekle (shopping.cart veya creditcard)
+- [x] app/(tabs)/_layout.tsx'e harcamalar tab'ı ekle (ödemeler ve gelirler arasına)
+- [x] Tab sıralamasını ayarla (Ana Sayfa → Ödemeler → Harcamalar → Gelirler → ...)
+- [x] Türkçe ve İngilizce tab başlıklarını ekle
+- [x] expense-list.tsx dosyasını (tabs) klasörüne taşı
+- [x] Test et
+- [ ] Checkpoint oluştur (v7.1.5 - Harcamalar tab butonu eklendi)
+- [ ] Kullanıcıya teslim et (v7.1.5)

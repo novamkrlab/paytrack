@@ -30,6 +30,7 @@ const MAPPING = {
   "chart.bar.fill": "bar-chart",
   "chart.line.uptrend.xyaxis": "trending-up",
   "plus": "add",
+  "cart.fill": "shopping-cart",
 } as IconMapping;
 
 /**

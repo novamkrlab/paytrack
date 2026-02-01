@@ -45,6 +45,13 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="expense-list"
+        options={{
+          title: t("tabs.expenses"),
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="cart.fill" color={color} />,
+        }}
+      />
+      <Tabs.Screen
         name="incomes"
         options={{
           title: t("tabs.incomes"),

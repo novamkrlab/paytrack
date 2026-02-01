@@ -66,6 +66,7 @@
   "tabs": {
     "home": "Home",
     "payments": "Payments",
+    "expenses": "Expenses",
     "incomes": "Incomes",
     "statistics": "Statistics",
     "goals": "Goals",
