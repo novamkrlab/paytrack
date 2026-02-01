@@ -1111,4 +1111,11 @@ Kullanıcı İsteği: Borç azaltma planı özelliği ekle - Kar topu ve Çığ 
 - [x] Kullanıcının mevcut durumunu göster
 - [x] İyileştirme önerileri sun
 - [x] Test et
-- [ ] Checkpoint oluştur (v7.1.0)
+- [x] Checkpoint oluştur (v7.1.0)
+- [ ] Kullanıcıya teslim et (v7.1.0)
+
+## Modal İçerik Görünmeme Sorunu (Bug Fix)
+- [x] Modal içeriğinin neden görünmediğini tespit et (ScrollView flex sorunu)
+- [x] ScrollView veya layout sorununu düzelt (sabit yükseklik verildi)
+- [x] Tüm kategorilerde test et
+- [ ] Checkpoint oluştur (v7.1.1)

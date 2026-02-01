@@ -154,7 +154,7 @@ export function HealthScoreDetailModal({
             backgroundColor: colors.background,
             borderTopLeftRadius: 24,
             borderTopRightRadius: 24,
-            maxHeight: '90%',
+            height: '90%',
           }}
         >
           {/* Header */}
@@ -183,8 +183,8 @@ export function HealthScoreDetailModal({
           </View>
 
           <ScrollView
-            style={{ flex: 1 }}
-            contentContainerStyle={{ padding: 20 }}
+            contentContainerStyle={{ padding: 20, paddingBottom: 40 }}
+            showsVerticalScrollIndicator={true}
           >
             {/* Skor Göstergesi */}
             <View
