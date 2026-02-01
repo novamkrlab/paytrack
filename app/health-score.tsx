@@ -18,6 +18,7 @@ import {
 import type { FinancialHealthInput } from '@/types/financial-health';
 import { PaymentCategory, type Payment, type Income } from '@/types';
 import { useMemo, useEffect, useState } from 'react';
+import { HealthScoreDetailModal } from '@/components/health-score-detail-modal';
 import { saveCurrentMonthScore, getRecentHealthScores } from '@/lib/health-score-storage';
 import type { HealthScoreHistoryEntry } from '@/types/health-score-history';
 
@@ -99,6 +100,20 @@ export default function HealthScoreScreen() {
 
   // Geçmiş verileri yükle
   const [historyData, setHistoryData] = useState<HealthScoreHistoryEntry[]>([]);
+
+  // Modal state
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<'debtManagement' | 'emergencyFund' | 'savingsRate' | 'fireProgress' | null>(null);
+  const [selectedScore, setSelectedScore] = useState(0);
+  const [selectedMaxScore, setSelectedMaxScore] = useState(0);
+
+  // Kategori kartına tıklama
+  const handleCategoryPress = (category: 'debtManagement' | 'emergencyFund' | 'savingsRate' | 'fireProgress', score: number, maxScore: number) => {
+    setSelectedCategory(category);
+    setSelectedScore(score);
+    setSelectedMaxScore(maxScore);
+    setModalVisible(true);
+  };
 
   useEffect(() => {
     // Mevcut ayın skorunu kaydet
@@ -186,17 +201,21 @@ export default function HealthScoreScreen() {
           {t('healthScore.breakdown')}
         </Text>
 
-        {breakdown.map((item, index) => (
-          <View
+        {breakdown.map((item, index) => {
+          const categoryKey = item.category.split('.').pop() as 'debtManagement' | 'emergencyFund' | 'savingsRate' | 'fireProgress';
+          return (
+          <Pressable
             key={index}
-            style={{
+            onPress={() => handleCategoryPress(categoryKey, item.score, item.maxScore)}
+            style={({ pressed }) => ({
               backgroundColor: colors.surface,
               borderRadius: 12,
               padding: 16,
               marginBottom: 12,
               borderWidth: 1,
               borderColor: colors.border,
-            }}
+              opacity: pressed ? 0.7 : 1,
+            })}
           >
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 8 }}>
               <Text style={{ fontSize: 16, fontWeight: '600', color: colors.foreground }}>
@@ -232,8 +251,13 @@ export default function HealthScoreScreen() {
             <Text style={{ fontSize: 13, color: colors.muted, lineHeight: 18 }}>
               {t(`healthScore.${item.category}Description`)}
             </Text>
-          </View>
-        ))}
+            {/* Tıklama İpucu */}
+            <Text style={{ fontSize: 12, color: colors.tint, marginTop: 8, fontWeight: '500' }}>
+              {t('healthScore.tapForDetails')}
+            </Text>
+          </Pressable>
+        );
+        })}
 
         {/* Öneriler */}
         <Text style={{ fontSize: 18, fontWeight: '600', color: colors.foreground, marginTop: 8, marginBottom: 16 }}>
@@ -261,6 +285,18 @@ export default function HealthScoreScreen() {
           </View>
         ))}
       </ScrollView>
+
+      {/* Detay Modalı */}
+      {selectedCategory && (
+        <HealthScoreDetailModal
+          visible={modalVisible}
+          onClose={() => setModalVisible(false)}
+          category={selectedCategory}
+          score={selectedScore}
+          maxScore={selectedMaxScore}
+          healthInput={healthInput}
+        />
+      )}
     </ScreenContainer>
   );
 }

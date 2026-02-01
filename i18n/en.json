@@ -119,12 +119,60 @@
     "healthScore.categories.emergencyFundDescription": "How many months of expenses you can cover. Goal: 3-6 months of emergency fund.",
     "healthScore.categories.savingsRateDescription": "What percentage of your income you're saving. Goal: Save at least 10% of monthly income.",
     "healthScore.categories.fireProgressDescription": "How close you are to financial independence. FIRE: Financial Independence, Retire Early.",
+    "tapForDetails": "Tap for details",
     "recommendations": {
       "reduceDebt": "Prioritize reducing your debt. Pay off high-interest debts first.",
       "buildEmergencyFund": "Build an emergency fund. Goal: 3-6 months of expenses.",
       "increaseSavings": "Increase your savings rate. Try to save at least 10% of your income.",
       "setFireGoal": "Set your financial independence goal and track it regularly.",
       "keepGoing": "Great job! Keep it up and you'll reach your goals."
+    },
+    "details": {
+      "maxScore": "Maximum: {{max}} points",
+      "description": "Description",
+      "currentStatus": "Your Current Status",
+      "criteria": "Scoring Criteria",
+      "tips": "Improvement Tips",
+      "debtManagement": {
+        "criteria1": "⚫ No debt: 30 points (excellent)",
+        "criteria2": "⚫ Below 10% of income: 30 points",
+        "criteria3": "⚫ Below 20% of income: 25 points",
+        "criteria4": "⚫ Below 30% of income: 20 points",
+        "currentStatus": "Your debt-to-income ratio: {{ratio}}%",
+        "tip1": "Pay off high-interest debts first. Credit card debts usually have the highest interest rates.",
+        "tip2": "Research debt consolidation options. Switching to a lower-interest loan can save money.",
+        "tip3": "Try to keep your monthly debt payments below 30% of your income."
+      },
+      "emergencyFund": {
+        "criteria1": "⚫ 6+ months expenses: 20 points (excellent)",
+        "criteria2": "⚫ 3-6 months expenses: 15 points",
+        "criteria3": "⚫ 1-3 months expenses: 10 points",
+        "criteria4": "⚫ Less than 1 month: 5 points",
+        "currentStatus": "Your savings cover {{months}} months of expenses",
+        "tip1": "Set aside at least 10% of your monthly income for emergency fund.",
+        "tip2": "Keep emergency fund in a separate account to avoid mixing with daily expenses.",
+        "tip3": "Goal: Build savings to cover 3-6 months of basic living expenses."
+      },
+      "savingsRate": {
+        "criteria1": "⚫ 30%+ savings: 30 points (excellent)",
+        "criteria2": "⚫ 20-30% savings: 25 points",
+        "criteria3": "⚫ 10-20% savings: 15 points",
+        "criteria4": "⚫ 5-10% savings: 10 points",
+        "currentStatus": "Your savings rate: {{rate}}%",
+        "tip1": "Categorize your expenses and identify unnecessary spending.",
+        "tip2": "Try the 50/30/20 rule: 50% needs, 30% wants, 20% savings.",
+        "tip3": "Set up automatic savings. Transfer money to savings account automatically when income arrives."
+      },
+      "fireProgress": {
+        "criteria1": "⚫ 80%+ progress: 20 points (excellent)",
+        "criteria2": "⚫ 60-80% progress: 15 points",
+        "criteria3": "⚫ 40-60% progress: 10 points",
+        "criteria4": "⚫ 20-40% progress: 5 points",
+        "currentStatus": "You've reached {{percent}}% of your FIRE goal",
+        "tip1": "Use FIRE calculator to set your goal. Typically 25x your annual expenses.",
+        "tip2": "Diversify your income sources. Try to create passive income streams.",
+        "tip3": "Build a long-term investment strategy. Invest regularly and consistently."
+      }
     }
   },
   "debtList": {

@@ -1103,3 +1103,12 @@ Kullanıcı İsteği: Borç azaltma planı özelliği ekle - Kar topu ve Çığ 
 - [ ] Eski tasarımı geri getir
 - [ ] Test et
 - [ ] Checkpoint oluştur (v7.0.1)
+
+## Finansal Sağlık Skoru Kategori Detayları (Kullanıcı İsteği)
+- [x] Kategori kartlarına tıklanabilirlik ekle
+- [x] Her kategori için detaylı açıklama modalı oluştur
+- [x] Puanlama kriterleri göster
+- [x] Kullanıcının mevcut durumunu göster
+- [x] İyileştirme önerileri sun
+- [x] Test et
+- [ ] Checkpoint oluştur (v7.1.0)

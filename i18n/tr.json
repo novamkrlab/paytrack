@@ -120,12 +120,60 @@
     "healthScore.categories.emergencyFundDescription": "Kaç aylık harcamanızı karşılayacak birikimi var. Hedef: 3-6 aylık harcama karşılığı acil fon.",
     "healthScore.categories.savingsRateDescription": "Gelirinizin yüzde kaçını biriktiriyorsunuz. Hedef: Aylık gelirinizin en az %10'unu tasarruf edin.",
     "healthScore.categories.fireProgressDescription": "Finansal bağımsızlık hedefinize ne kadar yakınsınız. FIRE: Finansal Özgürlük, Erken Emeklilik.",
+    "tapForDetails": "Detaylar için tıklayın",
     "recommendations": {
       "reduceDebt": "Borçlarınızı azaltmaya öncelik verin. Yüksek faizli borçları önce kapatın.",
       "buildEmergencyFund": "Acil fon oluşturun. Hedef: 3-6 aylık harcamanız kadar birikim.",
       "increaseSavings": "Tasarruf oranınızı artırın. Gelirin en az %10'unu biriktirmeye çalışın.",
       "setFireGoal": "Finansal özgürlük hedefinizi belirleyin ve düzenli olarak takip edin.",
       "keepGoing": "Harika gidiyorsunuz! Bu şekilde devam edin ve hedeflerinize ulaşacaksınız."
+    },
+    "details": {
+      "maxScore": "Maksimum: {{max}} puan",
+      "description": "Açıklama",
+      "currentStatus": "Mevcut Durumunuz",
+      "criteria": "Puanlama Kriterleri",
+      "tips": "İyileştirme Önerileri",
+      "debtManagement": {
+        "criteria1": "⚫ Borç yok: 30 puan (mükemmel)",
+        "criteria2": "⚫ Gelirin %10'unun altında: 30 puan",
+        "criteria3": "⚫ Gelirin %20'sinin altında: 25 puan",
+        "criteria4": "⚫ Gelirin %30'unun altında: 20 puan",
+        "currentStatus": "Borç/Gelir oranınız: %{{ratio}}",
+        "tip1": "Yüksek faizli borçları önce ödeyin. Kredi kartı borçları genellikle en yüksek faize sahiptir.",
+        "tip2": "Borç birleştirme seçeneklerini araştırın. Daha düşük faizli bir krediye geçmek tasarruf sağlayabilir.",
+        "tip3": "Aylık borç ödemenizi gelirinizin %30'unun altında tutmaya çalışın."
+      },
+      "emergencyFund": {
+        "criteria1": "⚫ 6+ ay harcama: 20 puan (mükemmel)",
+        "criteria2": "⚫ 3-6 ay harcama: 15 puan",
+        "criteria3": "⚫ 1-3 ay harcama: 10 puan",
+        "criteria4": "⚫ 1 aydan az: 5 puan",
+        "currentStatus": "Birikimleriniz {{months}} aylık harcamanızı karşılıyor",
+        "tip1": "Aylık gelirinizin en az %10'unu acil fona ayırın.",
+        "tip2": "Acil fonu ayrı bir hesapta tutun. Böylece günlük harcamalarla karışmaz.",
+        "tip3": "Hedef: 3-6 aylık temel yaşam giderlerinizi karşılayacak birikim."
+      },
+      "savingsRate": {
+        "criteria1": "⚫ %30+ tasarruf: 30 puan (mükemmel)",
+        "criteria2": "⚫ %20-30 tasarruf: 25 puan",
+        "criteria3": "⚫ %10-20 tasarruf: 15 puan",
+        "criteria4": "⚫ %5-10 tasarruf: 10 puan",
+        "currentStatus": "Tasarruf oranınız: %{{rate}}",
+        "tip1": "Harcamalarınızı kategorilere ayırın ve gereksiz harcamaları belirleyin.",
+        "tip2": "50/30/20 kuralını uygulayabilirsiniz: Gelirin %50'si ihtiyaçlar, %30'u istekler, %20'si tasarruf.",
+        "tip3": "Otomatik tasarruf planı oluşturun. Her ay gelir geldiğinde otomatik olarak tasarruf hesabına aktarım yapın."
+      },
+      "fireProgress": {
+        "criteria1": "⚫ %80+ ilerleme: 20 puan (mükemmel)",
+        "criteria2": "⚫ %60-80 ilerleme: 15 puan",
+        "criteria3": "⚫ %40-60 ilerleme: 10 puan",
+        "criteria4": "⚫ %20-40 ilerleme: 5 puan",
+        "currentStatus": "FIRE hedefinize %{{percent}} ulaştınız",
+        "tip1": "FIRE hesaplayıcısını kullanarak hedefinizi belirleyin. Genellikle yıllık harcamanızın 25 katı hedeflenir.",
+        "tip2": "Gelir kaynaklarınızı çeşitlendirin. Pasif gelir kaynakları oluşturmaya çalışın.",
+        "tip3": "Uzun vadeli yatırım stratejisi oluşturun. Düzenli ve disiplinli yatırım yapın."
+      }
     }
   },
   "debtList": {
