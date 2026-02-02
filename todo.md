@@ -1214,5 +1214,5 @@ Kullanıcı İsteği: Borç azaltma planı özelliği ekle - Kar topu ve Çığ 
 - [x] calculateCategoryBudgets fonksiyonuna doğru ay parametresinin gönderildiğini kontrol et
 - [x] Bug'ı düzelt (getCurrentMonthBudgets yerine calculateCategoryBudgets kullan)
 - [x] Test et (Ocak ve Şubat ayları farklı veriler göstermeli)
-- [ ] Checkpoint oluştur (v7.2.0 - Takvim bütçe hesaplama bug'ı düzeltildi)
-- [ ] Kullanıcıya teslim et (v7.2.0)
+- [x] Checkpoint oluştur (v7.2.0 - Takvim bütçe hesaplama bug'ı düzeltildi)
+- [x] Kullanıcıya teslim et (v7.2.0)
